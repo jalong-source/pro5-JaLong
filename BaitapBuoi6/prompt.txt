@@ -1,0 +1,11 @@
+PROMPT 1 — PORTFOLIO CÓ REVEAL KHI CUỘN
+
+Tạo portfolio cá nhân HTML/CSS/JavaScript responsive, dùng AOS để reveal tối thiểu 5 thành phần. Tùy chỉnh data-aos-duration và data-aos-delay thành các nhịp lệch nhau vừa phải; không để cả trang chuyển động cùng lúc. Tôn trọng prefers-reduced-motion và nếu CDN AOS không tải thì nội dung vẫn phải nhìn thấy.
+
+PROMPT 2 — BỘ LỌC WEB/MOBILE
+
+Thêm ba nút lọc dự án: Tất cả, Web, Mobile. Mỗi thẻ có data-category. Khi bấm, chỉ hiện thẻ khớp, cập nhật aria-pressed, trạng thái role=status và số lượng; dùng nút button có thể thao tác bằng bàn phím. Không phụ thuộc thư viện ngoài cho logic lọc.
+
+PROMPT 3 — RÀ SOÁT TƯƠNG TÁC
+
+Kiểm tra bộ lọc ở desktop và mobile, đảm bảo không tràn ngang, không có nút giả, các thẻ ẩn không còn chiếm chỗ và nội dung không bị ẩn nếu AOS/CDN lỗi. Giải thích ngắn cách data-category và aria-pressed hoạt động.

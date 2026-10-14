@@ -1,0 +1,11 @@
+PROMPT 1 — TẠO LANDING PAGE
+
+Tạo một landing page tĩnh bằng HTML5 semantic, CSS và JavaScript thuần cho bài thực hành “Biệt thự Web”. Trang cần có lời chào Hello World hiển thị ngay khi mở trên trình duyệt, header có điều hướng, main gồm phần giới thiệu và hai khu vực “Sân trước” / “Sân sau” dành cho hai thành viên, footer và responsive mobile. Tách mã theo cấu trúc index.html, css/style.css, js/app.js, assets/. Dùng CSS variables, đặt tên class dễ hiểu, thêm nhãn truy cập phù hợp. Tạo một đoạn văn có id shared-conflict-line để nhóm dùng mô phỏng conflict khi hai nhánh cùng sửa một dòng.
+
+PROMPT 2 — TƯƠNG TÁC HELLO WORLD
+
+Thêm một nút “Gửi lời chào”. Khi bấm, JavaScript hiện thông điệp Hello World vào vùng có aria-live, không dùng thư viện ngoài.
+
+PROMPT 3 — README VÀ QUY TRÌNH NHÓM
+
+Viết README cho buổi thực hành Git đầu tiên, gồm kiểm tra VS Code/Git/AI extensions, cấu hình Git identity, quy trình main/develop/feature, hướng dẫn tạo conflict có chủ đích và giải quyết trên VS Code, cùng checklist tạo GitHub Project có các cột To Do, In Progress, Review, Done. Không tự bịa tên thành viên, URL repository hoặc dữ liệu Organization; để chỗ trống cho nhóm điền.

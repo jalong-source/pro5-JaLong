@@ -1,0 +1,124 @@
+/* BÀI TẬP: Các giá trị màu và margin/padding còn được viết trực tiếp.
+   Hãy đưa chúng vào biến tại :root, rồi dùng var() trong các quy tắc bên dưới. */
+
+:root {
+  /* Khai báo biến màu sắc */
+  --color-primary: #2855a6;
+  --color-primary-dark: #243047;
+  --color-background: #f3f6fb;
+  --color-surface: #ffffff;
+  --color-text-main: #243047;
+  --color-text-muted: #52617a;
+  --color-border: #dce4f0;
+
+  /* Khai báo biến khoảng cách (spacing) */
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--color-text-main);
+  background-color: var(--color-background);
+}
+
+.container {
+  width: min(100% - var(--space-xl), 900px);
+  margin: 0 auto;
+}
+
+.site-header {
+  padding: var(--space-xl) 0;
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+}
+
+.site-header h1 {
+  margin: 0 0 var(--space-sm);
+  font-size: 2rem;
+}
+
+.site-header p {
+  margin: 0;
+}
+
+.site-header .eyebrow {
+  margin: 0 0 var(--space-sm);
+  font-weight: bold;
+}
+
+.intro {
+  margin: var(--space-xl) 0 var(--space-lg);
+}
+
+.intro h2,
+.note h2 {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-primary);
+}
+
+.intro p,
+.note p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.activity-list {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.activity-card {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background-color: var(--color-surface);
+}
+
+.activity-card h3 {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-primary);
+}
+
+.activity-card p {
+  margin: 0 0 var(--space-lg);
+  color: var(--color-text-muted);
+}
+
+.action-link {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 6px;
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.action-link:hover,
+.action-link:focus-visible {
+  background-color: var(--color-primary-dark);
+}
+
+.note {
+  margin: var(--space-lg) 0 var(--space-xl);
+  padding: var(--space-lg);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 6px;
+  background-color: var(--color-surface);
+}
+
+.site-footer {
+  padding: var(--space-lg) 0;
+  color: var(--color-text-muted);
+  background-color: var(--color-surface);
+}

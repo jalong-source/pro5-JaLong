@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+    height: 150vh; /* Để có thể scroll */
+    background-color: #f4f7f6;
+}
+
+.fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #0084ff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 132, 255, 0.4);
+    animation: pulse 1.5s ease-in-out infinite;
+    z-index: 1000;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 132, 255, 0.7);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 15px rgba(0, 132, 255, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 132, 255, 0);
+    }
+}

@@ -6,6 +6,14 @@ const translations = {
     menuOpen: 'Mở menu',
     menuClose: 'Đóng menu',
     navigation: 'Điều hướng chính',
+    footerLinksLabel: 'Liên kết nhanh',
+    newsletterTitle: 'NHẬN CẬP NHẬT',
+    newsletterLabel: 'Địa chỉ email',
+    newsletterPlaceholder: 'Email của bạn',
+    newsletterSubmit: 'Gửi yêu cầu đăng ký',
+    newsletterNote: 'Mở email để gửi yêu cầu đăng ký.',
+    footerGroup: 'Gia Long · Kỹ thuật Phần mềm',
+    footerLinks: 'LIÊN KẾT NHANH',
     navAbout: 'Giới thiệu',
     navSkills: 'Kỹ năng',
     navWork: 'Dự án',
@@ -63,6 +71,14 @@ const translations = {
     menuOpen: 'Open menu',
     menuClose: 'Close menu',
     navigation: 'Main navigation',
+    footerLinksLabel: 'Quick links',
+    newsletterTitle: 'GET UPDATES',
+    newsletterLabel: 'Email address',
+    newsletterPlaceholder: 'Your email',
+    newsletterSubmit: 'Send signup request',
+    newsletterNote: 'Opens your email app to send a signup request.',
+    footerGroup: 'Gia Long · Software Engineering',
+    footerLinks: 'QUICK LINKS',
     navAbout: 'About',
     navSkills: 'Learning',
     navWork: 'Projects',
@@ -135,6 +151,11 @@ function setLanguage(language) {
     if (copy[key]) element.setAttribute('aria-label', copy[key]);
   });
 
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+    const key = element.dataset.i18nPlaceholder;
+    if (copy[key]) element.setAttribute('placeholder', copy[key]);
+  });
+
   languageToggle.querySelector('.language-current').textContent = language.toUpperCase();
   languageToggle.querySelector('.language-next').textContent = language === 'vi' ? 'EN' : 'VI';
   languageToggle.setAttribute('aria-label', language === 'vi' ? 'Switch language to English' : 'Chuyển ngôn ngữ sang tiếng Việt');
@@ -170,5 +191,27 @@ document.addEventListener('click', (event) => {
   if (!event.target.closest('.site-header')) setMenuOpen(false);
 });
 
+document.querySelector('.newsletter-form').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const email = new FormData(event.currentTarget).get('email');
+  const subject = document.documentElement.lang === 'vi' ? 'Đăng ký nhận tin' : 'Newsletter signup';
+  const body = `${document.documentElement.lang === 'vi' ? 'Email đăng ký' : 'Signup email'}: ${email}`;
+  window.location.href = `mailto:gialonghoctap999@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
+
 setLanguage(document.documentElement.lang);
 document.querySelector('#current-year').textContent = new Date().getFullYear();
+
+if (window.AOS) {
+  AOS.init({
+    duration: 650,
+    easing: 'ease-out-quart',
+    once: true,
+    offset: 70,
+    disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  });
+} else {
+  document.querySelectorAll('[data-aos]').forEach((element) => {
+    element.removeAttribute('data-aos');
+  });
+}

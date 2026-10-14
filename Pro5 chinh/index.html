@@ -16,8 +16,10 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     >
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/components.css">
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
     <script src="js/app.js" defer></script>
   </head>
   <body>
@@ -56,7 +58,7 @@
 
     <main id="main">
       <section class="hero section-shell" id="home" aria-labelledby="hero-title">
-        <div class="hero-content">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="750">
           <p class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="heroEyebrow">SINH VIÊN KỸ THUẬT PHẦN MỀM</span></p>
           <h1 id="hero-title">
             <span data-i18n="heroHello">Mình là</span><br>
@@ -81,7 +83,7 @@
           </div>
         </div>
 
-        <div class="hero-art" role="img" aria-label="Minh họa chữ viết tắt Gia Long" data-i18n-aria="visualLabel">
+        <div class="hero-art" role="img" aria-label="Minh họa chữ viết tắt Gia Long" data-i18n-aria="visualLabel" data-aos="fade-up" data-aos-duration="850" data-aos-delay="120">
           <div class="art-grid" aria-hidden="true"></div>
           <div class="art-topline"><span data-i18n="cardLabel">GÓC LÀM VIỆC</span><span>01 — 04</span></div>
           <div class="monogram-wrap">
@@ -122,17 +124,17 @@
           </div>
         </div>
         <div class="principle-list">
-          <article class="principle">
+            <article class="principle" data-aos="fade-up" data-aos-delay="0">
             <span class="principle-index">01</span>
             <h3 data-i18n="principleOneTitle">Luôn tò mò</h3>
             <p data-i18n="principleOneBody">Đặt câu hỏi, tìm hiểu cách mọi thứ vận hành.</p>
           </article>
-          <article class="principle">
+            <article class="principle" data-aos="fade-up" data-aos-delay="100">
             <span class="principle-index">02</span>
             <h3 data-i18n="principleTwoTitle">Học bằng cách làm</h3>
             <p data-i18n="principleTwoBody">Biến kiến thức thành những thử nghiệm thực tế.</p>
           </article>
-          <article class="principle">
+            <article class="principle" data-aos="fade-up" data-aos-delay="200">
             <span class="principle-index">03</span>
             <h3 data-i18n="principleThreeTitle">Tiến bộ từng ngày</h3>
             <p data-i18n="principleThreeBody">Lắng nghe góp ý và không ngừng cải thiện.</p>
@@ -148,19 +150,19 @@
             <p data-i18n="skillsIntro">Mình đang xây nền tảng web và thực hành từng bước. Các công nghệ dưới đây phản ánh những gì mình đang học, không phải mức độ thành thạo.</p>
           </div>
           <div class="skill-grid">
-            <article class="skill-card">
+            <article class="skill-card" data-aos="fade-up" data-aos-delay="0">
               <span class="skill-number">01</span><span class="skill-symbol" aria-hidden="true">&lt;/&gt;</span>
               <h3>HTML</h3><p data-i18n="skillHtml">Cấu trúc nội dung web</p><span class="skill-status" data-i18n="skillLearning">ĐANG HỌC</span>
             </article>
-            <article class="skill-card">
+            <article class="skill-card" data-aos="fade-up" data-aos-delay="100">
               <span class="skill-number">02</span><span class="skill-symbol" aria-hidden="true">#</span>
               <h3>CSS</h3><p data-i18n="skillCss">Bố cục & giao diện responsive</p><span class="skill-status" data-i18n="skillLearning">ĐANG HỌC</span>
             </article>
-            <article class="skill-card">
+            <article class="skill-card" data-aos="fade-up" data-aos-delay="200">
               <span class="skill-number">03</span><span class="skill-symbol" aria-hidden="true">{ }</span>
               <h3>JavaScript</h3><p data-i18n="skillJs">Tương tác cho website</p><span class="skill-status" data-i18n="skillLearning">ĐANG HỌC</span>
             </article>
-            <article class="skill-card">
+            <article class="skill-card" data-aos="fade-up" data-aos-delay="300">
               <span class="skill-number">04</span><span class="skill-symbol" aria-hidden="true">⌘</span>
               <h3>Git & GitHub</h3><p data-i18n="skillGit">Quản lý mã nguồn</p><span class="skill-status" data-i18n="skillLearning">ĐANG HỌC</span>
             </article>
@@ -175,7 +177,7 @@
           <p data-i18n="workIntro">Mình đang bắt đầu portfolio này như một nơi ghi lại hành trình học tập và những sản phẩm sẽ hoàn thiện. Các dự án mới sẽ được bổ sung khi sẵn sàng chia sẻ.</p>
         </div>
         <article class="portfolio-project">
-          <div class="project-visual" aria-hidden="true">
+          <div class="project-visual" aria-hidden="true" data-aos="fade-up" data-aos-duration="750">
             <div class="project-window">
               <div class="window-head"><span></span><span></span><span></span><b>JA LONG / PORTFOLIO</b></div>
               <div class="window-body">
@@ -186,7 +188,7 @@
               </div>
             </div>
           </div>
-          <div class="project-caption">
+          <div class="project-caption" data-aos="fade-up" data-aos-duration="750" data-aos-delay="100">
             <div><span class="project-type" data-i18n="projectType">DỰ ÁN CÁ NHÂN · ĐANG HOÀN THIỆN</span><h3 data-i18n="projectTitle">Portfolio của Gia Long</h3></div>
             <p data-i18n="projectDescription">Website cá nhân giới thiệu bản thân, những gì mình đang học và các sản phẩm sẽ được cập nhật trong quá trình phát triển.</p>
             <ul class="tag-list" aria-label="Công nghệ" data-i18n-aria="techLabel"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
@@ -196,7 +198,7 @@
 
       <section class="contact section-shell" id="contact" aria-labelledby="contact-title">
         <div class="contact-top"><span>04 / <span data-i18n="contactLabel">LIÊN HỆ</span></span><span data-i18n="contactEyebrow">LUÔN SẴN SÀNG HỌC HỎI & KẾT NỐI</span></div>
-        <h2 id="contact-title" data-i18n="contactTitle">Cùng kết nối<br><span>và học hỏi nhé.</span></h2>
+        <h2 id="contact-title" data-i18n="contactTitle" data-aos="fade-up">Cùng kết nối<br><span>và học hỏi nhé.</span></h2>
         <p class="contact-intro" data-i18n="contactIntro">Nếu bạn muốn trao đổi về học tập, công nghệ hoặc một ý tưởng thú vị, hãy liên hệ với mình.</p>
         <a class="button button-primary contact-cta" href="mailto:gialonghoctap999@gmail.com"><span data-i18n="contactCta">Gửi email cho mình</span><span aria-hidden="true">↗</span></a>
         <div class="contact-links">
@@ -209,9 +211,27 @@
     </main>
 
     <footer class="site-footer section-shell">
-      <a class="brand" href="#home" aria-label="Ja Long — về đầu trang"><span class="brand-mark">JL<span>.</span></span></a>
-      <p><span data-i18n="footerText">Được xây dựng bằng sự tò mò và từng dòng code.</span><br><span class="footer-copy">© <span id="current-year"></span> Gia Long</span></p>
-      <a class="back-top" href="#home"><span data-i18n="backTop">LÊN ĐẦU TRANG</span> ↑</a>
+      <div class="footer-group">
+        <a class="brand" href="#home" aria-label="Ja Long — về đầu trang"><span class="brand-mark">JL<span>.</span></span><span class="brand-name">JA LONG</span></a>
+        <p class="footer-group-name" data-i18n="footerGroup">Gia Long · Kỹ thuật Phần mềm</p>
+        <p class="footer-copy">© <span id="current-year"></span> Gia Long</p>
+      </div>
+      <nav class="footer-nav" aria-label="Liên kết nhanh" data-i18n-aria="footerLinksLabel">
+        <h2 class="footer-heading" data-i18n="footerLinks">LIÊN KẾT NHANH</h2>
+        <a href="#about" data-i18n="navAbout">Giới thiệu</a>
+        <a href="#skills" data-i18n="navSkills">Kỹ năng</a>
+        <a href="#work" data-i18n="navWork">Dự án</a>
+        <a href="#contact" data-i18n="navContact">Liên hệ</a>
+      </nav>
+      <div class="footer-signup">
+        <h2 class="footer-heading" data-i18n="newsletterTitle">NHẬN CẬP NHẬT</h2>
+        <form class="newsletter-form">
+          <label class="visually-hidden" for="newsletter-email" data-i18n="newsletterLabel">Địa chỉ email</label>
+          <input id="newsletter-email" name="email" type="email" autocomplete="email" required placeholder="Email của bạn" data-i18n-placeholder="newsletterPlaceholder">
+          <button type="submit" aria-label="Gửi yêu cầu đăng ký" data-i18n-aria="newsletterSubmit">Gửi</button>
+        </form>
+        <p class="newsletter-note" data-i18n="newsletterNote">Mở email để gửi yêu cầu đăng ký.</p>
+      </div>
     </footer>
   </body>
 </html>

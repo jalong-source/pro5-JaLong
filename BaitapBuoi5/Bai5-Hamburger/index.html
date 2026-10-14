@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 5 - Modern Hamburger Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu-container">
+        <h2>Click vào biểu tượng Menu</h2>
+        <div class="hamburger" id="hamburger-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </div>
+
+    <script>
+        const hamburger = document.getElementById('hamburger-menu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

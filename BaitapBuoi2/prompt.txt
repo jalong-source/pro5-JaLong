@@ -1,0 +1,7 @@
+PROMPT — PHÂN TÍCH GIAO DIỆN VÀ TẠO CẤU TRÚC SEMANTIC
+
+Phân tích ảnh giao diện portfolio cá nhân tôi cung cấp. Trước tiên hãy liệt kê các vùng nội dung nhìn thấy, thứ bậc tiêu đề, điều hướng và mối quan hệ giữa các phần. Sau đó đề xuất DOM dùng header, nav, main, section, article, aside, figure/figcaption và footer đúng ngữ nghĩa; không dùng div thay cho landmark phù hợp. Tạo trang giới thiệu sinh viên Kỹ thuật Phần mềm với title, meta description, heading phân cấp, alt ảnh chân dung, liên kết điều hướng tới ID hợp lệ và nội dung tiếng Việt. Tách CSS ra file riêng, giữ markup dễ đọc và responsive cơ bản. Không tự thêm bằng cấp, kỹ năng thành thạo hay thông tin cá nhân chưa được cung cấp.
+
+GHI CHÚ
+
+Ảnh giao diện tham chiếu chưa có trong workspace ở lần tạo này. Hãy đính kèm ảnh thật và chạy lại prompt để hoàn tất phần phân tích giao diện cụ thể.
