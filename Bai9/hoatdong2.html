@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 2 | Function Factory</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead"><span class="course-label">HOẠT ĐỘNG TRÊN LỚP · 02</span></header>
+      <section class="exercise-head"><p class="eyebrow">45 PHÚT · FUNCTION + RETURN</p><h1>Function Factory</h1><p>Đóng gói phép tính diện tích vào <code>tinhDienTich(dai, rong)</code>, sau đó gọi lại hàm với ba hình chữ nhật.</p></section>
+      <section class="workbench">
+        <h2>Ba lần gọi hàm</h2>
+        <form id="area-form">
+          <div class="controls">
+            <div class="field"><label for="dai1">Hình 1 · Chiều dài</label><input id="dai1" type="number" min="0" step="any" value="5" required></div>
+            <div class="field"><label for="rong1">Chiều rộng</label><input id="rong1" type="number" min="0" step="any" value="3" required></div>
+          </div>
+          <div class="controls" style="margin-top: 12px">
+            <div class="field"><label for="dai2">Hình 2 · Chiều dài</label><input id="dai2" type="number" min="0" step="any" value="8" required></div>
+            <div class="field"><label for="rong2">Chiều rộng</label><input id="rong2" type="number" min="0" step="any" value="4" required></div>
+          </div>
+          <div class="controls" style="margin-top: 12px">
+            <div class="field"><label for="dai3">Hình 3 · Chiều dài</label><input id="dai3" type="number" min="0" step="any" value="10" required></div>
+            <div class="field"><label for="rong3">Chiều rộng</label><input id="rong3" type="number" min="0" step="any" value="6" required></div>
+          </div>
+          <div class="controls" style="margin-top: 16px"><button type="submit">Tính ba diện tích</button></div>
+        </form>
+        <div class="result result-list" id="result" aria-live="polite"></div>
+        <pre class="code-block"><code>function tinhDienTich(dai, rong) {
+  return dai * rong;
+}
+
+const dienTich1 = tinhDienTich(5, 3);
+const dienTich2 = tinhDienTich(8, 4);
+const dienTich3 = tinhDienTich(10, 6);</code></pre>
+      </section>
+    </main>
+    <script>
+      function tinhDienTich(dai, rong) {
+        return dai * rong;
+      }
+
+      document.getElementById("area-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const ketQua = [];
+        for (let i = 1; i <= 3; i++) {
+          const dai = Number(document.getElementById(`dai${i}`).value);
+          const rong = Number(document.getElementById(`rong${i}`).value);
+          const dienTich = tinhDienTich(dai, rong);
+          ketQua.push(`Hình ${i}: ${dai} × ${rong} = ${dienTich}`);
+          console.log(`Hình ${i}:`, tinhDienTich(dai, rong));
+        }
+        document.getElementById("result").innerHTML = ketQua
+          .map((dong) => `<p>${dong}</p>`)
+          .join("");
+      });
+      document.getElementById("area-form").requestSubmit();
+    </script>
+  </body>
+</html>

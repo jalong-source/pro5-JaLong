@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 5 | Tìm số lớn nhất</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead"><span class="course-label">TUẦN 09 · BÀI TẬP 05</span></header>
+      <section class="exercise-head"><p class="eyebrow">FUNCTION + IF</p><h1>Tìm số lớn nhất</h1><p>Hàm <code>timMax(a, b, c)</code> dùng các câu lệnh <code>if</code> để tìm giá trị lớn nhất trong ba số.</p></section>
+      <section class="workbench"><h2>So sánh ba số</h2><form class="controls" id="max-form"><div class="field"><label for="a">Số a</label><input id="a" type="number" step="any" value="8" required></div><div class="field"><label for="b">Số b</label><input id="b" type="number" step="any" value="21" required></div><div class="field"><label for="c">Số c</label><input id="c" type="number" step="any" value="13" required></div><button type="submit">Tìm số lớn nhất</button></form><div class="result" id="result" aria-live="polite"></div></section>
+    </main>
+    <script>
+      function timMax(a, b, c) {
+        let lonNhat = a;
+        if (b > lonNhat) lonNhat = b;
+        if (c > lonNhat) lonNhat = c;
+        return lonNhat;
+      }
+
+      document.getElementById("max-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const a = Number(document.getElementById("a").value);
+        const b = Number(document.getElementById("b").value);
+        const c = Number(document.getElementById("c").value);
+        const result = document.getElementById("result");
+        result.textContent = `Số lớn nhất trong ${a}, ${b}, ${c} là ${timMax(a, b, c)}.`;
+        console.log(result.textContent);
+      });
+      document.getElementById("max-form").requestSubmit();
+    </script>
+  </body>
+</html>

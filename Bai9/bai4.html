@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 4 | Máy tính cá nhân</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead"><span class="course-label">TUẦN 09 · BÀI TẬP 04</span></header>
+      <section class="exercise-head"><p class="eyebrow">FUNCTION + PARAMETERS</p><h1>Máy tính cá nhân</h1><p>Hàm <code>mayTinh(so1, so2, phepTinh)</code> nhận ba tham số và trả về kết quả phép tính.</p></section>
+      <section class="workbench"><h2>Thực hiện phép tính</h2><form class="controls" id="calculator-form"><div class="field"><label for="first">Số thứ nhất</label><input id="first" type="number" step="any" value="12" required></div><div class="field"><label for="operation">Phép tính</label><select id="operation"><option value="+">Cộng (+)</option><option value="-">Trừ (-)</option><option value="*">Nhân (×)</option><option value="/">Chia (÷)</option></select></div><div class="field"><label for="second">Số thứ hai</label><input id="second" type="number" step="any" value="3" required></div><button type="submit">Tính</button></form><div class="result" id="result" aria-live="polite"></div></section>
+    </main>
+    <script>
+      function mayTinh(so1, so2, phepTinh) {
+        if (phepTinh === "+") return so1 + so2;
+        if (phepTinh === "-") return so1 - so2;
+        if (phepTinh === "*") return so1 * so2;
+        if (phepTinh === "/") {
+          if (so2 === 0) return "Không thể chia cho 0.";
+          return so1 / so2;
+        }
+        return "Phép tính không hợp lệ.";
+      }
+
+      document.getElementById("calculator-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const so1 = Number(document.getElementById("first").value);
+        const so2 = Number(document.getElementById("second").value);
+        const phepTinh = document.getElementById("operation").value;
+        const ketQua = mayTinh(so1, so2, phepTinh);
+        const result = document.getElementById("result");
+        result.classList.toggle("error", typeof ketQua === "string");
+        result.textContent = `${so1} ${phepTinh} ${so2} = ${ketQua}`;
+        console.log(result.textContent);
+      });
+      document.getElementById("calculator-form").requestSubmit();
+    </script>
+  </body>
+</html>

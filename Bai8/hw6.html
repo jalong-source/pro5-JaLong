@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 6 (HW) — Phân Loại Tam Giác Đều</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --bg: #09090b;
+        --surface: #121217;
+        --surface-raised: #1a1a22;
+        --border: #272732;
+        --text-white: #ffffff;
+        --text-sub: #e4e4e7;
+        --text-muted: #a1a1aa;
+        --yellow: #facc15;
+        --yellow-hover: #ffe043;
+        --yellow-dim: rgba(250, 204, 21, 0.12);
+        --yellow-glow: rgba(250, 204, 21, 0.25);
+        --code-bg: #050508;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text-white);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6;
+        padding: 2.5rem 1rem;
+        min-height: 100vh;
+      }
+
+      .container { max-width: 780px; margin: 0 auto; }
+
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .nav-link {
+        color: var(--yellow);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .nav-link:hover { color: var(--yellow-hover); text-decoration: underline; }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2.25rem;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+      }
+
+      .badge {
+        display: inline-block;
+        background: var(--yellow-dim);
+        color: var(--yellow);
+        border: 1px solid rgba(250, 204, 21, 0.35);
+        padding: 0.3rem 0.8rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      h1 { font-size: 1.85rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+      p.desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.75rem; }
+
+      .interactive-panel {
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+      }
+
+      @media (max-width: 600px) {
+        .grid-3 { grid-template-columns: 1fr; }
+      }
+
+      label {
+        display: block;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-sub);
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        background: #09090b;
+        border: 1px solid var(--border);
+        color: #fff;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      input:focus {
+        border-color: var(--yellow);
+        box-shadow: 0 0 0 3px var(--yellow-glow);
+      }
+
+      .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+      .btn-primary {
+        background: var(--yellow);
+        color: #09090b;
+        font-weight: 700;
+        padding: 0.75rem 1.4rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.92rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background: var(--yellow-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px var(--yellow-glow);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        font-size: 0.92rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-outline:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .result-card {
+        margin-top: 1.25rem;
+        background: #09090b;
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--yellow);
+        border-radius: 8px;
+        padding: 1.1rem 1.35rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.92rem;
+        line-height: 1.8;
+      }
+
+      .result-val {
+        color: var(--yellow);
+        font-weight: 700;
+        font-size: 1.15rem;
+      }
+
+      h2 { font-size: 1.15rem; color: var(--yellow); margin: 1.5rem 0 0.6rem; }
+
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.25rem;
+        overflow-x: auto;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.88rem;
+        color: #e4e4e7;
+      }
+
+      .code-cmt { color: #71717a; font-style: italic; }
+      .code-key { color: #facc15; font-weight: 600; }
+      .code-str { color: #ffffff; }
+
+      .footer-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <a href="hw5.html" class="nav-link">← Bài 5: Máy Tính Giảm Giá</a>
+        <a href="index.html" class="nav-link">Quay Lại Trang Chủ Tuần 8 →</a>
+      </div>
+
+      <main class="card">
+        <span class="badge">Bài Tập Về Nhà 06 · Logic Hình Học</span>
+        <h1>Phân Loại Tam Giác (Kiểm Tra Tam Giác Đều)</h1>
+        <p class="desc">
+          Nhập vào độ dài 3 cạnh a, b, c của một tam giác. Xác thực điều kiện hình học tam giác và kiểm tra xem đó có phải là tam giác đều (3 cạnh bằng nhau) hay không.
+        </p>
+
+        <!-- FORM TƯƠNG TÁC -->
+        <div class="interactive-panel">
+          <div class="grid-3">
+            <div>
+              <label for="side-a">Cạnh a:</label>
+              <input type="number" id="side-a" value="6" step="any" min="0.1" placeholder="Cạnh a">
+            </div>
+            <div>
+              <label for="side-b">Cạnh b:</label>
+              <input type="number" id="side-b" value="6" step="any" min="0.1" placeholder="Cạnh b">
+            </div>
+            <div>
+              <label for="side-c">Cạnh c:</label>
+              <input type="number" id="side-c" value="6" step="any" min="0.1" placeholder="Cạnh c">
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button class="btn-primary" onclick="kiemTraTamGiacTrucTiep()">⚡ Phân loại tam giác</button>
+            <button class="btn-outline" onclick="chayPrompt()">💬 Dùng prompt() & alert()</button>
+          </div>
+
+          <div id="result-box" class="result-card">
+            Bộ ba cạnh: <span id="out-sides" style="color:#fff; font-weight:600;">(a=6, b=6, c=6)</span><br>
+            Kết luận phân loại: <span id="out-type" class="result-val">TAM GIÁC ĐỀU 🔺</span>
+          </div>
+        </div>
+
+        <h2>Mã nguồn JavaScript mẫu</h2>
+        <pre><code><span class="code-key">function</span> <span class="code-key">kiemTraTamGiacDeu</span>() {
+  <span class="code-key">let</span> a = <span class="code-key">parseFloat</span>(prompt(<span class="code-str">"Nhập cạnh a:"</span>, <span class="code-str">"6"</span>));
+  <span class="code-key">let</span> b = <span class="code-key">parseFloat</span>(prompt(<span class="code-str">"Nhập cạnh b:"</span>, <span class="code-str">"6"</span>));
+  <span class="code-key">let</span> c = <span class="code-key">parseFloat</span>(prompt(<span class="code-str">"Nhập cạnh c:"</span>, <span class="code-str">"6"</span>));
+
+  <span class="code-cmt">// 1. Kiểm tra cạnh dương</span>
+  <span class="code-key">if</span> (<span class="code-key">isNaN</span>(a) || <span class="code-key">isNaN</span>(b) || <span class="code-key">isNaN</span>(c) || a &lt;= <span class="code-key">0</span> || b &lt;= <span class="code-key">0</span> || c &lt;= <span class="code-key">0</span>) {
+    alert(<span class="code-str">"Độ dài các cạnh phải là số dương hợp lệ!"</span>);
+    <span class="code-key">return</span>;
+  }
+
+  <span class="code-cmt">// 2. Bất đẳng thức tam giác</span>
+  <span class="code-key">if</span> (a + b &lt;= c || a + c &lt;= b || b + c &lt;= a) {
+    alert(<span class="code-str">"Ba cạnh này KHÔNG thể tạo thành một hình tam giác!"</span>);
+    <span class="code-key">return</span>;
+  }
+
+  <span class="code-cmt">// 3. Điều kiện tam giác đều</span>
+  <span class="code-key">if</span> (a === b &amp;&amp; b === c) {
+    alert(`Ba cạnh (${a}, ${b}, ${c}) tạo thành: TAM GIÁC ĐỀU! 🔺`);
+    console.log(<span class="code-str">"Đây là tam giác đều."</span>);
+  } <span class="code-key">else</span> {
+    alert(`Ba cạnh (${a}, ${b}, ${c}) KHÔNG PHẢI là tam giác đều.`);
+    console.log(<span class="code-str">"Không phải tam giác đều."</span>);
+  }
+}</code></pre>
+      </main>
+
+      <div class="footer-nav">
+        <a href="hw5.html" class="nav-link">← Bài 5: Giảm Giá</a>
+        <a href="index.html" class="nav-link">Về Trang Chủ Tuần 8 →</a>
+      </div>
+    </div>
+
+    <script>
+      function kiemTraTamGiacTrucTiep() {
+        let a = parseFloat(document.getElementById("side-a").value);
+        let b = parseFloat(document.getElementById("side-b").value);
+        let c = parseFloat(document.getElementById("side-c").value);
+
+        if (isNaN(a) || isNaN(b) || isNaN(c) || a <= 0 || b <= 0 || c <= 0) {
+          alert("Vui lòng nhập độ dài các cạnh là số dương hợp lệ!");
+          return;
+        }
+
+        document.getElementById("out-sides").innerText = `(a=${a}, b=${b}, c=${c})`;
+
+        if (a + b <= c || a + c <= b || b + c <= a) {
+          document.getElementById("out-type").innerHTML = `<span style="color:#ffffff; text-decoration: underline;">KHÔNG PHẢI TAM GIÁC</span> (Vi phạm bất đẳng thức tam giác)`;
+          return;
+        }
+
+        if (a === b && b === c) {
+          document.getElementById("out-type").innerHTML = `<span style="color:var(--yellow); font-weight:bold;">TAM GIÁC ĐỀU 🔺</span> (Vì cả 3 cạnh đều bằng ${a})`;
+          console.log(`[Bài 6] (${a}, ${b}, ${c}) là tam giác đều.`);
+        } else {
+          document.getElementById("out-type").innerHTML = `<span style="color:#ffffff;">TAM GIÁC THƯỜNG / KHÁC</span> (Không phải tam giác đều)`;
+          console.log(`[Bài 6] (${a}, ${b}, ${c}) không phải tam giác đều.`);
+        }
+      }
+
+      function chayPrompt() {
+        let aVal = prompt("Nhập cạnh a:", "5");
+        if (aVal === null) return;
+        let bVal = prompt("Nhập cạnh b:", "5");
+        if (bVal === null) return;
+        let cVal = prompt("Nhập cạnh c:", "5");
+        if (cVal === null) return;
+
+        let a = parseFloat(aVal);
+        let b = parseFloat(bVal);
+        let c = parseFloat(cVal);
+
+        if (isNaN(a) || isNaN(b) || isNaN(c) || a <= 0 || b <= 0 || c <= 0) {
+          alert("Các cạnh phải là số dương hợp lệ!");
+          return;
+        }
+
+        if (a + b <= c || a + c <= b || b + c <= a) {
+          alert("Ba cạnh này KHÔNG thể tạo thành một hình tam giác!");
+          return;
+        }
+
+        if (a === b && b === c) {
+          alert(`Ba cạnh (${a}, ${b}, ${c}): ĐÂY LÀ TAM GIÁC ĐỀU! 🔺`);
+          console.log("Đây là tam giác đều.");
+        } else {
+          alert(`Ba cạnh (${a}, ${b}, ${c}): Là tam giác nhưng KHÔNG PHẢI tam giác đều.`);
+          console.log("Không phải tam giác đều.");
+        }
+
+        document.getElementById("side-a").value = a;
+        document.getElementById("side-b").value = b;
+        document.getElementById("side-c").value = c;
+        kiemTraTamGiacTrucTiep();
+      }
+    </script>
+  </body>
+</html>
+

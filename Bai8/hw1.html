@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 1 (HW) — Chuyển Đổi Tiền Tệ USD sang VND</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --bg: #09090b;
+        --surface: #121217;
+        --surface-raised: #1a1a22;
+        --border: #272732;
+        --border-hover: #facc15;
+        --text-white: #ffffff;
+        --text-sub: #e4e4e7;
+        --text-muted: #a1a1aa;
+        --yellow: #facc15;
+        --yellow-hover: #ffe043;
+        --yellow-dim: rgba(250, 204, 21, 0.12);
+        --yellow-glow: rgba(250, 204, 21, 0.25);
+        --code-bg: #050508;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text-white);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6;
+        padding: 2.5rem 1rem;
+        min-height: 100vh;
+      }
+
+      .container { max-width: 780px; margin: 0 auto; }
+
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .nav-link {
+        color: var(--yellow);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: 0.2s ease;
+      }
+
+      .nav-link:hover { color: var(--yellow-hover); text-decoration: underline; }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2.25rem;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+      }
+
+      .badge {
+        display: inline-block;
+        background: var(--yellow-dim);
+        color: var(--yellow);
+        border: 1px solid rgba(250, 204, 21, 0.35);
+        padding: 0.3rem 0.8rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      h1 { font-size: 1.85rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+      p.desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.75rem; }
+
+      .interactive-panel {
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+
+      label {
+        display: block;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-sub);
+        margin-bottom: 0.5rem;
+      }
+
+      .input-wrap {
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      input[type="number"], input[type="text"], input[type="password"] {
+        width: 100%;
+        background: #09090b;
+        border: 1px solid var(--border);
+        color: #fff;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      input:focus {
+        border-color: var(--yellow);
+        box-shadow: 0 0 0 3px var(--yellow-glow);
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        background: var(--yellow);
+        color: #09090b;
+        font-weight: 700;
+        padding: 0.75rem 1.4rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.92rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background: var(--yellow-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px var(--yellow-glow);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        font-size: 0.92rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-outline:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .result-card {
+        margin-top: 1.25rem;
+        background: #09090b;
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--yellow);
+        border-radius: 8px;
+        padding: 1.1rem 1.35rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.92rem;
+        line-height: 1.8;
+      }
+
+      .result-val {
+        color: var(--yellow);
+        font-weight: 700;
+        font-size: 1.15rem;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        color: var(--yellow);
+        margin: 1.5rem 0 0.6rem;
+      }
+
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.25rem;
+        overflow-x: auto;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.88rem;
+        color: #e4e4e7;
+      }
+
+      .code-cmt { color: #71717a; font-style: italic; }
+      .code-key { color: #facc15; font-weight: 600; }
+      .code-str { color: #ffffff; }
+
+      .footer-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <a href="index.html" class="nav-link">← Về Menu Tuần 8</a>
+        <a href="hw2.html" class="nav-link">Sang Bài 2: Số Chẵn/Lẻ →</a>
+      </div>
+
+      <main class="card">
+        <span class="badge">Bài Tập Về Nhà 01 · Tỉ Giá 25.000</span>
+        <h1>Chuyển Đổi Tiền Tệ (USD ➔ VND)</h1>
+        <p class="desc">
+          Nhập số lượng USD cần đổi và tính ra tổng tiền Việt Nam Đồng (VND) tương ứng dựa trên tỉ giá cố định 25.000 VNĐ / USD.
+        </p>
+
+        <!-- FORM TƯƠNG TÁC TRỰC TIẾP -->
+        <div class="interactive-panel">
+          <div class="form-group">
+            <label for="usd-input">Số tiền USD ($):</label>
+            <input type="number" id="usd-input" value="10" min="0" step="any" placeholder="Ví dụ: 10, 50, 100...">
+          </div>
+
+          <div class="btn-group">
+            <button class="btn-primary" onclick="tinhTrucTiep()">⚡ Đổi tiền ngay</button>
+            <button class="btn-outline" onclick="chayPrompt()">💬 Dùng prompt() & alert()</button>
+          </div>
+
+          <div id="result-box" class="result-card">
+            Số tiền USD: <span id="out-usd" style="color: #fff; font-weight: 600;">10 USD</span><br>
+            Tỉ giá áp dụng: <span style="color: var(--text-muted);">25,000 VNĐ / USD</span><br>
+            Thành tiền: <span id="out-vnd" class="result-val">250,000 VNĐ</span>
+          </div>
+        </div>
+
+        <h2>Mã nguồn JavaScript mẫu</h2>
+        <pre><code><span class="code-key">function</span> <span class="code-key">doiTienUSD</span>() {
+  <span class="code-key">const</span> TI_GIA = <span class="code-key">25000</span>; <span class="code-cmt">// 1 USD = 25.000 VNĐ</span>
+  <span class="code-key">let</span> usd = <span class="code-key">parseFloat</span>(prompt(<span class="code-str">"Nhập số tiền USD cần đổi:"</span>, <span class="code-str">"10"</span>));
+
+  <span class="code-key">if</span> (<span class="code-key">isNaN</span>(usd) || usd &lt; <span class="code-key">0</span>) {
+    alert(<span class="code-str">"Số tiền USD không hợp lệ!"</span>);
+    <span class="code-key">return</span>;
+  }
+
+  <span class="code-key">let</span> vnd = usd * TI_GIA;
+  <span class="code-key">let</span> ketQua = `${usd} USD = ${vnd.toLocaleString('vi-VN')} VNĐ`;
+
+  <span class="code-cmt">// Xuất ra console và alert</span>
+  console.log(ketQua);
+  alert(ketQua);
+}</code></pre>
+      </main>
+
+      <div class="footer-nav">
+        <a href="index.html" class="nav-link">← Danh mục bài tập</a>
+        <a href="hw2.html" class="nav-link">Bài 2: Kiểm tra số chẵn/lẻ →</a>
+      </div>
+    </div>
+
+    <script>
+      const TI_GIA = 25000;
+
+      function tinhTrucTiep() {
+        let inputVal = document.getElementById("usd-input").value;
+        let usd = parseFloat(inputVal);
+
+        if (isNaN(usd) || usd < 0) {
+          alert("Vui lòng nhập số tiền USD hợp lệ (lớn hơn hoặc bằng 0)!");
+          return;
+        }
+
+        let vnd = usd * TI_GIA;
+        document.getElementById("out-usd").innerText = usd + " USD";
+        document.getElementById("out-vnd").innerText = vnd.toLocaleString("vi-VN") + " VNĐ";
+
+        console.log(`[Bài 1] ${usd} USD = ${vnd.toLocaleString("vi-VN")} VNĐ`);
+      }
+
+      function chayPrompt() {
+        let input = prompt("Nhập số lượng USD cần đổi:", "10");
+        if (input === null) return;
+        let usd = parseFloat(input);
+
+        if (isNaN(usd) || usd < 0) {
+          alert("Số tiền USD không hợp lệ!");
+          return;
+        }
+
+        let vnd = usd * TI_GIA;
+        let ketQua = `${usd} USD = ${vnd.toLocaleString("vi-VN")} VNĐ (Tỉ giá 25.000)`;
+        alert(ketQua);
+        console.log(ketQua);
+
+        document.getElementById("usd-input").value = usd;
+        tinhTrucTiep();
+      }
+    </script>
+  </body>
+</html>
+

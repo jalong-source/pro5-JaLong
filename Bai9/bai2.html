@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 2 | Tính tổng dãy số</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead"><span class="course-label">TUẦN 09 · BÀI TẬP 02</span></header>
+      <section class="exercise-head"><p class="eyebrow">FUNCTION + FOR</p><h1>Tính tổng dãy số</h1><p>Nhập <code>n</code>. Hàm <code>tinhTong(n)</code> dùng vòng lặp cộng các số từ 1 đến <code>n</code> rồi trả về kết quả.</p></section>
+      <section class="workbench"><h2>Thử một giá trị</h2><form class="controls" id="sum-form"><div class="field"><label for="number">Số nguyên n (0–1.000.000)</label><input id="number" type="number" min="0" max="1000000" step="1" value="10" required></div><button type="submit">Tính tổng</button></form><div class="result" id="result" aria-live="polite"></div></section>
+    </main>
+    <script>
+      function tinhTong(n) {
+        let tong = 0;
+        for (let i = 1; i <= n; i++) {
+          tong += i;
+        }
+        return tong;
+      }
+
+      document.getElementById("sum-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const n = Number(document.getElementById("number").value);
+        const result = document.getElementById("result");
+        if (!Number.isInteger(n) || n < 0 || n > 1000000) {
+          result.classList.add("error");
+          result.textContent = "Vui lòng nhập số nguyên từ 0 đến 1.000.000.";
+          return;
+        }
+        result.classList.remove("error");
+        result.textContent = `Tổng từ 1 đến ${n} là ${tinhTong(n)}.`;
+        console.log(result.textContent);
+      });
+      document.getElementById("sum-form").requestSubmit();
+    </script>
+  </body>
+</html>

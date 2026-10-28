@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 3 | Refactoring Challenge</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead"><span class="course-label">HOẠT ĐỘNG TRÊN LỚP · 03</span></header>
+      <section class="exercise-head"><p class="eyebrow">30 PHÚT · DRY REFACTORING</p><h1>Refactoring Challenge</h1><p>Thay phần tính thuế bị lặp lại bằng một hàm nhận lương và thuế suất, dùng lại cho nhiều mức lương.</p></section>
+      <section class="workbench">
+        <h2>Tính thuế với hàm dùng lại</h2>
+        <form class="controls" id="tax-form">
+          <div class="field"><label for="salary">Mức lương (đồng)</label><input id="salary" type="number" min="0" step="1000" value="15000000" required></div>
+          <div class="field"><label for="rate">Thuế suất minh họa (%)</label><input id="rate" type="number" min="0" max="100" step="any" value="10" required></div>
+          <button type="submit">Tính tiền thuế</button>
+        </form>
+        <div class="result" id="result" aria-live="polite"></div>
+        <div class="prompt-box"><strong>Lưu ý:</strong> Thuế suất cố định chỉ dùng để học cách đóng gói hàm, không đại diện cho cách tính thuế thu nhập cá nhân thực tế.</div>
+        <h2 style="margin-top: 22px">Trước: lặp lại phép tính</h2>
+        <pre class="code-block"><code>const thueLuong1 = luong1 * 0.1;
+const thueLuong2 = luong2 * 0.1;
+const thueLuong3 = luong3 * 0.1;</code></pre>
+        <h2 style="margin-top: 22px">Sau: tái sử dụng một hàm</h2>
+        <pre class="code-block"><code>function tinhThue(luong, tyLeThue) {
+  return luong * tyLeThue / 100;
+}
+
+tinhThue(luong1, 10);
+tinhThue(luong2, 10);
+tinhThue(luong3, 10);</code></pre>
+      </section>
+    </main>
+    <script>
+      function tinhThue(luong, tyLeThue) {
+        return luong * tyLeThue / 100;
+      }
+
+      document.getElementById("tax-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const luong = Number(document.getElementById("salary").value);
+        const tyLeThue = Number(document.getElementById("rate").value);
+        const result = document.getElementById("result");
+        if (!Number.isFinite(luong) || luong < 0 || !Number.isFinite(tyLeThue) || tyLeThue < 0 || tyLeThue > 100) {
+          result.classList.add("error");
+          result.textContent = "Nhập mức lương không âm và thuế suất từ 0 đến 100%.";
+          return;
+        }
+        result.classList.remove("error");
+        const tienThue = tinhThue(luong, tyLeThue);
+        result.textContent = `Thuế minh họa: ${new Intl.NumberFormat("vi-VN").format(tienThue)} đồng (${tyLeThue}% của ${new Intl.NumberFormat("vi-VN").format(luong)} đồng).`;
+        console.log(result.textContent);
+      });
+      document.getElementById("tax-form").requestSubmit();
+    </script>
+  </body>
+</html>

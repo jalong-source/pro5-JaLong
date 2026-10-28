@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 3 — AI Logic Explainer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --bg: #09090b;
+        --card-bg: #121217;
+        --card-sub: #1a1a22;
+        --accent: #facc15;
+        --accent-green: #facc15;
+        --accent-amber: #fde047;
+        --accent-rose: #f43f5e;
+        --text-primary: #ffffff;
+        --text-secondary: #a1a1aa;
+        --border: #272732;
+        --code-bg: #050508;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text-primary);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6;
+        padding: 2rem 1rem;
+      }
+
+      .container { max-width: 800px; margin: 0 auto; }
+
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .nav-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      .nav-link:hover { text-decoration: underline; }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      }
+
+      .badge {
+        display: inline-block;
+        background: rgba(56, 189, 248, 0.15);
+        color: var(--accent);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+
+      h1 { font-size: 1.75rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+      p.desc { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+      h2 { font-size: 1.2rem; color: #fff; margin: 1.75rem 0 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+
+      pre, code { font-family: 'JetBrains Mono', monospace; }
+
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.1rem;
+        overflow-x: auto;
+        font-size: 0.88rem;
+        color: #e2e8f0;
+        margin: 0.75rem 0;
+      }
+
+      .box-explain {
+        background: rgba(30, 41, 59, 0.6);
+        border-left: 4px solid var(--accent-amber);
+        border-radius: 0 10px 10px 0;
+        padding: 1.1rem 1.25rem;
+        margin: 0.75rem 0 1.25rem;
+      }
+
+      .box-explain.danger { border-left-color: var(--accent-rose); }
+      .box-explain.success { border-left-color: var(--accent-green); }
+
+      .step-trace {
+        border-left: 2px dashed #475569;
+        padding-left: 1rem;
+        margin: 0.6rem 0;
+        font-size: 0.92rem;
+      }
+
+      .footer-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <a href="bai2.html" class="nav-link">← Về Bài 2: Logic Builder</a>
+        <a href="index.html" class="nav-link">Quay lại Menu Buổi 8 →</a>
+      </div>
+
+      <main class="card">
+        <span class="badge">Hoạt động 3 · 30 phút</span>
+        <h1>Bài 3: "AI Logic Explainer" — Dịch mã lỗi sang ngôn ngữ tự nhiên</h1>
+        <p class="desc">
+          Sử dụng tư duy logic để phân tích và "dịch" 3 trường hợp lỗi kinh điển mà người mới học JavaScript hay gặp sang ngôn ngữ tự nhiên.
+        </p>
+
+        <!-- CASE 1 -->
+        <h2>Case 1: Lỗi đảo lộn thứ tự điều kiện trong If - Else</h2>
+        <pre><code>// ❌ ĐOẠN MÃ LỖI:
+let diem = 9.5;
+
+if (diem >= 5.0) {
+  console.log("Trung bình");
+} else if (diem > 8.0) {
+  console.log("Giỏi");
+}
+// Kết quả thực tế in ra: "Trung bình" (Dù 9.5 là điểm Giỏi!)</code></pre>
+
+        <div class="box-explain danger">
+          <p><strong>🤖 AI "Dịch" luồng chạy từng bước:</strong></p>
+          <div class="step-trace">
+            <strong>• Bước 1:</strong> Biến <code>diem</code> nhận giá trị số <code>9.5</code>.<br>
+            <strong>• Bước 2:</strong> Trình duyệt gặp điều kiện đầu tiên: <code>diem &gt;= 5.0</code>. Vì <code>9.5 &gt;= 5.0</code> là <strong>ĐÚNG (true)</strong>, khối lệnh in <code>"Trung bình"</code> được kích hoạt ngay.<br>
+            <strong>• Bước 3:</strong> Khi nhánh <code>if</code> đầu đã thỏa mãn, JavaScript bỏ qua toàn bộ nhánh <code>else if</code> phía sau!
+          </div>
+          <p style="color: var(--accent-green); margin-top: 0.5rem;">
+            ✔ <strong>Cách sửa chuẩn:</strong> Luôn kiểm tra điều kiện khắt khe nhất trước (sắp xếp giảm dần: <code>&gt; 8.0</code> rồi mới tới <code>&gt;= 5.0</code>).
+          </p>
+        </div>
+
+        <!-- CASE 2 -->
+        <h2>Case 2: Cạm bẫy so sánh lỏng lẻo (==) và ép kiểu bất ngờ</h2>
+        <pre><code>// ❌ ĐOẠN MÃ BẤT NGỜ:
+console.log(0 == "");     // true!
+console.log(0 == "0");    // true!
+console.log("" == "0");   // false!</code></pre>
+
+        <div class="box-explain">
+          <p><strong>🤖 AI "Dịch" luồng chạy:</strong></p>
+          <div class="step-trace">
+            <strong>• <code>0 == ""</code> (true):</strong> Toán tử <code>==</code> tự động ép chuỗi rỗng <code>""</code> về số <code>0</code>, mà <code>0 == 0</code> là <code>true</code>.<br>
+            <strong>• <code>0 == "0"</code> (true):</strong> Chuỗi <code>"0"</code> bị ép kiểu về số <code>0</code>, kết quả là <code>true</code>.<br>
+            <strong>• <code>"" == "0"</code> (false):</strong> Hai vế cùng kiểu chuỗi, JS so sánh nội dung ký tự: chuỗi rỗng khác chuỗi có chứa ký tự <code>'0'</code>, kết quả là <code>false</code>!
+          </div>
+          <p style="color: var(--accent-green); margin-top: 0.5rem;">
+            ✔ <strong>Quy tắc vàng:</strong> Luôn dùng toán tử so sánh nghiêm ngặt <code>===</code> (so sánh cả giá trị và kiểu dữ liệu).
+          </p>
+        </div>
+
+        <!-- CASE 3 -->
+        <h2>Case 3: Lỗi quên ép kiểu khi nhận dữ liệu từ prompt()</h2>
+        <pre><code>// ❌ ĐOẠN MÃ LỖI:
+let a = prompt("Nhập số a:"); // Nhập 5
+let b = prompt("Nhập số b:"); // Nhập 10
+let tong = a + b;
+alert("Tổng là: " + tong);    // Kết quả ra "510" thay vì 15!</code></pre>
+
+        <div class="box-explain success">
+          <p><strong>🤖 AI "Dịch" & Cách giải quyết:</strong></p>
+          <p>
+            Hàm <code>prompt()</code> luôn trả về dữ liệu kiểu <strong>String (chuỗi)</strong>. Do đó <code>"5" + "10" = "510"</code> (nối chuỗi).
+          </p>
+          <p style="margin-top: 0.5rem; color: var(--accent-green);">
+            ✔ <strong>Cách sửa:</strong> Dùng <code>parseFloat()</code> hoặc <code>Number()</code>:
+            <code>let tong = parseFloat(a) + parseFloat(b);</code> (cho ra kết quả đúng: 15).
+          </p>
+        </div>
+      </main>
+
+      <div class="footer-nav">
+        <a href="bai2.html" class="nav-link">← Bài 2: Logic Builder</a>
+        <a href="homework.html" class="nav-link">Sang Bài tập về nhà (Homework) →</a>
+      </div>
+    </div>
+  </body>
+</html>
+

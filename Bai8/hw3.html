@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 3 (HW) — Tính Chỉ Số BMI Cơ Bản</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --bg: #09090b;
+        --surface: #121217;
+        --surface-raised: #1a1a22;
+        --border: #272732;
+        --text-white: #ffffff;
+        --text-sub: #e4e4e7;
+        --text-muted: #a1a1aa;
+        --yellow: #facc15;
+        --yellow-hover: #ffe043;
+        --yellow-dim: rgba(250, 204, 21, 0.12);
+        --yellow-glow: rgba(250, 204, 21, 0.25);
+        --code-bg: #050508;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text-white);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6;
+        padding: 2.5rem 1rem;
+        min-height: 100vh;
+      }
+
+      .container { max-width: 780px; margin: 0 auto; }
+
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .nav-link {
+        color: var(--yellow);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .nav-link:hover { color: var(--yellow-hover); text-decoration: underline; }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2.25rem;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+      }
+
+      .badge {
+        display: inline-block;
+        background: var(--yellow-dim);
+        color: var(--yellow);
+        border: 1px solid rgba(250, 204, 21, 0.35);
+        padding: 0.3rem 0.8rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      h1 { font-size: 1.85rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+      p.desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.75rem; }
+
+      .interactive-panel {
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+      }
+
+      @media (max-width: 600px) {
+        .grid-2 { grid-template-columns: 1fr; }
+      }
+
+      label {
+        display: block;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-sub);
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        background: #09090b;
+        border: 1px solid var(--border);
+        color: #fff;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      input:focus {
+        border-color: var(--yellow);
+        box-shadow: 0 0 0 3px var(--yellow-glow);
+      }
+
+      .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+      .btn-primary {
+        background: var(--yellow);
+        color: #09090b;
+        font-weight: 700;
+        padding: 0.75rem 1.4rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.92rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background: var(--yellow-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px var(--yellow-glow);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        font-size: 0.92rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-outline:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .result-card {
+        margin-top: 1.25rem;
+        background: #09090b;
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--yellow);
+        border-radius: 8px;
+        padding: 1.1rem 1.35rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.92rem;
+        line-height: 1.8;
+      }
+
+      .result-val {
+        color: var(--yellow);
+        font-weight: 700;
+        font-size: 1.15rem;
+      }
+
+      .bmi-table {
+        margin-top: 1rem;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        border-top: 1px dashed var(--border);
+        padding-top: 0.75rem;
+      }
+
+      h2 { font-size: 1.15rem; color: var(--yellow); margin: 1.5rem 0 0.6rem; }
+
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.25rem;
+        overflow-x: auto;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.88rem;
+        color: #e4e4e7;
+      }
+
+      .code-cmt { color: #71717a; font-style: italic; }
+      .code-key { color: #facc15; font-weight: 600; }
+      .code-str { color: #ffffff; }
+
+      .footer-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <a href="hw2.html" class="nav-link">← Bài 2: Số Chẵn/Lẻ</a>
+        <a href="hw4.html" class="nav-link">Sang Bài 4: Logic Đăng Nhập →</a>
+      </div>
+
+      <main class="card">
+        <span class="badge">Bài Tập Về Nhà 03 · Công Thức Sức Khỏe</span>
+        <h1>Tính Chỉ Số Khối Cơ Thể (BMI)</h1>
+        <p class="desc">
+          Nhập chiều cao (m) và cân nặng (kg) để tính toán chỉ số BMI = cân nặng / (chiều cao * chiều cao) và phân loại tình trạng thể lực.
+        </p>
+
+        <!-- FORM TƯƠNG TÁC -->
+        <div class="interactive-panel">
+          <div class="grid-2">
+            <div>
+              <label for="height-input">Chiều cao (mét):</label>
+              <input type="number" id="height-input" value="1.72" step="0.01" min="0.5" max="2.5" placeholder="Ví dụ: 1.70">
+            </div>
+            <div>
+              <label for="weight-input">Cân nặng (kg):</label>
+              <input type="number" id="weight-input" value="65" step="0.1" min="10" max="300" placeholder="Ví dụ: 65">
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button class="btn-primary" onclick="tinhBMITrucTiep()">⚡ Tính BMI ngay</button>
+            <button class="btn-outline" onclick="chayPrompt()">💬 Dùng prompt() & alert()</button>
+          </div>
+
+          <div id="result-box" class="result-card">
+            Chỉ số BMI của bạn: <span id="out-bmi" class="result-val">21.97</span><br>
+            Tình trạng thể lực: <span id="out-status" style="color:#fff; font-weight:600;">Bình thường (Cân đối)</span>
+            <div class="bmi-table">
+              Thang chuẩn: &lt;18.5 (Gầy) | 18.5 - 24.9 (Cân đối) | 25 - 29.9 (Thừa cân) | &ge;30 (Béo phì)
+            </div>
+          </div>
+        </div>
+
+        <h2>Mã nguồn JavaScript mẫu</h2>
+        <pre><code><span class="code-key">function</span> <span class="code-key">tinhBMI</span>() {
+  <span class="code-key">let</span> chieuCao = <span class="code-key">parseFloat</span>(prompt(<span class="code-str">"Nhập chiều cao của bạn (m - ví dụ: 1.72):"</span>, <span class="code-str">"1.72"</span>));
+  <span class="code-key">let</span> canNang = <span class="code-key">parseFloat</span>(prompt(<span class="code-str">"Nhập cân nặng của bạn (kg - ví dụ: 65):"</span>, <span class="code-str">"65"</span>));
+
+  <span class="code-key">if</span> (<span class="code-key">isNaN</span>(chieuCao) || <span class="code-key">isNaN</span>(canNang) || chieuCao &lt;= <span class="code-key">0</span> || canNang &lt;= <span class="code-key">0</span>) {
+    alert(<span class="code-str">"Chiều cao và cân nặng phải là số dương hợp lệ!"</span>);
+    <span class="code-key">return</span>;
+  }
+
+  <span class="code-key">let</span> bmi = canNang / (chieuCao * chieuCao);
+  <span class="code-key">let</span> status = <span class="code-str">""</span>;
+
+  <span class="code-key">if</span> (bmi &lt; <span class="code-key">18.5</span>) status = <span class="code-str">"Gầy (Thiếu cân)"</span>;
+  <span class="code-key">else if</span> (bmi &lt; <span class="code-key">24.9</span>) status = <span class="code-str">"Bình thường (Cân đối)"</span>;
+  <span class="code-key">else if</span> (bmi &lt; <span class="code-key">29.9</span>) status = <span class="code-str">"Tiền béo phì (Thừa cân)"</span>;
+  <span class="code-key">else</span> status = <span class="code-str">"Béo phì"</span>;
+
+  <span class="code-key">let</span> msg = `Chỉ số BMI: ${bmi.toFixed(2)} - Đánh giá: ${status}`;
+  alert(msg);
+  console.log(msg);
+}</code></pre>
+      </main>
+
+      <div class="footer-nav">
+        <a href="hw2.html" class="nav-link">← Bài 2: Số Chẵn/Lẻ</a>
+        <a href="hw4.html" class="nav-link">Bài 4: Logic Đăng Nhập →</a>
+      </div>
+    </div>
+
+    <script>
+      function tinhBMITrucTiep() {
+        let h = parseFloat(document.getElementById("height-input").value);
+        let w = parseFloat(document.getElementById("weight-input").value);
+
+        if (isNaN(h) || isNaN(w) || h <= 0 || w <= 0) {
+          alert("Chiều cao và cân nặng phải là số dương hợp lệ!");
+          return;
+        }
+
+        let bmi = w / (h * h);
+        let status = "";
+        if (bmi < 18.5) status = "Gầy (Thiếu cân)";
+        else if (bmi < 24.9) status = "Bình thường (Cân đối)";
+        else if (bmi < 29.9) status = "Tiền béo phì (Thừa cân)";
+        else status = "Béo phì";
+
+        document.getElementById("out-bmi").innerText = bmi.toFixed(2);
+        document.getElementById("out-status").innerText = status;
+
+        console.log(`[Bài 3] Chiều cao: ${h}m, Cân nặng: ${w}kg => BMI: ${bmi.toFixed(2)} (${status})`);
+      }
+
+      function chayPrompt() {
+        let hVal = prompt("Nhập chiều cao của bạn (m - ví dụ: 1.70):", "1.70");
+        if (hVal === null) return;
+        let wVal = prompt("Nhập cân nặng của bạn (kg - ví dụ: 62):", "62");
+        if (wVal === null) return;
+
+        let h = parseFloat(hVal);
+        let w = parseFloat(wVal);
+
+        if (isNaN(h) || isNaN(w) || h <= 0 || w <= 0) {
+          alert("Dữ liệu nhập vào không hợp lệ!");
+          return;
+        }
+
+        let bmi = w / (h * h);
+        let status = "";
+        if (bmi < 18.5) status = "Gầy (Thiếu cân)";
+        else if (bmi < 24.9) status = "Bình thường (Cân đối)";
+        else if (bmi < 29.9) status = "Thừa cân";
+        else status = "Béo phì";
+
+        alert(`BMI: ${bmi.toFixed(2)}\nĐánh giá thể lực: ${status}`);
+        console.log(`BMI: ${bmi.toFixed(2)} - ${status}`);
+
+        document.getElementById("height-input").value = h;
+        document.getElementById("weight-input").value = w;
+        tinhBMITrucTiep();
+      }
+    </script>
+  </body>
+</html>
+

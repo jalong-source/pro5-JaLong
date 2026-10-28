@@ -1,0 +1,613 @@
+:root {
+  color-scheme: dark;
+  --ink: #ffffff;
+  --muted: #a1a1aa;
+  --paper: #09090b;
+  --surface: #121217;
+  --green: #facc15;
+  --green-dark: #eab308;
+  --lime: #fde047;
+  --sky: #181822;
+  --line: #272732;
+  --roof: #facc15;
+  --sun: #facc15;
+  --shadow: rgba(0, 0, 0, 0.6);
+  --page-width: 1120px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 78% 8%, var(--sky), transparent 34rem),
+    var(--paper);
+  color: var(--ink);
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  line-height: 1.65;
+}
+
+button,
+a {
+  color: inherit;
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--roof);
+  outline-offset: 4px;
+}
+
+.page-shell {
+  width: min(100% - 3rem, var(--page-width));
+  margin-inline: auto;
+}
+
+.site-header {
+  display: flex;
+  width: min(100% - 3rem, var(--page-width));
+  min-height: 5.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-inline: auto;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.brand-mark {
+  display: grid;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--surface);
+  font-size: 0.68rem;
+}
+
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+
+.site-header nav a {
+  color: var(--muted);
+  font-size: 0.82rem;
+  transition: color 180ms ease;
+}
+
+.site-header nav a:hover {
+  color: var(--green);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  gap: clamp(2rem, 7vw, 6rem);
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.hero-copy {
+  max-width: 600px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1.1rem;
+  color: var(--green);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.status-dot {
+  width: 0.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.12;
+}
+
+h1,
+.section-heading h2,
+.team-section h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+}
+
+h1 {
+  margin-bottom: 1.2rem;
+  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+}
+
+h1 span {
+  color: var(--green);
+}
+
+.hero-description,
+.section-heading > p:last-child {
+  max-width: 35rem;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.8rem;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 2.9rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button-primary {
+  background: var(--green);
+  color: var(--surface);
+}
+
+.button-primary:hover {
+  background: var(--green-dark);
+}
+
+.button-quiet {
+  border-color: var(--line);
+  background: var(--surface);
+}
+
+.button-quiet:hover {
+  background: var(--lime);
+}
+
+.hello-message {
+  min-height: 1.5rem;
+  margin: 0.7rem 0 0;
+  color: var(--green-dark);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.hero-note {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+.house-scene {
+  position: relative;
+  min-height: 355px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(40, 116, 91, 0.1);
+  border-radius: 48% 48% 6px 6px;
+  background: linear-gradient(var(--sky) 0 65%, var(--lime) 65% 100%);
+  box-shadow: 0 1.5rem 3.5rem var(--shadow);
+}
+
+.scene-sun {
+  position: absolute;
+  top: 12%;
+  right: 14%;
+  width: 3.6rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--sun);
+}
+
+.scene-cloud {
+  position: absolute;
+  width: 4.6rem;
+  height: 1rem;
+  border-radius: 2rem;
+  background: var(--surface);
+}
+
+.scene-cloud::before,
+.scene-cloud::after {
+  position: absolute;
+  bottom: 0.2rem;
+  width: 1.6rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: inherit;
+  content: "";
+}
+
+.scene-cloud::before {
+  left: 0.7rem;
+}
+
+.scene-cloud::after {
+  right: 0.6rem;
+  width: 1.2rem;
+}
+
+.cloud-one {
+  top: 23%;
+  left: 12%;
+}
+
+.cloud-two {
+  top: 35%;
+  right: 12%;
+  transform: scale(0.72);
+}
+
+.tree-trunk {
+  position: absolute;
+  z-index: -1;
+  bottom: 17%;
+  left: 20%;
+  width: 1.1rem;
+  height: 5rem;
+  border-radius: 0.5rem;
+  background: var(--roof);
+}
+
+.tree-crown {
+  position: absolute;
+  z-index: -1;
+  bottom: 42%;
+  left: 11%;
+  width: 4.3rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 1.8rem 1rem 0 -0.5rem var(--green-dark), -0.8rem 1.3rem 0 -0.5rem var(--green-dark);
+}
+
+.house-body {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  width: 48%;
+  height: 38%;
+  border: 2px solid var(--green-dark);
+  background: var(--surface);
+  transform: translateX(-50%);
+}
+
+.house-roof {
+  position: absolute;
+  z-index: 1;
+  bottom: 55%;
+  left: 50%;
+  width: 59%;
+  height: 24%;
+  background: var(--roof);
+  clip-path: polygon(50% 0, 100% 78%, 100% 100%, 0 100%, 0 78%);
+  transform: translateX(-50%);
+}
+
+.house-window {
+  position: absolute;
+  top: 24%;
+  width: 22%;
+  aspect-ratio: 1;
+  border: 3px solid var(--green);
+  background: var(--sky);
+}
+
+.window-one {
+  left: 10%;
+}
+
+.window-two {
+  right: 10%;
+}
+
+.house-door {
+  position: absolute;
+  bottom: 0;
+  left: 41%;
+  width: 20%;
+  height: 52%;
+  border: 2px solid var(--green-dark);
+  border-bottom: 0;
+  background: var(--sun);
+}
+
+.house-step {
+  position: absolute;
+  bottom: 17%;
+  left: 43%;
+  width: 14%;
+  height: 0.5rem;
+  background: var(--roof);
+}
+
+.scene-path {
+  position: absolute;
+  right: 25%;
+  bottom: -8%;
+  width: 30%;
+  height: 31%;
+  border-radius: 50% 50% 0 0;
+  background: rgba(255, 254, 248, 0.58);
+  transform: rotate(-8deg);
+}
+
+.scene-flower {
+  position: absolute;
+  bottom: 14%;
+  width: 1rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--roof);
+  box-shadow: 0.5rem 0.5rem 0 -0.15rem var(--sun), -0.5rem 0.5rem 0 -0.15rem var(--sun);
+}
+
+.flower-one {
+  left: 29%;
+}
+
+.flower-two {
+  right: 18%;
+  bottom: 18%;
+}
+
+.scene-label {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  color: var(--green-dark);
+  font-size: 0.58rem;
+  font-weight: 800;
+}
+
+.yard-section {
+  padding-block: 1.5rem 5rem;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.4rem;
+}
+
+.section-heading .eyebrow {
+  align-self: start;
+  margin: 0;
+}
+
+.section-heading h2,
+.team-section h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.section-heading > p:last-child {
+  max-width: 21rem;
+  font-size: 0.84rem;
+}
+
+.yard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.yard-card {
+  position: relative;
+  min-height: 200px;
+  overflow: hidden;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface);
+}
+
+.yard-front {
+  background: linear-gradient(120deg, var(--surface), var(--lime));
+}
+
+.yard-back {
+  background: linear-gradient(120deg, var(--surface), var(--sky));
+}
+
+.yard-number {
+  color: var(--green);
+  font-size: 0.63rem;
+  font-weight: 800;
+}
+
+.yard-card h3 {
+  margin: 1rem 0 0.5rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.yard-card p {
+  max-width: 23rem;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.yard-icon {
+  position: absolute;
+  right: 1.3rem;
+  bottom: 0.4rem;
+  color: rgba(40, 116, 91, 0.18);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 5.5rem;
+  line-height: 1;
+}
+
+.team-section {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 1rem 3rem;
+  align-items: center;
+  margin-bottom: 5rem;
+  padding: 2rem;
+  border-left: 4px solid var(--green);
+  background: var(--surface);
+}
+
+.team-section .eyebrow {
+  margin-bottom: 0.7rem;
+}
+
+.shared-line {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+}
+
+.team-hint {
+  grid-column: 2;
+  margin: -0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem max(1.5rem, calc((100% - var(--page-width)) / 2));
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 0.67rem;
+}
+
+@media (max-width: 760px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .house-scene {
+    width: min(100%, 460px);
+    justify-self: center;
+  }
+
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .team-section {
+    grid-template-columns: 1fr;
+  }
+
+  .team-hint {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .page-shell,
+  .site-header {
+    width: min(100% - 2rem, var(--page-width));
+  }
+
+  .site-header {
+    min-height: 4.5rem;
+    gap: 0.8rem;
+  }
+
+  .brand {
+    gap: 0.45rem;
+    font-size: 0.62rem;
+  }
+
+  .site-header nav {
+    justify-content: end;
+    gap: 0.8rem;
+  }
+
+  .site-header nav a {
+    font-size: 0.68rem;
+  }
+
+  .hero {
+    padding-block: 3.2rem;
+  }
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .house-scene {
+    min-height: 300px;
+  }
+
+  .yard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-section {
+    margin-bottom: 3rem;
+    padding: 1.3rem;
+  }
+
+  .site-footer {
+    align-items: start;
+    flex-direction: column;
+    padding-inline: 1rem;
+  }
+}

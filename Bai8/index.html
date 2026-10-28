@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tuần 8 — JavaScript Fundamentals & Tư Duy Logic AI-First</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --bg: #09090b;
+        --card-bg: #121217;
+        --card-hover: #1a1a22;
+        --accent: #facc15;
+        --accent-green: #facc15;
+        --accent-amber: #fde047;
+        --accent-purple: #ffe043;
+        --text-primary: #ffffff;
+        --text-secondary: #a1a1aa;
+        --border: #272732;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text-primary);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6;
+        padding: 3rem 1rem;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .container {
+        max-width: 860px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .tag {
+        display: inline-block;
+        background: rgba(56, 189, 248, 0.15);
+        color: var(--accent);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        padding: 0.35rem 0.9rem;
+        border-radius: 9999px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.75rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+
+      p.sub {
+        color: var(--text-secondary);
+        font-size: 1rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      @media (min-width: 768px) {
+        .grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .lesson-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all 0.25s ease;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .lesson-card:hover {
+        transform: translateY(-4px);
+        background: var(--card-hover);
+        border-color: var(--accent);
+        box-shadow: 0 12px 24px -10px rgba(56, 189, 248, 0.3);
+      }
+
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+      }
+
+      .card-number {
+        font-size: 0.8rem;
+        font-weight: 800;
+        padding: 0.25rem 0.6rem;
+        border-radius: 6px;
+        background: rgba(56, 189, 248, 0.15);
+        color: var(--accent);
+      }
+
+      .card-time {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.6rem;
+      }
+
+      p.card-desc {
+        color: var(--text-secondary);
+        font-size: 0.88rem;
+        line-height: 1.55;
+        margin-bottom: 1.25rem;
+      }
+
+      .btn-open {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 0.9rem;
+        margin-top: auto;
+      }
+
+      .lesson-card:hover .btn-open {
+        color: #fff;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 2.5rem;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <span class="tag">Học phần Thiết Kế Web · Tuần 8</span>
+        <h1>JavaScript Fundamentals & Tư Duy Logic AI-First</h1>
+        <p class="sub">Danh mục 3 hoạt động thực hành độc lập được tách riêng biệt.</p>
+      </header>
+
+      <div class="grid">
+        <!-- CARD 1 -->
+        <a href="bai1.html" class="lesson-card">
+          <div>
+            <div class="card-top">
+              <span class="card-number">BÀI 1</span>
+              <span class="card-time">30 PHÚT</span>
+            </div>
+            <h2>Hello JS Console</h2>
+            <p class="card-desc">
+              Khai báo biến (<code>let</code>, <code>const</code>), kiểu dữ liệu cơ bản, phép toán số học và giải thích bản chất <code>'10' + 20 = '1020'</code>.
+            </p>
+          </div>
+          <span class="btn-open">Vào làm Bài 1 →</span>
+        </a>
+
+        <!-- CARD 2 -->
+        <a href="bai2.html" class="lesson-card">
+          <div>
+            <div class="card-top">
+              <span class="card-number">BÀI 2</span>
+              <span class="card-time">45 PHÚT</span>
+            </div>
+            <h2>Logic Builder</h2>
+            <p class="card-desc">
+              Xây dựng máy tính mini kiểm tra điểm số bằng <code>prompt()</code>, phân nhánh <code>if-else</code> xếp loại Giỏi, Khá, Trung bình, Yếu và thông báo qua <code>alert()</code>.
+            </p>
+          </div>
+          <span class="btn-open">Vào làm Bài 2 →</span>
+        </a>
+
+        <!-- CARD 3 -->
+        <a href="bai3.html" class="lesson-card">
+          <div>
+            <div class="card-top">
+              <span class="card-number">BÀI 3</span>
+              <span class="card-time">30 PHÚT</span>
+            </div>
+            <h2>AI Logic Explainer</h2>
+            <p class="card-desc">
+              Dịch 3 ca lỗi logic kinh điển trong JS sang ngôn ngữ tự nhiên: đảo thứ tự if-else, so sánh lỏng lẻo <code>==</code> vs <code>===</code>, và ép kiểu prompt.
+            </p>
+          </div>
+          <span class="btn-open">Vào làm Bài 3 →</span>
+        </a>
+      </div>
+
+      <!-- HOMEWORK BANNER -->
+      <a href="homework.html" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(250, 204, 21, 0.12), rgba(0, 0, 0, 0.6)); border: 1px solid rgba(250, 204, 21, 0.35); border-radius: 16px; padding: 1.5rem 2rem; margin-top: 1.75rem; text-decoration: none; color: inherit; transition: all 0.25s ease;" onmouseover="this.style.borderColor='#facc15'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='rgba(250, 204, 21, 0.35)'; this.style.transform='none';">
+        <div>
+          <span style="display: inline-block; background: rgba(250, 204, 21, 0.15); color: #facc15; border: 1px solid rgba(250, 204, 21, 0.4); padding: 0.2rem 0.65rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.4rem;">Bài Tập Về Nhà</span>
+          <h2 style="font-size: 1.3rem; margin-bottom: 0.25rem; color: #fff;">Homework (Đã tách 6 bài riêng biệt)</h2>
+          <p style="color: #a1a1aa; font-size: 0.88rem; margin: 0;">Đổi tiền USD, Số chẵn/lẻ, Tính BMI, Mô phỏng Đăng nhập, Máy tính giảm giá & Phân loại tam giác.</p>
+        </div>
+        <span style="color: #facc15; font-weight: 700; font-size: 0.95rem; white-space: nowrap; margin-left: 1rem;">Mở Danh Mục 6 Bài →</span>
+      </a>
+
+      <footer>
+        Sinh viên thực hiện: <strong>Gia Long (Ja Long)</strong> · Lưu trữ cục bộ tại <code>Bai8/</code>
+      </footer>
+    </div>
+  </body>
+</html>

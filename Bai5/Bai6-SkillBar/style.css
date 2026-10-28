@@ -1,0 +1,64 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #09090b;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.skills-container {
+    width: 100%;
+    max-width: 500px;
+    background: #121217;
+    border: 1px solid #272732;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #facc15;
+}
+
+.skill-box {
+    margin-bottom: 25px;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #f8fafc;
+}
+
+.progress-bg {
+    width: 100%;
+    height: 12px;
+    background-color: #1f1f28;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0; /* Khởi tạo bằng 0 */
+    border-radius: 10px;
+    background-color: #facc15;
+    /* Sử dụng biến var(--target-width) được truyền từ HTML */
+    animation: fillBar 2s ease-out forwards;
+}
+
+@keyframes fillBar {
+    from {
+        width: 0;
+    }
+    to {
+        width: var(--target-width);
+    }
+}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 6 | Vòng lặp chào hỏi</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead"><span class="course-label">TUẦN 09 · BÀI TẬP 06</span></header>
+      <section class="exercise-head"><p class="eyebrow">ARRAY + FOR...OF</p><h1>Vòng lặp chào hỏi</h1><p>Duyệt mảng năm thành viên bằng <code>for...of</code> và tạo lời chào cho từng người.</p></section>
+      <section class="workbench"><h2>Lời chào thành viên</h2><div class="result result-list" id="result" aria-live="polite"></div><p class="code-note">Thay tên trong mảng <code>thanhVien</code> để dùng tên nhóm của bạn.</p></section>
+    </main>
+    <script>
+      const thanhVien = ["An", "Bình", "Chi", "Dũng", "Hà"];
+      const loiChao = [];
+
+      for (const ten of thanhVien) {
+        const cauChao = `Xin chào ${ten}! Chúc bạn một ngày vui vẻ.`;
+        loiChao.push(cauChao);
+        console.log(cauChao);
+      }
+
+      document.getElementById("result").innerHTML = loiChao
+        .map((cauChao) => `<p>${cauChao}</p>`)
+        .join("");
+    </script>
+  </body>
+</html>

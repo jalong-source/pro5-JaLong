@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 4 (HW) — Logic Đăng Nhập (Mô Phỏng)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --bg: #09090b;
+        --surface: #121217;
+        --surface-raised: #1a1a22;
+        --border: #272732;
+        --text-white: #ffffff;
+        --text-sub: #e4e4e7;
+        --text-muted: #a1a1aa;
+        --yellow: #facc15;
+        --yellow-hover: #ffe043;
+        --yellow-dim: rgba(250, 204, 21, 0.12);
+        --yellow-glow: rgba(250, 204, 21, 0.25);
+        --code-bg: #050508;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text-white);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6;
+        padding: 2.5rem 1rem;
+        min-height: 100vh;
+      }
+
+      .container { max-width: 780px; margin: 0 auto; }
+
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .nav-link {
+        color: var(--yellow);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .nav-link:hover { color: var(--yellow-hover); text-decoration: underline; }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2.25rem;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+      }
+
+      .badge {
+        display: inline-block;
+        background: var(--yellow-dim);
+        color: var(--yellow);
+        border: 1px solid rgba(250, 204, 21, 0.35);
+        padding: 0.3rem 0.8rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      h1 { font-size: 1.85rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+      p.desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.75rem; }
+
+      .interactive-panel {
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+      }
+
+      @media (max-width: 600px) {
+        .grid-2 { grid-template-columns: 1fr; }
+      }
+
+      label {
+        display: block;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-sub);
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="text"], input[type="password"] {
+        width: 100%;
+        background: #09090b;
+        border: 1px solid var(--border);
+        color: #fff;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      input:focus {
+        border-color: var(--yellow);
+        box-shadow: 0 0 0 3px var(--yellow-glow);
+      }
+
+      .hint-box {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        margin-bottom: 1.25rem;
+      }
+
+      .hint-box code {
+        background: #09090b;
+        border: 1px solid var(--border);
+        padding: 0.15rem 0.4rem;
+        border-radius: 4px;
+        color: var(--yellow);
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+      .btn-primary {
+        background: var(--yellow);
+        color: #09090b;
+        font-weight: 700;
+        padding: 0.75rem 1.4rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.92rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background: var(--yellow-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px var(--yellow-glow);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        font-size: 0.92rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-outline:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .result-card {
+        margin-top: 1.25rem;
+        background: #09090b;
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--yellow);
+        border-radius: 8px;
+        padding: 1.1rem 1.35rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.92rem;
+        line-height: 1.8;
+      }
+
+      h2 { font-size: 1.15rem; color: var(--yellow); margin: 1.5rem 0 0.6rem; }
+
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.25rem;
+        overflow-x: auto;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.88rem;
+        color: #e4e4e7;
+      }
+
+      .code-cmt { color: #71717a; font-style: italic; }
+      .code-key { color: #facc15; font-weight: 600; }
+      .code-str { color: #ffffff; }
+
+      .footer-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <a href="hw3.html" class="nav-link">← Bài 3: Tính BMI</a>
+        <a href="hw5.html" class="nav-link">Sang Bài 5: Giảm Giá →</a>
+      </div>
+
+      <main class="card">
+        <span class="badge">Bài Tập Về Nhà 04 · Toán Tử Logic &amp;&amp;</span>
+        <h1>Logic Đăng Nhập (Mô Phỏng)</h1>
+        <p class="desc">
+          Tạo 2 biến cố định lưu tài khoản chuẩn. Sử dụng cấu trúc điều kiện <code>if</code> với toán tử <code>&amp;&amp;</code> để kiểm tra tính chính xác của tên người dùng và mật khẩu.
+        </p>
+
+        <!-- FORM TƯƠNG TÁC -->
+        <div class="interactive-panel">
+          <div class="hint-box">
+            🔑 Tài khoản mẫu: username là <code>admin</code>, password là <code>123456</code>.
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <label for="user-input">Tên đăng nhập (Username):</label>
+              <input type="text" id="user-input" value="admin" placeholder="Nhập username...">
+            </div>
+            <div>
+              <label for="pass-input">Mật khẩu (Password):</label>
+              <input type="password" id="pass-input" value="123456" placeholder="Nhập password...">
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button class="btn-primary" onclick="dangNhapTrucTiep()">⚡ Đăng nhập thử</button>
+            <button class="btn-outline" onclick="chayPrompt()">💬 Dùng prompt() & alert()</button>
+          </div>
+
+          <div id="result-box" class="result-card">
+            Trạng thái xác thực: <span id="out-auth" style="color:var(--yellow); font-weight:700;">Đăng nhập thành công</span><br>
+            Chi tiết phản hồi: <span id="out-msg" style="color:var(--text-sub);">Thông tin tài khoản chính xác!</span>
+          </div>
+        </div>
+
+        <h2>Mã nguồn JavaScript mẫu</h2>
+        <pre><code><span class="code-key">function</span> <span class="code-key">moPhongDangNhap</span>() {
+  <span class="code-key">const</span> USER_CHUAN = <span class="code-str">"admin"</span>;
+  <span class="code-key">const</span> PASS_CHUAN = <span class="code-str">"123456"</span>;
+
+  <span class="code-key">let</span> user = prompt(<span class="code-str">"Nhập tên đăng nhập:"</span>, <span class="code-str">"admin"</span>);
+  <span class="code-key">let</span> pass = prompt(<span class="code-str">"Nhập mật khẩu:"</span>, <span class="code-str">"123456"</span>);
+
+  <span class="code-cmt">// Kiểm tra đúng cả 2 với toán tử &amp;&amp;</span>
+  <span class="code-key">if</span> (user === USER_CHUAN &amp;&amp; pass === PASS_CHUAN) {
+    alert(<span class="code-str">"Đăng nhập thành công! Chào mừng bạn."</span>);
+    console.log(<span class="code-str">"Đăng nhập thành công"</span>);
+  } <span class="code-key">else</span> {
+    alert(<span class="code-str">"Thông tin không chính xác!"</span>);
+    console.log(<span class="code-str">"Thông tin không chính xác"</span>);
+  }
+}</code></pre>
+      </main>
+
+      <div class="footer-nav">
+        <a href="hw3.html" class="nav-link">← Bài 3: Tính BMI</a>
+        <a href="hw5.html" class="nav-link">Bài 5: Giảm Giá →</a>
+      </div>
+    </div>
+
+    <script>
+      const USER_CHUAN = "admin";
+      const PASS_CHUAN = "123456";
+
+      function dangNhapTrucTiep() {
+        let u = document.getElementById("user-input").value.trim();
+        let p = document.getElementById("pass-input").value;
+
+        let authEl = document.getElementById("out-auth");
+        let msgEl = document.getElementById("out-msg");
+
+        if (u === USER_CHUAN && p === PASS_CHUAN) {
+          authEl.innerHTML = `<span style="color: #facc15;">✔ ĐĂNG NHẬP THÀNH CÔNG</span>`;
+          msgEl.innerText = "Chào mừng bạn đã truy cập hệ thống!";
+          console.log(`[Bài 4] Đăng nhập thành công với tài khoản: ${u}`);
+        } else {
+          authEl.innerHTML = `<span style="color: #ffffff; text-decoration: underline;">✖ THÔNG TIN KHÔNG CHÍNH XÁC</span>`;
+          msgEl.innerText = "Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại!";
+          console.log(`[Bài 4] Đăng nhập thất bại.`);
+        }
+      }
+
+      function chayPrompt() {
+        let u = prompt("Nhập tên đăng nhập (Username):", "admin");
+        if (u === null) return;
+        let p = prompt("Nhập mật khẩu (Password):", "123456");
+        if (p === null) return;
+
+        if (u === USER_CHUAN && p === PASS_CHUAN) {
+          alert("✔ Đăng nhập thành công! Chào mừng bạn.");
+          console.log("Đăng nhập thành công");
+        } else {
+          alert("✖ Thông tin không chính xác!");
+          console.log("Thông tin không chính xác");
+        }
+
+        document.getElementById("user-input").value = u;
+        document.getElementById("pass-input").value = p;
+        dangNhapTrucTiep();
+      }
+    </script>
+  </body>
+</html>
+

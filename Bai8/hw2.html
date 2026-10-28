@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 2 (HW) — Kiểm Tra Số Chẵn / Lẻ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --bg: #09090b;
+        --surface: #121217;
+        --surface-raised: #1a1a22;
+        --border: #272732;
+        --text-white: #ffffff;
+        --text-sub: #e4e4e7;
+        --text-muted: #a1a1aa;
+        --yellow: #facc15;
+        --yellow-hover: #ffe043;
+        --yellow-dim: rgba(250, 204, 21, 0.12);
+        --yellow-glow: rgba(250, 204, 21, 0.25);
+        --code-bg: #050508;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text-white);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6;
+        padding: 2.5rem 1rem;
+        min-height: 100vh;
+      }
+
+      .container { max-width: 780px; margin: 0 auto; }
+
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .nav-link {
+        color: var(--yellow);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .nav-link:hover { color: var(--yellow-hover); text-decoration: underline; }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2.25rem;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+      }
+
+      .badge {
+        display: inline-block;
+        background: var(--yellow-dim);
+        color: var(--yellow);
+        border: 1px solid rgba(250, 204, 21, 0.35);
+        padding: 0.3rem 0.8rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      h1 { font-size: 1.85rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+      p.desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.75rem; }
+
+      .interactive-panel {
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .form-group { margin-bottom: 1.25rem; }
+
+      label {
+        display: block;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-sub);
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        background: #09090b;
+        border: 1px solid var(--border);
+        color: #fff;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      input:focus {
+        border-color: var(--yellow);
+        box-shadow: 0 0 0 3px var(--yellow-glow);
+      }
+
+      .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+      .btn-primary {
+        background: var(--yellow);
+        color: #09090b;
+        font-weight: 700;
+        padding: 0.75rem 1.4rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.92rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background: var(--yellow-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px var(--yellow-glow);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        font-size: 0.92rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-outline:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .result-card {
+        margin-top: 1.25rem;
+        background: #09090b;
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--yellow);
+        border-radius: 8px;
+        padding: 1.1rem 1.35rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.92rem;
+        line-height: 1.8;
+      }
+
+      .result-val {
+        color: var(--yellow);
+        font-weight: 700;
+        font-size: 1.15rem;
+      }
+
+      h2 { font-size: 1.15rem; color: var(--yellow); margin: 1.5rem 0 0.6rem; }
+
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.25rem;
+        overflow-x: auto;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.88rem;
+        color: #e4e4e7;
+      }
+
+      .code-cmt { color: #71717a; font-style: italic; }
+      .code-key { color: #facc15; font-weight: 600; }
+      .code-str { color: #ffffff; }
+
+      .footer-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <a href="hw1.html" class="nav-link">← Bài 1: Đổi tiền USD</a>
+        <a href="hw3.html" class="nav-link">Sang Bài 3: Tính BMI →</a>
+      </div>
+
+      <main class="card">
+        <span class="badge">Bài Tập Về Nhà 02 · Toán Tử Chia Dư %</span>
+        <h1>Kiểm Tra Số Chẵn / Số Lẻ</h1>
+        <p class="desc">
+          Nhập một số nguyên bất kỳ từ bàn phím. Sử dụng toán tử chia lấy dư <code>% 2</code> để xác định chính xác số đó là chẵn hay lẻ.
+        </p>
+
+        <!-- FORM TƯƠNG TÁC -->
+        <div class="interactive-panel">
+          <div class="form-group">
+            <label for="number-input">Nhập số nguyên cần kiểm tra:</label>
+            <input type="number" id="number-input" value="18" placeholder="Nhập một số nguyên...">
+          </div>
+
+          <div class="btn-group">
+            <button class="btn-primary" onclick="kiemTraTrucTiep()">⚡ Kiểm tra ngay</button>
+            <button class="btn-outline" onclick="chayPrompt()">💬 Dùng prompt() & alert()</button>
+          </div>
+
+          <div id="result-box" class="result-card">
+            Số đang kiểm tra: <span id="out-num" style="color:#fff; font-weight:600;">18</span><br>
+            Phép tính dư: <span id="out-mod" style="color:var(--text-muted);">18 % 2 = 0</span><br>
+            Kết luận: <span id="out-conclusion" class="result-val">SỐ CHẴN</span>
+          </div>
+        </div>
+
+        <h2>Mã nguồn JavaScript mẫu</h2>
+        <pre><code><span class="code-key">function</span> <span class="code-key">kiemTraChanLe</span>() {
+  <span class="code-key">let</span> input = prompt(<span class="code-str">"Nhập vào một số nguyên bất kỳ:"</span>, <span class="code-str">"18"</span>);
+  <span class="code-key">if</span> (input === <span class="code-key">null</span> || input.trim() === <span class="code-str">""</span>) <span class="code-key">return</span>;
+
+  <span class="code-key">let</span> n = <span class="code-key">parseInt</span>(input);
+  <span class="code-key">if</span> (<span class="code-key">isNaN</span>(n)) {
+    alert(<span class="code-str">"Vui lòng nhập một số hợp lệ!"</span>);
+    <span class="code-key">return</span>;
+  }
+
+  <span class="code-cmt">// Kiểm tra số dư khi chia cho 2</span>
+  <span class="code-key">if</span> (n % <span class="code-key">2</span> === <span class="code-key">0</span>) {
+    alert(`Số ${n} là SỐ CHẴN.`);
+    console.log(`Số ${n} là số chẵn.`);
+  } <span class="code-key">else</span> {
+    alert(`Số ${n} là SỐ LẺ.`);
+    console.log(`Số ${n} là số lẻ.`);
+  }
+}</code></pre>
+      </main>
+
+      <div class="footer-nav">
+        <a href="hw1.html" class="nav-link">← Bài 1: Đổi tiền USD</a>
+        <a href="hw3.html" class="nav-link">Bài 3: Tính BMI →</a>
+      </div>
+    </div>
+
+    <script>
+      function kiemTraTrucTiep() {
+        let val = document.getElementById("number-input").value;
+        let n = parseInt(val);
+
+        if (isNaN(n)) {
+          alert("Vui lòng nhập một số nguyên hợp lệ!");
+          return;
+        }
+
+        let isEven = (n % 2 === 0);
+        let mod = Math.abs(n % 2);
+
+        document.getElementById("out-num").innerText = n;
+        document.getElementById("out-mod").innerText = `${n} % 2 = ${mod}`;
+        document.getElementById("out-conclusion").innerText = isEven ? "SỐ CHẴN" : "SỐ LẺ";
+
+        console.log(`[Bài 2] Số ${n} là ${isEven ? "số chẵn" : "số lẻ"}`);
+      }
+
+      function chayPrompt() {
+        let input = prompt("Nhập một số nguyên bất kỳ:", "25");
+        if (input === null) return;
+        let n = parseInt(input);
+
+        if (isNaN(n)) {
+          alert("Vui lòng nhập một số hợp lệ!");
+          return;
+        }
+
+        let msg = (n % 2 === 0) ? `Số ${n} là SỐ CHẴN.` : `Số ${n} là SỐ LẺ.`;
+        alert(msg);
+        console.log(msg);
+
+        document.getElementById("number-input").value = n;
+        kiemTraTrucTiep();
+      }
+    </script>
+  </body>
+</html>
+

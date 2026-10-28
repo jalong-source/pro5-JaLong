@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 1 | The Counting Machine</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead"><span class="course-label">HOẠT ĐỘNG TRÊN LỚP · 01</span></header>
+      <section class="exercise-head"><p class="eyebrow">30 PHÚT · FOR LOOP</p><h1>The Counting Machine</h1><p>Dùng vòng lặp <code>for</code> để đếm từ 1 đến 100. Đổi chế độ để chỉ giữ lại số chẵn.</p></section>
+      <section class="workbench">
+        <h2>Chế độ đếm</h2>
+        <div class="controls" role="group" aria-label="Chọn chế độ hiển thị">
+          <button type="button" class="mode-button" data-mode="all" aria-pressed="true">Tất cả 1–100</button>
+          <button type="button" class="mode-button" data-mode="even" aria-pressed="false">Chỉ số chẵn</button>
+        </div>
+        <div class="result result-list" id="result" aria-live="polite"></div>
+        <p class="code-note" id="count" aria-live="polite"></p>
+        <pre class="code-block"><code>for (let i = 1; i &lt;= 100; i++) {
+  if (i % 2 === 0) {
+    console.log(i);
+  }
+}</code></pre>
+        <div class="prompt-box"><strong>Thử giải thích:</strong> <code>let i = 1</code> khởi tạo biến đếm; <code>i &lt;= 100</code> là điều kiện tiếp tục; <code>i++</code> tăng biến đếm sau mỗi lượt. Vì sao kiểm tra <code>i % 2 === 0</code> chọn được số chẵn?</div>
+      </section>
+    </main>
+    <script>
+      const result = document.getElementById("result");
+      const count = document.getElementById("count");
+      const modeButtons = document.querySelectorAll(".mode-button");
+
+      function hienThiDaySo(mode) {
+        const daySo = [];
+        for (let i = 1; i <= 100; i++) {
+          if (mode === "all" || i % 2 === 0) {
+            daySo.push(i);
+            console.log(i);
+          }
+        }
+        result.innerHTML = daySo.map((so) => `<p>${so}</p>`).join("");
+        count.textContent = `Đang hiển thị ${daySo.length} số.`;
+        modeButtons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.mode === mode));
+        });
+      }
+
+      modeButtons.forEach((button) => {
+        button.addEventListener("click", () => hienThiDaySo(button.dataset.mode));
+      });
+      hienThiDaySo("all");
+    </script>
+  </body>
+</html>

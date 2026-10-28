@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 1 | Bảng cửu chương 7</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead"><span class="course-label">TUẦN 09 · BÀI TẬP 01</span></header>
+      <section class="exercise-head"><p class="eyebrow">FOR LOOP</p><h1>Bảng cửu chương 7</h1><p>Dùng vòng lặp <code>for</code> để nhân 7 lần lượt với các số từ 1 đến 10.</p></section>
+      <section class="workbench"><h2>Kết quả chạy chương trình</h2><div class="result result-list" id="result" aria-live="polite"></div><p class="code-note">Mở Console để xem các dòng được ghi bằng <code>console.log()</code>.</p></section>
+    </main>
+    <script>
+      const bangCuuChuong = [];
+
+      for (let i = 1; i <= 10; i++) {
+        const dong = `7 x ${i} = ${7 * i}`;
+        bangCuuChuong.push(dong);
+        console.log(dong);
+      }
+
+      document.getElementById("result").innerHTML = bangCuuChuong
+        .map((dong) => `<p>${dong}</p>`)
+        .join("");
+    </script>
+  </body>
+</html>

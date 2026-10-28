@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 5 (HW) — Máy Tính Giảm Giá</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --bg: #09090b;
+        --surface: #121217;
+        --surface-raised: #1a1a22;
+        --border: #272732;
+        --text-white: #ffffff;
+        --text-sub: #e4e4e7;
+        --text-muted: #a1a1aa;
+        --yellow: #facc15;
+        --yellow-hover: #ffe043;
+        --yellow-dim: rgba(250, 204, 21, 0.12);
+        --yellow-glow: rgba(250, 204, 21, 0.25);
+        --code-bg: #050508;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text-white);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6;
+        padding: 2.5rem 1rem;
+        min-height: 100vh;
+      }
+
+      .container { max-width: 780px; margin: 0 auto; }
+
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .nav-link {
+        color: var(--yellow);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .nav-link:hover { color: var(--yellow-hover); text-decoration: underline; }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2.25rem;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+      }
+
+      .badge {
+        display: inline-block;
+        background: var(--yellow-dim);
+        color: var(--yellow);
+        border: 1px solid rgba(250, 204, 21, 0.35);
+        padding: 0.3rem 0.8rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      h1 { font-size: 1.85rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+      p.desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.75rem; }
+
+      .interactive-panel {
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .form-group { margin-bottom: 1.25rem; }
+
+      label {
+        display: block;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-sub);
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        background: #09090b;
+        border: 1px solid var(--border);
+        color: #fff;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      input:focus {
+        border-color: var(--yellow);
+        box-shadow: 0 0 0 3px var(--yellow-glow);
+      }
+
+      .rule-note {
+        font-size: 0.83rem;
+        color: var(--text-muted);
+        margin-top: 0.4rem;
+      }
+
+      .rule-note span { color: var(--yellow); font-weight: 600; }
+
+      .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+
+      .btn-primary {
+        background: var(--yellow);
+        color: #09090b;
+        font-weight: 700;
+        padding: 0.75rem 1.4rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.92rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background: var(--yellow-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px var(--yellow-glow);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        font-size: 0.92rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-outline:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .result-card {
+        margin-top: 1.25rem;
+        background: #09090b;
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--yellow);
+        border-radius: 8px;
+        padding: 1.1rem 1.35rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.92rem;
+        line-height: 1.8;
+      }
+
+      .result-val {
+        color: var(--yellow);
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+
+      h2 { font-size: 1.15rem; color: var(--yellow); margin: 1.5rem 0 0.6rem; }
+
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.25rem;
+        overflow-x: auto;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.88rem;
+        color: #e4e4e7;
+      }
+
+      .code-cmt { color: #71717a; font-style: italic; }
+      .code-key { color: #facc15; font-weight: 600; }
+      .code-str { color: #ffffff; }
+
+      .footer-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <a href="hw4.html" class="nav-link">← Bài 4: Đăng Nhập</a>
+        <a href="hw6.html" class="nav-link">Sang Bài 6: Phân Loại Tam Giác →</a>
+      </div>
+
+      <main class="card">
+        <span class="badge">Bài Tập Về Nhà 05 · Rẽ Nhánh Điều Kiện</span>
+        <h1>Máy Tính Giảm Giá (Discount Calculator)</h1>
+        <p class="desc">
+          Nhập số tiền hóa đơn mua sắm. Nếu hóa đơn lớn hơn 500.000 VNĐ, hệ thống tự động giảm giá 10%, ngược lại giữ nguyên mức thanh toán.
+        </p>
+
+        <!-- FORM TƯƠNG TÁC -->
+        <div class="interactive-panel">
+          <div class="form-group">
+            <label for="bill-input">Số tiền hóa đơn (VNĐ):</label>
+            <input type="number" id="bill-input" value="650000" step="10000" min="0" placeholder="Ví dụ: 650000">
+            <p class="rule-note">💡 Ưu đãi: Hóa đơn <span>&gt; 500.000 VNĐ</span> được tự động giảm ngay <span>10%</span>.</p>
+          </div>
+
+          <div class="btn-group">
+            <button class="btn-primary" onclick="tinhGiamGiaTrucTiep()">⚡ Tính tiền thanh toán</button>
+            <button class="btn-outline" onclick="chayPrompt()">💬 Dùng prompt() & alert()</button>
+          </div>
+
+          <div id="result-box" class="result-card">
+            Hóa đơn gốc: <span id="out-original" style="color:#fff; font-weight:600;">650,000 VNĐ</span><br>
+            Mức giảm giá: <span id="out-rate" style="color:var(--yellow);">10%</span> (<span id="out-discount">-65,000 VNĐ</span>)<br>
+            Tổng số tiền phải trả: <span id="out-final" class="result-val">585,000 VNĐ</span>
+          </div>
+        </div>
+
+        <h2>Mã nguồn JavaScript mẫu</h2>
+        <pre><code><span class="code-key">function</span> <span class="code-key">tinhGiamGia</span>() {
+  <span class="code-key">let</span> tongTien = <span class="code-key">parseFloat</span>(prompt(<span class="code-str">"Nhập số tiền hóa đơn (VNĐ):"</span>, <span class="code-str">"650000"</span>));
+
+  <span class="code-key">if</span> (<span class="code-key">isNaN</span>(tongTien) || tongTien &lt; <span class="code-key">0</span>) {
+    alert(<span class="code-str">"Số tiền không hợp lệ!"</span>);
+    <span class="code-key">return</span>;
+  }
+
+  <span class="code-key">let</span> giamGia = <span class="code-key">0</span>;
+  <span class="code-cmt">// Kiểm tra nếu hóa đơn &gt; 500.000 VNĐ thì giảm 10%</span>
+  <span class="code-key">if</span> (tongTien &gt; <span class="code-key">500000</span>) {
+    giamGia = tongTien * <span class="code-key">0.10</span>;
+  }
+
+  <span class="code-key">let</span> thanhToan = tongTien - giamGia;
+  <span class="code-key">let</span> msg = `Hóa đơn: ${tongTien.toLocaleString('vi-VN')} đ\n` +
+            `Giảm giá: ${giamGia.toLocaleString('vi-VN')} đ\n` +
+            `Số tiền phải trả: ${thanhToan.toLocaleString('vi-VN')} đ`;
+
+  alert(msg);
+  console.log(msg);
+}</code></pre>
+      </main>
+
+      <div class="footer-nav">
+        <a href="hw4.html" class="nav-link">← Bài 4: Đăng Nhập</a>
+        <a href="hw6.html" class="nav-link">Bài 6: Phân Loại Tam Giác →</a>
+      </div>
+    </div>
+
+    <script>
+      function tinhGiamGiaTrucTiep() {
+        let val = document.getElementById("bill-input").value;
+        let tongTien = parseFloat(val);
+
+        if (isNaN(tongTien) || tongTien < 0) {
+          alert("Vui lòng nhập số tiền hóa đơn hợp lệ (lớn hơn hoặc bằng 0)!");
+          return;
+        }
+
+        let giamGia = 0;
+        let rate = "0%";
+        if (tongTien > 500000) {
+          giamGia = tongTien * 0.10;
+          rate = "10%";
+        }
+
+        let thanhToan = tongTien - giamGia;
+
+        document.getElementById("out-original").innerText = tongTien.toLocaleString("vi-VN") + " VNĐ";
+        document.getElementById("out-rate").innerText = rate;
+        document.getElementById("out-discount").innerText = "-" + giamGia.toLocaleString("vi-VN") + " VNĐ";
+        document.getElementById("out-final").innerText = thanhToan.toLocaleString("vi-VN") + " VNĐ";
+
+        console.log(`[Bài 5] Hóa đơn: ${tongTien.toLocaleString("vi-VN")} đ => Giảm giá: ${giamGia.toLocaleString("vi-VN")} đ => Phải trả: ${thanhToan.toLocaleString("vi-VN")} đ`);
+      }
+
+      function chayPrompt() {
+        let input = prompt("Nhập tổng số tiền hóa đơn (VNĐ):", "750000");
+        if (input === null) return;
+        let tongTien = parseFloat(input);
+
+        if (isNaN(tongTien) || tongTien < 0) {
+          alert("Số tiền không hợp lệ!");
+          return;
+        }
+
+        let giamGia = 0;
+        let rate = "0%";
+        if (tongTien > 500000) {
+          giamGia = tongTien * 0.10;
+          rate = "10%";
+        }
+
+        let thanhToan = tongTien - giamGia;
+        let msg = `Hóa đơn gốc: ${tongTien.toLocaleString("vi-VN")} VNĐ\nGiảm giá (${rate}): -${giamGia.toLocaleString("vi-VN")} VNĐ\nTổng thanh toán: ${thanhToan.toLocaleString("vi-VN")} VNĐ`;
+        alert(msg);
+        console.log(msg);
+
+        document.getElementById("bill-input").value = tongTien;
+        tinhGiamGiaTrucTiep();
+      }
+    </script>
+  </body>
+</html>
+

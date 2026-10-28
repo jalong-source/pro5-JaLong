@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Danh Mục Bài Tập Về Nhà (Homework) — Tuần 8</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --bg: #09090b;
+        --surface: #121217;
+        --surface-hover: #181820;
+        --border: #272732;
+        --text-white: #ffffff;
+        --text-sub: #e4e4e7;
+        --text-muted: #a1a1aa;
+        --yellow: #facc15;
+        --yellow-hover: #ffe043;
+        --yellow-dim: rgba(250, 204, 21, 0.12);
+        --yellow-glow: rgba(250, 204, 21, 0.25);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text-white);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6;
+        padding: 3rem 1rem;
+        min-height: 100vh;
+      }
+
+      .container { max-width: 900px; margin: 0 auto; width: 100%; }
+
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .nav-link {
+        color: var(--yellow);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: 0.2s;
+      }
+
+      .nav-link:hover { color: var(--yellow-hover); text-decoration: underline; }
+
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .tag {
+        display: inline-block;
+        background: var(--yellow-dim);
+        color: var(--yellow);
+        border: 1px solid rgba(250, 204, 21, 0.35);
+        padding: 0.35rem 0.9rem;
+        border-radius: 9999px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 0.85rem;
+      }
+
+      h1 { font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 0.6rem; letter-spacing: -0.02em; }
+      p.sub { color: var(--text-muted); font-size: 1rem; max-width: 620px; margin: 0 auto; }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      @media (max-width: 700px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+
+      .card-item {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.85rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.25s ease;
+      }
+
+      .card-item::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: transparent;
+        transition: background 0.25s ease;
+      }
+
+      .card-item:hover {
+        background: var(--surface-hover);
+        border-color: var(--yellow);
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px -5px var(--yellow-glow);
+      }
+
+      .card-item:hover::before {
+        background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+      }
+
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+      }
+
+      .card-badge {
+        font-size: 0.75rem;
+        font-weight: 800;
+        background: var(--yellow-dim);
+        color: var(--yellow);
+        border: 1px solid rgba(250, 204, 21, 0.3);
+        padding: 0.25rem 0.6rem;
+        border-radius: 6px;
+        letter-spacing: 0.05em;
+      }
+
+      .card-icon {
+        font-size: 1.3rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+
+      p.card-desc {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      .btn-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--yellow);
+        font-weight: 700;
+        font-size: 0.92rem;
+        margin-top: auto;
+        transition: transform 0.2s ease;
+      }
+
+      .card-item:hover .btn-cta {
+        transform: translateX(4px);
+        color: var(--yellow-hover);
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 3.5rem;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <a href="index.html" class="nav-link">← Quay lại Menu Tuần 8</a>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">Tông màu: Vàng · Đen · Trắng</span>
+      </div>
+
+      <header class="header">
+        <span class="tag">Homework · Tuần 8</span>
+        <h1>Bài Tập Tự Rèn Luyện Tại Nhà</h1>
+        <p class="sub">
+          Đã tách thành 6 bài riêng biệt với giao diện tương tác trực tiếp, tông màu Vàng - Đen - Trắng hiện đại.
+        </p>
+      </header>
+
+      <div class="grid">
+        <!-- BÀI 1 -->
+        <a href="hw1.html" class="card-item">
+          <div>
+            <div class="card-top">
+              <span class="card-badge">BÀI 1</span>
+              <span class="card-icon">💵</span>
+            </div>
+            <h2>Chuyển Đổi Tiền Tệ</h2>
+            <p class="card-desc">
+              Nhập số USD và tính tiền VND tương ứng với tỉ giá cố định 25.000 VNĐ. Có chức năng nhập trực tiếp và prompt.
+            </p>
+          </div>
+          <span class="btn-cta">Vào làm Bài 1 →</span>
+        </a>
+
+        <!-- BÀI 2 -->
+        <a href="hw2.html" class="card-item">
+          <div>
+            <div class="card-top">
+              <span class="card-badge">BÀI 2</span>
+              <span class="card-icon">🔢</span>
+            </div>
+            <h2>Kiểm Tra Số Chẵn / Lẻ</h2>
+            <p class="card-desc">
+              Nhập số nguyên bất kỳ từ bàn phím và sử dụng toán tử chia lấy dư <code>% 2</code> để xác định chẵn hay lẻ.
+            </p>
+          </div>
+          <span class="btn-cta">Vào làm Bài 2 →</span>
+        </a>
+
+        <!-- BÀI 3 -->
+        <a href="hw3.html" class="card-item">
+          <div>
+            <div class="card-top">
+              <span class="card-badge">BÀI 3</span>
+              <span class="card-icon">⚖️</span>
+            </div>
+            <h2>Tính Chỉ Số BMI</h2>
+            <p class="card-desc">
+              Nhập chiều cao (m) và cân nặng (kg). Áp dụng công thức tính BMI và phân loại thể lực theo chuẩn y tế.
+            </p>
+          </div>
+          <span class="btn-cta">Vào làm Bài 3 →</span>
+        </a>
+
+        <!-- BÀI 4 -->
+        <a href="hw4.html" class="card-item">
+          <div>
+            <div class="card-top">
+              <span class="card-badge">BÀI 4</span>
+              <span class="card-icon">🔐</span>
+            </div>
+            <h2>Mô Phỏng Đăng Nhập</h2>
+            <p class="card-desc">
+              Khởi tạo username và password cố định. Sử dụng toán tử logic <code>&amp;&amp;</code> để kiểm tra xác thực người dùng.
+            </p>
+          </div>
+          <span class="btn-cta">Vào làm Bài 4 →</span>
+        </a>
+
+        <!-- BÀI 5 -->
+        <a href="hw5.html" class="card-item">
+          <div>
+            <div class="card-top">
+              <span class="card-badge">BÀI 5</span>
+              <span class="card-icon">🏷️</span>
+            </div>
+            <h2>Máy Tính Giảm Giá</h2>
+            <p class="card-desc">
+              Nhập hóa đơn mua hàng. Tự động áp dụng giảm giá 10% nếu hóa đơn &gt; 500.000 VNĐ và tính tổng tiền thanh toán.
+            </p>
+          </div>
+          <span class="btn-cta">Vào làm Bài 5 →</span>
+        </a>
+
+        <!-- BÀI 6 -->
+        <a href="hw6.html" class="card-item">
+          <div>
+            <div class="card-top">
+              <span class="card-badge">BÀI 6</span>
+              <span class="card-icon">🔺</span>
+            </div>
+            <h2>Phân Loại Tam Giác Đều</h2>
+            <p class="card-desc">
+              Nhập độ dài 3 cạnh. Kiểm tra bất đẳng thức tam giác và xác định xem có phải tam giác đều (3 cạnh bằng nhau) không.
+            </p>
+          </div>
+          <span class="btn-cta">Vào làm Bài 6 →</span>
+        </a>
+      </div>
+
+      <footer>
+        Sinh viên: <strong>Gia Long (Ja Long)</strong> · Môn: Thiết Kế Web · Lưu trữ tại <code>Bai8/</code>
+      </footer>
+    </div>
+  </body>
+</html>

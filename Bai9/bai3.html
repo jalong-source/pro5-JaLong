@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 3 | Kiểm tra số nguyên tố</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead"><span class="course-label">TUẦN 09 · BÀI TẬP 03</span></header>
+      <section class="exercise-head"><p class="eyebrow">LOOP + REMAINDER</p><h1>Số nguyên tố?</h1><p>Hàm <code>laSoNguyenTo(so)</code> dùng vòng lặp và toán tử chia dư <code>%</code> để kiểm tra các ước số.</p></section>
+      <section class="workbench"><h2>Kiểm tra một số</h2><form class="controls" id="prime-form"><div class="field"><label for="number">Số nguyên (2–1.000.000)</label><input id="number" type="number" min="2" max="1000000" step="1" value="17" required></div><button type="submit">Kiểm tra</button></form><div class="result" id="result" aria-live="polite"></div></section>
+    </main>
+    <script>
+      function laSoNguyenTo(so) {
+        if (!Number.isInteger(so) || so < 2) return false;
+        for (let uoc = 2; uoc <= Math.sqrt(so); uoc++) {
+          if (so % uoc === 0) return false;
+        }
+        return true;
+      }
+
+      document.getElementById("prime-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const so = Number(document.getElementById("number").value);
+        const result = document.getElementById("result");
+        if (!Number.isInteger(so) || so < 2 || so > 1000000) {
+          result.classList.add("error");
+          result.textContent = "Vui lòng nhập số nguyên từ 2 đến 1.000.000.";
+          return;
+        }
+        result.classList.remove("error");
+        result.textContent = laSoNguyenTo(so) ? `${so} là số nguyên tố.` : `${so} không phải số nguyên tố.`;
+        console.log(result.textContent);
+      });
+      document.getElementById("prime-form").requestSubmit();
+    </script>
+  </body>
+</html>
