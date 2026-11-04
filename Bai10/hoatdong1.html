@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 1 | The Element Picker</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 10 · HOẠT ĐỘNG 01</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">30 PHÚT · QUERYSELECTOR</p>
+        <h1>The Element Picker</h1>
+        <p>Truy tìm thẻ HTML bằng document.querySelector() và kiểm tra trực tiếp trên console.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Truy vấn phần tử với querySelector</h2>
+<div class="controls" style="margin-bottom: 15px;">
+  <button type="button" id="btn-select">Chạy document.querySelector</button>
+</div>
+<div id="demo-box" class="target-card" style="padding: 16px; border: 1px dashed var(--mint); border-radius: 6px; margin-top: 10px;">
+  <h3 class="card-title" style="margin: 0 0 8px; color: var(--lime);">Thẻ Tiêu Đề (.card-title)</h3>
+  <p class="card-desc" style="margin: 0; color: var(--muted);">Thẻ nội dung mô tả phần tử DOM (.card-desc)</p>
+</div>
+<div class="result" id="result"></div>
+<pre class="code-block"><code>// Hoạt động 1: Thao tác tìm kiếm thẻ DOM
+const target = document.querySelector('.card-title');
+console.log(target);
+console.log("Nội dung text:", target.innerText);</code></pre>
+<div class="prompt-box"><strong>Vibe Coding Prompt:</strong> "Làm thế nào để chọn tất cả các thẻ bên trong một thẻ có id là 'menu' và đổi màu chữ của chúng sang màu đỏ?"</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="index.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="hoatdong2.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+document.getElementById('btn-select').addEventListener('click', () => {
+  const el = document.querySelector('.card-title');
+  const res = document.getElementById('result');
+  res.innerHTML = `<p>Đã tìm thấy phần tử: <code>&lt;h3 class="${el.className}"&gt;</code></p><p>Nội dung văn bản: <strong>${el.innerText}</strong></p><p>Kiểm tra console F12 để thấy object Element đầy đủ.</p>`;
+  console.log("Found DOM Element:", el);
+});
+</script>
+  </body>
+</html>

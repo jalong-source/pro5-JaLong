@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 2 | Smart Validator</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 11 · HOẠT ĐỘNG 02</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">45 PHÚT · FORM VALIDATION</p>
+        <h1>Smart Validator</h1>
+        <p>Xây dựng bộ kiểm tra thông minh, hiển thị span thông báo đỏ và viền đỏ khi sai.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Smart Validator — Báo đỏ lỗi nhập liệu</h2>
+<form id="validator-form" style="display: grid; gap: 14px; max-width: 440px;">
+  <div class="field">
+    <label for="val-username">Tên người dùng (Tối thiểu 5 ký tự):</label>
+    <input type="text" id="val-username" placeholder="Nhập username...">
+    <span id="err-username" style="color: var(--error); font-size: 0.8rem; display: none;"></span>
+  </div>
+  <div class="field">
+    <label for="val-email">Email LHU:</label>
+    <input type="text" id="val-email" placeholder="example@lhu.edu.vn">
+    <span id="err-email" style="color: var(--error); font-size: 0.8rem; display: none;"></span>
+  </div>
+  <button type="submit" id="btn-validate">Kiểm tra & Gửi</button>
+</form>
+<div class="result" id="result">Vui lòng nhập form để kiểm tra validation.</div>
+<pre class="code-block"><code>// Prompt mẫu tuần 11
+if (username.length < 5) {
+  errSpan.textContent = 'Tên quá ngắn';
+  input.style.borderColor = 'red';
+}</code></pre>
+<div class="prompt-box"><strong>Prompt mẫu:</strong> "Viết mã JS để kiểm tra một Form: Nếu ô 'username' ít hơn 5 ký tự, hãy hiển thị lỗi 'Tên quá ngắn' vào một thẻ span có class 'error-msg' và đổi border của input sang màu đỏ."</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong1.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="hoatdong3.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const form = document.getElementById('validator-form');
+const uInput = document.getElementById('val-username');
+const eInput = document.getElementById('val-email');
+const uErr = document.getElementById('err-username');
+const eErr = document.getElementById('err-email');
+const res = document.getElementById('result');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let isValid = true;
+
+  if (uInput.value.trim().length < 5) {
+    uErr.textContent = '❌ Tên người dùng phải có ít nhất 5 ký tự!';
+    uErr.style.display = 'block';
+    uInput.style.borderColor = 'var(--error)';
+    isValid = false;
+  } else {
+    uErr.style.display = 'none';
+    uInput.style.borderColor = 'var(--lime)';
+  }
+
+  if (!eInput.value.includes('@') || !eInput.value.endsWith('@lhu.edu.vn')) {
+    eErr.textContent = '❌ Email phải có đuôi @lhu.edu.vn!';
+    eErr.style.display = 'block';
+    eInput.style.borderColor = 'var(--error)';
+    isValid = false;
+  } else {
+    eErr.style.display = 'none';
+    eInput.style.borderColor = 'var(--lime)';
+  }
+
+  if (isValid) {
+    res.className = 'result';
+    res.innerHTML = `<span style="color: var(--lime);">🎉 Dữ liệu hoàn toàn hợp lệ! Sẵn sàng chuyển tiếp xử lý.</span>`;
+  } else {
+    res.className = 'result error';
+    res.textContent = 'Có trường thông tin chưa đạt yêu cầu. Vui lòng sửa lại!';
+  }
+});
+</script>
+  </body>
+</html>

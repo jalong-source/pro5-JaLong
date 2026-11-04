@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 1 | Đổi lời chào theo tên</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 10 · BÀI TẬP 01</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">DOM TEXT & EVENT</p>
+        <h1>Thay đổi lời chào theo tên</h1>
+        <p>Tạo ô input và nút nhấn để hiển thị lời chào trực tiếp lên giao diện thay vì alert.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Nhập tên và gửi lời chào</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <div class="field">
+    <label for="input-name">Họ và tên của bạn:</label>
+    <input type="text" id="input-name" placeholder="Ví dụ: Nguyễn Văn A">
+  </div>
+  <button type="button" id="btn-greet">Gửi lời chào</button>
+</div>
+<div class="result" id="result"></div>
+<div class="prompt-box"><strong>Yêu cầu bài 1:</strong> Tạo 1 ô input và 1 nút bấm. Khi nhấn nút, hiển thị thông báo "Chào mừng [Tên người dùng]!" lên trang web thay vì dùng alert.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong3.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai2.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+document.getElementById('btn-greet').addEventListener('click', () => {
+  const name = document.getElementById('input-name').value.trim();
+  const res = document.getElementById('result');
+  if (!name) {
+    res.className = 'result error';
+    res.textContent = 'Vui lòng nhập tên của bạn trước khi nhấn gửi!';
+    return;
+  }
+  res.className = 'result';
+  res.innerHTML = `<h3 style="margin: 0; color: var(--lime);">🎉 Chào mừng ${name}! Chúc bạn một ngày học tập hứng khởi!</h3>`;
+});
+</script>
+  </body>
+</html>

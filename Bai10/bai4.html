@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 4 | Kiểm tra độ dài mật khẩu</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 10 · BÀI TẬP 04</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">INPUT EVENT & STYLES</p>
+        <h1>Kiểm tra độ dài mật khẩu</h1>
+        <p>Phản hồi trực quan màu sắc và thông báo khi người dùng gõ mật khẩu vào form.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Kiểm tra độ dài mật khẩu thời gian thực</h2>
+<div class="field" style="margin-bottom: 12px;">
+  <label for="pwd-input">Nhập mật khẩu kiểm tra:</label>
+  <input type="password" id="pwd-input" placeholder="Nhập ít nhất 8 ký tự...">
+</div>
+<div id="pwd-feedback" style="font-weight: 600; font-size: 0.9rem; margin-bottom: 12px; color: var(--muted);">Chưa nhập mật khẩu.</div>
+<div class="result" id="result">Trạng thái xác thực bảo mật.</div>
+<div class="prompt-box"><strong>Yêu cầu bài 4:</strong> Khi người dùng gõ vào ô mật khẩu, nếu độ dài &lt; 8 ký tự thì hiện thông báo màu đỏ "Mật khẩu quá ngắn", nếu &gt;= 8 ký tự thì hiện màu xanh "Mật khẩu hợp lệ".</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai3.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai5.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const pwdInput = document.getElementById('pwd-input');
+const feedback = document.getElementById('pwd-feedback');
+const res = document.getElementById('result');
+
+pwdInput.addEventListener('input', (e) => {
+  const len = e.target.value.length;
+  if (len === 0) {
+    feedback.textContent = 'Chưa nhập mật khẩu.';
+    feedback.style.color = 'var(--muted)';
+    res.textContent = 'Độ dài hiện tại: 0 ký tự.';
+    pwdInput.style.borderColor = 'var(--line)';
+  } else if (len < 8) {
+    feedback.textContent = `❌ Mật khẩu quá ngắn (hiện có ${len}/8 ký tự)`;
+    feedback.style.color = 'var(--error)';
+    pwdInput.style.borderColor = 'var(--error)';
+    res.className = 'result error';
+    res.textContent = 'Cảnh báo: Mật khẩu chưa đạt chuẩn tối thiểu 8 ký tự.';
+  } else {
+    feedback.textContent = `✅ Mật khẩu hợp lệ (${len} ký tự)`;
+    feedback.style.color = 'var(--lime)';
+    pwdInput.style.borderColor = 'var(--lime)';
+    res.className = 'result';
+    res.textContent = 'Tuyệt vời: Mật khẩu đã đạt chuẩn an toàn!';
+  }
+});
+</script>
+  </body>
+</html>

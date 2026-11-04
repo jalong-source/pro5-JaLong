@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 2 | JS Vibe Logic</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 14 · HOẠT ĐỘNG 02</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">LOGIC THÔNG MINH</p>
+        <h1>JavaScript Vibe Logic</h1>
+        <p>Tính toán GPA tự động, xếp loại học lực và phát cảnh báo học vụ nếu GPA < 2.0.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>JavaScript Vibe Logic — Tính điểm GPA & Cảnh báo học vụ</h2>
+<p style="color: var(--muted);">Thực thi logic quy đổi thang điểm 10 sang thang điểm 4 và phát hiện điều kiện cảnh báo học vụ theo yêu cầu giáo trình.</p>
+
+<div class="controls" style="margin-bottom: 16px;">
+  <button type="button" id="btn-calc-gpa">Tính điểm GPA & Phân loại học lực</button>
+  <button type="button" id="btn-simulate-warning" style="background: var(--panel-hover); color: var(--error); border: 1px solid var(--error);">Giả lập sinh viên bị Cảnh báo (GPA &lt; 2.0)</button>
+  <button type="button" id="btn-reset-data" style="background: var(--panel-hover); color: var(--text);">Khôi phục điểm gốc</button>
+</div>
+
+<!-- Warning Alert Box -->
+<div id="academic-warning" style="display: none; padding: 14px 18px; border-radius: 6px; background: rgba(255, 154, 131, 0.15); border: 1px solid var(--error); color: var(--error); margin-bottom: 16px; font-weight: 600;">
+  ⚠️ CẢNH BÁO HỌC VỤ: Điểm trung bình GPA tích lũy của bạn đang dưới 2.0 (Hệ 4)! Vui lòng liên hệ cố vấn học tập để đăng ký cải thiện điểm.
+</div>
+
+<div id="gpa-summary-card" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px;"></div>
+
+<div class="result" id="result">Nhấn nút "Tính điểm GPA" để kích hoạt thuật toán.</div>
+<pre class="code-block"><code>// Prompt mẫu tuần 14
+const result = tinhGPA(STUDENT_PORTAL_DATA.registeredCourses);
+if (result.gpa4 < 2.0) {
+  warningBox.style.display = 'block';
+}</code></pre>
+<div class="prompt-box"><strong>Yêu cầu tuần 14:</strong> Website đã có thể tính điểm tự động, tìm kiếm môn học và hiển thị thông báo "Cảnh báo học vụ" nếu điểm GPA &lt; 2.0 (sử dụng cấu trúc If-Else).</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong1.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="hoatdong3.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    
+  
+<script src="data.js"></script>
+<script src="logic.js"></script>
+<script>
+let courses = [...STUDENT_PORTAL_DATA.registeredCourses];
+const warnBox = document.getElementById('academic-warning');
+const summaryBox = document.getElementById('gpa-summary-card');
+const res = document.getElementById('result');
+
+function runGpaCalculation() {
+  const stat = tinhGPA(courses);
+  const ranking = xepLoaiHocLuc(stat.gpa4);
+
+  summaryBox.innerHTML = `
+    <div style="padding: 14px; background: #101513; border: 1px solid var(--line); border-radius: 6px;">
+      <small style="color: var(--muted);">GPA Tích lũy (Hệ 4)</small>
+      <div style="font-size: 1.8rem; font-weight: 800; color: ${stat.gpa4 >= 2.0 ? 'var(--lime)' : 'var(--error)'};">${stat.gpa4}</div>
+    </div>
+    <div style="padding: 14px; background: #101513; border: 1px solid var(--line); border-radius: 6px;">
+      <small style="color: var(--muted);">Xếp loại học lực</small>
+      <div style="font-size: 1.3rem; font-weight: 700; color: var(--mint);">${ranking.loai}</div>
+    </div>
+    <div style="padding: 14px; background: #101513; border: 1px solid var(--line); border-radius: 6px;">
+      <small style="color: var(--muted);">Tổng tín chỉ đã học</small>
+      <div style="font-size: 1.8rem; font-weight: 800; color: var(--text);">${stat.totalCredits}</div>
+    </div>
+    <div style="padding: 14px; background: #101513; border: 1px solid var(--line); border-radius: 6px;">
+      <small style="color: var(--muted);">Đạt / Chưa đạt</small>
+      <div style="font-size: 1.3rem; font-weight: 700; color: var(--text);"><span style="color: var(--lime);">${stat.passedCourses}</span> / <span style="color: var(--error);">${stat.failedCourses}</span></div>
+    </div>
+  `;
+
+  if (stat.gpa4 < 2.0) {
+    warnBox.style.display = 'block';
+    res.className = 'result error';
+    res.innerHTML = `<strong>KẾT QUẢ:</strong> GPA = ${stat.gpa4} &lt; 2.0 -> Kích hoạt điều kiện If-Else: Bật cảnh báo học vụ!`;
+  } else {
+    warnBox.style.display = 'none';
+    res.className = 'result';
+    res.innerHTML = `<strong>KẾT QUẢ:</strong> GPA = ${stat.gpa4} &gt;= 2.0 -> Tình trạng học tập an toàn.`;
+  }
+}
+
+document.getElementById('btn-calc-gpa').addEventListener('click', runGpaCalculation);
+
+document.getElementById('btn-simulate-warning').addEventListener('click', () => {
+  courses = [
+    { id: "INT111", name: "Thiết kế Web", credits: 3, grade10: 3.5 },
+    { id: "INT112", name: "Cấu trúc dữ liệu", credits: 4, grade10: 4.0 },
+    { id: "INT113", name: "Cơ sở dữ liệu", credits: 3, grade10: 3.0 }
+  ];
+  runGpaCalculation();
+});
+
+document.getElementById('btn-reset-data').addEventListener('click', () => {
+  courses = [...STUDENT_PORTAL_DATA.registeredCourses];
+  runGpaCalculation();
+});
+
+runGpaCalculation();
+</script>
+</body>
+</html>

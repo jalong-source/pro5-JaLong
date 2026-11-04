@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prototype Milestone 1 | LHU Student Portal</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 13 · MILESTONE 01</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">PBL CORE UI</p>
+        <h1>Prototype LHU Student Portal</h1>
+        <p>Giao diện tĩnh tích hợp thanh tiến độ tín chỉ CSS và danh sách môn học từ data.js.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Prototype Milestone 1: LHU Student Portal</h2>
+<p style="color: var(--muted);">Bản thử nghiệm giao diện kết hợp đổ dữ liệu từ <code>data.js</code>, thanh tiến độ CSS thuần và danh sách môn học.</p>
+
+<div style="margin-top: 20px; display: grid; gap: 20px;">
+  <!-- Thông tin sinh viên & Progress Bar -->
+  <div style="padding: 18px; background: #101513; border: 1px solid var(--line); border-radius: 8px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <div>
+        <h3 id="st-name" style="margin: 0; color: var(--lime);">Đang nạp sinh viên...</h3>
+        <small id="st-info" style="color: var(--muted);"></small>
+      </div>
+      <span style="background: rgba(197, 238, 117, 0.15); color: var(--lime); font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">Học kỳ 1 (2026 - 2027)</span>
+    </div>
+    <!-- CSS Progress Bar -->
+    <div style="margin-top: 14px;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+        <span>Tiến độ tích lũy tín chỉ tốt nghiệp:</span>
+        <strong id="prog-text" style="color: var(--mint);">63%</strong>
+      </div>
+      <div style="width: 100%; height: 12px; background: var(--panel); border-radius: 6px; overflow: hidden; border: 1px solid var(--line);">
+        <div id="prog-bar" style="height: 100%; width: 63%; background: linear-gradient(90deg, var(--mint), var(--lime)); transition: width 0.8s ease;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Danh sách môn học hiển thị tĩnh/động từ data.js -->
+  <div style="padding: 18px; background: #101513; border: 1px solid var(--line); border-radius: 8px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+      <h3 style="margin: 0; font-size: 1.05rem;">Bảng điểm môn học đã đăng ký</h3>
+      <span style="font-size: 0.8rem; color: var(--muted);">Nguồn: data.js</span>
+    </div>
+    <div id="courses-table-container"></div>
+  </div>
+</div>
+
+<div class="result" id="result" style="margin-top: 18px;">Kết quả Milestone 1: Hoàn tất khung giao diện, thanh tiến độ và dữ liệu khởi tạo.</div>
+<div class="prompt-box"><strong>PBL Milestone 1 Checklist:</strong> (1) Có file PLAN.md; (2) Cấu trúc Object data.js hoàn thiện; (3) Phân chia công việc rõ ràng trên GitHub; (4) Bản vẽ phác thảo Wireframe & Prototype chạy được.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong3.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="index.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    
+  
+<script src="data.js"></script>
+<script>
+document.getElementById('st-name').textContent = `${STUDENT_PROFILE.fullName} (${STUDENT_PROFILE.mssv})`;
+document.getElementById('st-info').textContent = `Khoa: ${STUDENT_PROFILE.faculty} · Ngành: ${STUDENT_PROFILE.major} · Niên khóa: ${STUDENT_PROFILE.academicYear}`;
+
+const percent = Math.round((STUDENT_PROFILE.completedCredits / STUDENT_PROFILE.totalCreditsRequired) * 100);
+document.getElementById('prog-text').textContent = `${STUDENT_PROFILE.completedCredits}/${STUDENT_PROFILE.totalCreditsRequired} tín chỉ (${percent}%)`;
+document.getElementById('prog-bar').style.width = percent + '%';
+
+const tableBox = document.getElementById('courses-table-container');
+tableBox.innerHTML = `
+  <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem;">
+    <thead>
+      <tr style="border-bottom: 1px solid var(--line); text-align: left; color: var(--muted);">
+        <th style="padding: 10px 8px;">Mã HP</th>
+        <th style="padding: 10px 8px;">Tên học phần</th>
+        <th style="padding: 10px 8px;">Tín chỉ</th>
+        <th style="padding: 10px 8px;">Điểm hệ 10</th>
+        <th style="padding: 10px 8px;">Trạng thái</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${COURSES_DATA.map(c => `
+        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <td style="padding: 10px 8px; font-family: var(--mono); color: var(--muted);">${c.id}</td>
+          <td style="padding: 10px 8px; font-weight: 600;">${c.name}</td>
+          <td style="padding: 10px 8px;">${c.credits}</td>
+          <td style="padding: 10px 8px; color: ${c.grade10 >= 5 ? 'var(--lime)' : 'var(--error)'}; font-weight: bold;">${c.grade10}</td>
+          <td style="padding: 10px 8px;">
+            <span style="font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; ${c.status === 'Đạt' ? 'background: rgba(197, 238, 117, 0.15); color: var(--lime);' : 'background: rgba(255, 154, 131, 0.15); color: var(--error);'}">
+              ${c.status}
+            </span>
+          </td>
+        </tr>
+      `).join('')}
+    </tbody>
+  </table>
+`;
+</script>
+</body>
+</html>

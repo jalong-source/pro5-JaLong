@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thách thức Tuần 12 | The Smart Catalog</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 12 · THÁCH THỨC DỰ ÁN</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">SEARCH & OBJECT FILTER</p>
+        <h1>The Smart Catalog</h1>
+        <p>Quản lý dữ liệu tập trung qua data.js và lọc trực tiếp theo tên, danh mục.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Thách thức nhóm: The Smart Catalog & Bộ tìm kiếm trực tiếp</h2>
+<p style="color: var(--muted);">Quản lý dữ liệu tập trung qua <code>data.js</code>, hiển thị giao diện động và lọc sản phẩm theo thời gian thực.</p>
+
+<div class="controls" style="margin: 16px 0;">
+  <div class="field" style="flex: 2;">
+    <label for="catalog-search-input">Tìm kiếm sản phẩm theo tên:</label>
+    <input type="text" id="catalog-search-input" placeholder="Gõ tên thiết bị cần tìm (ví dụ: bàn phím, logitech, tai nghe)..." autocomplete="off">
+  </div>
+  <div class="field" style="max-width: 200px;">
+    <label for="category-select">Danh mục:</label>
+    <select id="category-select">
+      <option value="ALL">Tất cả danh mục</option>
+      <option value="Gaming Gear">Gaming Gear</option>
+      <option value="Audio">Audio</option>
+      <option value="Monitor">Monitor</option>
+      <option value="Phụ kiện">Phụ kiện</option>
+      <option value="Nội thất">Nội thất</option>
+    </select>
+  </div>
+</div>
+
+<div id="smart-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin-top: 20px;"></div>
+
+<div class="result" id="result" style="margin-top: 18px;">Đang tải danh mục sản phẩm...</div>
+<div class="prompt-box"><strong>Thách thức Tuần 12 ("THE SMART CATALOG"):</strong> (1) Tạo file data.js chứa mảng các Object; (2) Tự động hiển thị toàn bộ dữ liệu lên trang chủ; (3) Thêm một ô "Tìm kiếm" để lọc nhanh sản phẩm theo tên ngay trên giao diện.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai6.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="index.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    
+  
+<script src="data.js"></script>
+<script>
+const searchInput = document.getElementById('catalog-search-input');
+const catSelect = document.getElementById('category-select');
+const grid = document.getElementById('smart-grid');
+const res = document.getElementById('result');
+
+function filterAndRender() {
+  const query = searchInput.value.trim().toLowerCase();
+  const selectedCat = catSelect.value;
+
+  const filtered = PRODUCTS_DATA.filter(p => {
+    const matchName = p.name.toLowerCase().includes(query);
+    const matchCat = (selectedCat === 'ALL') || (p.category === selectedCat);
+    return matchName && matchCat;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 30px; color: var(--muted); border: 1px dashed var(--line); border-radius: 8px;">Không tìm thấy sản phẩm nào phù hợp với từ khóa!</div>';
+    res.className = 'result error';
+    res.textContent = `Không có kết quả nào cho: "${query}"`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => `
+    <div style="background: #101513; border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">${p.img}</div>
+        <h3 style="margin: 0 0 6px; font-size: 1rem; color: var(--text);">${p.name}</h3>
+        <span style="font-size: 0.8rem; color: var(--muted); display: block;">Loại: ${p.category} | Đánh giá: ⭐ ${p.rating}</span>
+        <span style="font-size: 0.75rem; color: var(--muted);">Kho còn: ${p.stock} cái</span>
+      </div>
+      <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
+        <span style="color: var(--lime); font-weight: 700;">${p.price.toLocaleString('vi-VN')} đ</span>
+        ${p.discount ? '<span style="font-size: 0.7rem; background: var(--error); color: white; padding: 2px 6px; border-radius: 4px;">ƯU ĐÃI</span>' : ''}
+      </div>
+    </div>
+  `).join('');
+
+  res.className = 'result';
+  res.textContent = `Đang hiển thị ${filtered.length} / ${PRODUCTS_DATA.length} sản phẩm.`;
+}
+
+searchInput.addEventListener('input', filterAndRender);
+catSelect.addEventListener('change', filterAndRender);
+
+filterAndRender();
+</script>
+</body>
+</html>

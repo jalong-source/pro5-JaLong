@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 3 | Bộ chọn màu nền</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 11 · BÀI TẬP 03</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">COLOR INPUT</p>
+        <h1>Bộ chọn màu nền (Color Picker)</h1>
+        <p>Lắng nghe sự kiện input trên ô type='color' để cập nhật màu nền body.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Bộ chọn màu nền trang (Color Picker)</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <div class="field">
+    <label for="picker">Chọn màu nền mong muốn:</label>
+    <input type="color" id="picker" value="#101513" style="cursor: pointer; height: 50px; padding: 2px;">
+  </div>
+  <button type="button" id="btn-reset-bg" style="background: var(--panel-hover); color: var(--text);">Khôi phục mặc định</button>
+</div>
+<div class="result" id="result">Mã màu HEX đang chọn: #101513</div>
+<div class="prompt-box"><strong>Yêu cầu bài 3:</strong> Tạo một ô input type="color". Khi người dùng chọn màu, màu nền của trang web sẽ thay đổi theo.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai2.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai4.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const picker = document.getElementById('picker');
+const res = document.getElementById('result');
+const resetBtn = document.getElementById('btn-reset-bg');
+
+picker.addEventListener('input', (e) => {
+  const chosenColor = e.target.value;
+  document.body.style.backgroundColor = chosenColor;
+  res.textContent = `Mã màu HEX đang chọn: ${chosenColor.toUpperCase()}`;
+});
+
+resetBtn.addEventListener('click', () => {
+  document.body.style.backgroundColor = '#101513';
+  picker.value = '#101513';
+  res.textContent = 'Mã màu HEX đang chọn: #101513 (Mặc định)';
+});
+</script>
+  </body>
+</html>

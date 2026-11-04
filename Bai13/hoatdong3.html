@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 3 | Wireframe & Data Flow</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 13 · HOẠT ĐỘNG 03</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">30 PHÚT · SYSTEM BLUEPRINT</p>
+        <h1>Wireframe & Data Flow</h1>
+        <p>Thiết kế bản vẽ sơ đồ giao diện và luồng dữ liệu xuyên suốt dự án.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Sơ đồ Wireframe & Luồng dữ liệu (Data Flow)</h2>
+<p style="color: var(--muted);">Bản vẽ phác thảo cấu trúc thành phần và quy trình luân chuyển dữ liệu của ứng dụng.</p>
+
+<div style="padding: 18px; border: 1px dashed var(--line); border-radius: 8px; background: #101513; margin-top: 16px;">
+  <h3 style="margin: 0 0 12px; color: var(--mint);">1. Sơ đồ phân rã khối giao diện (Component Hierarchy)</h3>
+  <pre class="code-block"><code>+-------------------------------------------------------------+
+| Header: Logo LHU | Tên sinh viên | Avatar | Thông báo       |
++-------------------+-----------------------------------------+
+| Sidebar:          | Main Dashboard:                         |
+| - Tổng quan       | +-------------------------------------+ |
+| - Bảng điểm       | | Progress Bar tín chỉ (82/130 tín)   | |
+| - Đăng ký môn     | +-------------------------------------+ |
+| - Tra cứu học phí | | Danh sách môn học (Dynamic Render)  | |
+| - Cài đặt         | | Widget tính GPA dự kiến & Xếp loại  | |
++-------------------+-----------------------------------------+
+| Footer: Bản quyền LHU Web Engineering 2026                  |
++-------------------------------------------------------------+</code></pre>
+</div>
+
+<div style="padding: 18px; border: 1px dashed var(--line); border-radius: 8px; background: #101513; margin-top: 16px;">
+  <h3 style="margin: 0 0 12px; color: var(--lime);">2. Sơ đồ luồng dữ liệu (Data Flow)</h3>
+  <pre class="code-block"><code>[data.js: COURSES_DATA] 
+        ↓
+   (Hàm map / filter trong ui.js)
+        ↓
+[HTML Table & DOM Elements] 
+        ↓
+   (Người dùng tương tác: Thêm môn / Tính GPA)
+        ↓
+[Hàm xử lý logic tính toán tinhGPA()] 
+        ↓
+[Cập nhật trực tiếp kết quả lên Dashboard]</code></pre>
+</div>
+
+<div class="result" id="result" style="margin-top: 16px;">Đã hoàn thành chuẩn đầu ra LLO 4.1.4: Thiết kế được sơ đồ luồng dữ liệu cơ bản.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong2.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="prototype.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 5 | Thay đổi kích thước chữ</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 10 · BÀI TẬP 05</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">STYLE FONT-SIZE</p>
+        <h1>Thay đổi kích thước văn bản</h1>
+        <p>Điều chỉnh fontSize của phần tử thông qua sự kiện click nút bấm.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Tăng / Giảm cỡ chữ linh hoạt</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <button type="button" id="btn-zoom-in">🔍 Phóng to (+2px)</button>
+  <button type="button" id="btn-zoom-out">🔍 Thu nhỏ (-2px)</button>
+  <button type="button" id="btn-reset" style="background: var(--panel-hover); color: var(--text);">Mặc định (16px)</button>
+</div>
+<div id="sample-text" style="font-size: 16px; line-height: 1.8; padding: 18px; border: 1px solid var(--line); border-radius: 6px; background: #101513;">
+  Trường Đại học Lạc Hồng (LHU) là trường đại học ứng dụng tiên phong, đào tạo nguồn nhân lực chất lượng cao trong thời đại công nghệ số và trí tuệ nhân tạo (AI-First). Sinh viên được trang bị tư duy Vibe Coding, làm chủ các công cụ lập trình web hiện đại.
+</div>
+<div class="result" id="result">Cỡ chữ hiện tại: 16px</div>
+<div class="prompt-box"><strong>Yêu cầu bài 5:</strong> Tạo 2 nút "Phóng to" và "Thu nhỏ". Khi nhấn, kích thước chữ của đoạn văn bản tăng hoặc giảm 2px.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai4.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai6.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const textEl = document.getElementById('sample-text');
+const res = document.getElementById('result');
+let curSize = 16;
+
+function updateSize(size) {
+  curSize = Math.max(10, Math.min(36, size));
+  textEl.style.fontSize = curSize + 'px';
+  res.textContent = `Cỡ chữ hiện tại: ${curSize}px (Giới hạn: 10px - 36px)`;
+}
+
+document.getElementById('btn-zoom-in').addEventListener('click', () => updateSize(curSize + 2));
+document.getElementById('btn-zoom-out').addEventListener('click', () => updateSize(curSize - 2));
+document.getElementById('btn-reset').addEventListener('click', () => updateSize(16));
+</script>
+  </body>
+</html>

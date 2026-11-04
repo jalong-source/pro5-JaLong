@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 2 | Bộ sưu tập ảnh</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 10 · BÀI TẬP 02</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">DOM ATTRIBUTES</p>
+        <h1>Bộ sưu tập ảnh (Simple Gallery)</h1>
+        <p>Thay đổi thuộc tính src của thẻ ảnh lớn khi click vào từng ảnh thumbnail nhỏ.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Simple Image Gallery</h2>
+<div style="text-align: center; margin-bottom: 20px;">
+  <div style="max-width: 500px; height: 300px; margin: 0 auto; border: 2px solid var(--line); border-radius: 8px; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center;">
+    <img id="main-img" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop" alt="Main View" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s;">
+  </div>
+  <p id="img-caption" style="color: var(--mint); margin-top: 8px; font-weight: 600;">Ảnh 1: Góc làm việc lập trình viên</p>
+</div>
+<div style="display: flex; justify-content: center; gap: 12px;">
+  <img class="thumb-img" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=200&auto=format&fit=crop" data-caption="Ảnh 1: Góc làm việc lập trình viên" style="width: 80px; height: 60px; object-fit: cover; cursor: pointer; border: 2px solid var(--mint); border-radius: 4px;">
+  <img class="thumb-img" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=200&auto=format&fit=crop" data-caption="Ảnh 2: Code JavaScript trên laptop" style="width: 80px; height: 60px; object-fit: cover; cursor: pointer; border: 2px solid transparent; border-radius: 4px;">
+  <img class="thumb-img" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=200&auto=format&fit=crop" data-caption="Ảnh 3: Màn hình code ban đêm" style="width: 80px; height: 60px; object-fit: cover; cursor: pointer; border: 2px solid transparent; border-radius: 4px;">
+</div>
+<div class="result" id="result">Click vào ảnh nhỏ bên dưới để đổi ảnh lớn.</div>
+<div class="prompt-box"><strong>Yêu cầu bài 2:</strong> Có 1 ảnh lớn và 3 ảnh nhỏ bên dưới. Khi click vào ảnh nhỏ nào, ảnh lớn sẽ thay đổi thành ảnh đó bằng cách thay đổi thuộc tính <code>src</code>.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai1.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai3.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const mainImg = document.getElementById('main-img');
+const caption = document.getElementById('img-caption');
+const thumbs = document.querySelectorAll('.thumb-img');
+const res = document.getElementById('result');
+
+thumbs.forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    thumbs.forEach(t => t.style.borderColor = 'transparent');
+    thumb.style.borderColor = 'var(--mint)';
+    mainImg.src = thumb.src.replace('w=200', 'w=800');
+    caption.textContent = thumb.dataset.caption;
+    res.textContent = `Đã đổi sang: ${thumb.dataset.caption} (src: ${mainImg.src})`;
+  });
+});
+</script>
+  </body>
+</html>

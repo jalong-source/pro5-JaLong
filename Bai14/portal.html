@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LHU Student Portal | Full Product Demo</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 14 · ĐỒ ÁN NHÓM HOÀN CHỈNH</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">FINAL PUSH HACKATHON</p>
+        <h1>LHU Student Portal</h1>
+        <p>Sản phẩm website hoàn chỉnh: Dashboard xem điểm, Cảnh báo học vụ và Cổng đăng ký tín chỉ.</p>
+      </section>
+      <section class="workbench">
+        
+<!-- Top Navigation Header -->
+<header style="background: var(--panel); border-bottom: 1px solid var(--line); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; margin-bottom: 20px;">
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="background: var(--lime); color: #101513; font-weight: 800; font-size: 1.1rem; padding: 6px 12px; border-radius: 6px;">LHU</div>
+    <div>
+      <h2 style="margin: 0; font-size: 1.1rem; color: var(--text);">CỔNG THÔNG TIN HỌC VỤ SINH VIÊN</h2>
+      <small style="color: var(--muted);">Trường Đại học Lạc Hồng · Hệ thống Quản trị Sprint 2</small>
+    </div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <span style="font-size: 1.6rem;">👨‍💻</span>
+    <div style="text-align: right;">
+      <strong id="header-user-name" style="display: block; font-size: 0.95rem; color: var(--lime);">Trần Gia Long</strong>
+      <small id="header-user-id" style="color: var(--muted); font-family: var(--mono);">MSSV: 22010188</small>
+    </div>
+  </div>
+</header>
+
+<!-- Alert Cảnh báo học vụ (Tự động kích hoạt bằng JS nếu GPA < 2.0) -->
+<div id="portal-warning-banner" style="display: none; padding: 14px 18px; border-radius: 6px; background: rgba(255, 154, 131, 0.15); border: 1px solid var(--error); color: var(--error); margin-bottom: 20px; font-weight: 600;">
+  ⚠️ CẢNH BÁO HỌC VỤ (GPA &lt; 2.0): Kết quả học tập của bạn đang nằm trong diện báo động. Vui lòng liên hệ Phòng Đào tạo hoặc GVCN để được hỗ trợ cải thiện!
+</div>
+
+<!-- Main Grid Layout -->
+<div style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 20px;">
+  
+  <!-- Left Column: Bảng điểm & Bộ lọc -->
+  <section style="display: grid; gap: 20px;">
+    <!-- Stat Overview Cards -->
+    <div id="stat-cards-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;"></div>
+
+    <!-- Danh sách môn học & Tìm kiếm -->
+    <div style="background: #101513; border: 1px solid var(--line); border-radius: 8px; padding: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+        <h3 style="margin: 0; font-size: 1.05rem; color: var(--mint);">Bảng điểm học phần</h3>
+        <div style="display: flex; gap: 8px; flex: 1; max-width: 320px;">
+          <input type="text" id="course-search-input" placeholder="Tìm kiếm mã hoặc tên môn..." style="min-height: 38px; font-size: 0.85rem;">
+        </div>
+      </div>
+      <div id="portal-courses-table"></div>
+    </div>
+  </section>
+
+  <!-- Right Column: Đăng ký môn học (Giỏ hàng môn học) -->
+  <aside style="display: grid; gap: 20px;">
+    <div style="background: #101513; border: 1px solid var(--line); border-radius: 8px; padding: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="margin: 0; font-size: 1.05rem; color: var(--lime);">Đăng ký môn học mở</h3>
+        <span id="selected-badge" style="font-size: 0.75rem; background: rgba(197,238,117,0.15); color: var(--lime); padding: 2px 8px; border-radius: 10px;">0 môn đã chọn</span>
+      </div>
+
+      <!-- Danh sách môn có thể đăng ký -->
+      <div id="available-courses-list" style="display: grid; gap: 10px;"></div>
+
+      <!-- Tổng kết giỏ hàng môn học -->
+      <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line);">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.9rem;">
+          <span>Tổng số tín chỉ chọn:</span>
+          <strong id="cart-credits" style="color: var(--mint);">0 / 25 tín</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 14px; font-size: 0.9rem;">
+          <span>Học phí tạm tính:</span>
+          <strong id="cart-tuition" style="color: var(--lime);">0 đ</strong>
+        </div>
+        <button type="button" id="btn-confirm-enroll" style="width: 100%;">Xác nhận Đăng ký học phần</button>
+      </div>
+    </div>
+
+    <!-- Profile tóm tắt -->
+    <div style="background: #101513; border: 1px solid var(--line); border-radius: 8px; padding: 16px; font-size: 0.85rem; color: var(--muted); line-height: 1.7;">
+      <strong style="color: var(--text); display: block; margin-bottom: 6px;">Thông tin học chế tín chỉ LHU:</strong>
+      • Điểm đạt môn học: Điểm hệ 10 &gt;= 4.0<br>
+      • Cảnh báo học vụ: GPA hệ 4 &lt; 2.00<br>
+      • Giới hạn đăng ký tối đa: 25 tín chỉ / học kỳ
+    </div>
+  </aside>
+</div>
+
+<div class="result" id="portal-msg" style="margin-top: 20px;">Hệ thống LHU Student Portal đang hoạt động trực tiếp.</div>
+<div class="prompt-box"><strong>Đồ án nhóm hoàn thiện (Tuần 14 Final Push):</strong> Tích hợp trọn vẹn Giao diện Semantic, Bảng điểm động, Bộ lọc tìm kiếm, Thuật toán tính GPA hệ 4, Cảnh báo học vụ và Logic Giỏ hàng đăng ký môn học theo đúng giáo trình ĐH Lạc Hồng.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong3.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="index.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    
+  
+<script src="data.js"></script>
+<script src="logic.js"></script>
+<script>
+// Features Master & UI Controller - Tuần 14
+const coursesData = [...STUDENT_PORTAL_DATA.registeredCourses];
+const availableCourses = [...STUDENT_PORTAL_DATA.availableCourses];
+let selectedCourseIds = new Set();
+
+const warnBanner = document.getElementById('portal-warning-banner');
+const statRow = document.getElementById('stat-cards-row');
+const tableBox = document.getElementById('portal-courses-table');
+const searchInput = document.getElementById('course-search-input');
+const availList = document.getElementById('available-courses-list');
+const cartCreditsEl = document.getElementById('cart-credits');
+const cartTuitionEl = document.getElementById('cart-tuition');
+const selectedBadge = document.getElementById('selected-badge');
+const confirmBtn = document.getElementById('btn-confirm-enroll');
+const msgEl = document.getElementById('portal-msg');
+
+// 1. Render Dashboard Stats
+function renderDashboardStats() {
+  const stat = tinhGPA(coursesData);
+  const ranking = xepLoaiHocLuc(stat.gpa4);
+
+  statRow.innerHTML = `
+    <div style="padding: 14px; background: #101513; border: 1px solid var(--line); border-radius: 6px;">
+      <small style="color: var(--muted);">Điểm GPA Hệ 4</small>
+      <div style="font-size: 1.8rem; font-weight: 800; color: ${stat.gpa4 >= 2.0 ? 'var(--lime)' : 'var(--error)'};">${stat.gpa4}</div>
+    </div>
+    <div style="padding: 14px; background: #101513; border: 1px solid var(--line); border-radius: 6px;">
+      <small style="color: var(--muted);">Xếp loại học lực</small>
+      <div style="font-size: 1.25rem; font-weight: 700; color: var(--mint);">${ranking.loai}</div>
+    </div>
+    <div style="padding: 14px; background: #101513; border: 1px solid var(--line); border-radius: 6px;">
+      <small style="color: var(--muted);">Tín chỉ tích lũy</small>
+      <div style="font-size: 1.8rem; font-weight: 800; color: var(--text);">${stat.totalCredits}</div>
+    </div>
+  `;
+
+  // Check Cảnh báo học vụ
+  if (stat.gpa4 < 2.0) {
+    warnBanner.style.display = 'block';
+  } else {
+    warnBanner.style.display = 'none';
+  }
+}
+
+// 2. Render Courses Table with search filter
+function renderCoursesTable(query = '') {
+  const filtered = timKiemMonHoc(coursesData, query);
+  if (filtered.length === 0) {
+    tableBox.innerHTML = '<p style="color: var(--muted); text-align: center; padding: 20px;">Không tìm thấy môn học nào!</p>';
+    return;
+  }
+
+  tableBox.innerHTML = `
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.86rem;">
+      <thead>
+        <tr style="border-bottom: 1px solid var(--line); text-align: left; color: var(--muted);">
+          <th style="padding: 8px;">Mã HP</th>
+          <th style="padding: 8px;">Tên môn học</th>
+          <th style="padding: 8px;">Tín chỉ</th>
+          <th style="padding: 8px;">Điểm 10</th>
+          <th style="padding: 8px;">Điểm 4</th>
+          <th style="padding: 8px;">Kết quả</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filtered.map(c => {
+          const d4 = quyDoiHe4(c.grade10);
+          const isPass = c.grade10 >= 4.0;
+          return `
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 8px; font-family: var(--mono); color: var(--muted);">${c.id}</td>
+              <td style="padding: 8px; font-weight: 600;">${c.name}</td>
+              <td style="padding: 8px;">${c.credits}</td>
+              <td style="padding: 8px; font-weight: 700; color: ${isPass ? 'var(--text)' : 'var(--error)'};">${c.grade10}</td>
+              <td style="padding: 8px; font-weight: 700; color: ${isPass ? 'var(--lime)' : 'var(--error)'};">${d4}</td>
+              <td style="padding: 8px;">
+                <span style="font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; ${isPass ? 'background: rgba(197,238,117,0.15); color: var(--lime);' : 'background: rgba(255,154,131,0.15); color: var(--error);'}">
+                  ${isPass ? 'Đạt' : 'Rớt'}
+                </span>
+              </td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+// 3. Render Available Courses (Giỏ hàng môn học)
+function renderAvailableCourses() {
+  availList.innerHTML = availableCourses.map(c => {
+    const isSelected = selectedCourseIds.has(c.id);
+    return `
+      <div style="background: var(--panel); border: 1px solid ${isSelected ? 'var(--lime)' : 'var(--line)'}; border-radius: 6px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <strong style="color: var(--text); font-size: 0.9rem;">${c.name}</strong>
+          <small style="color: var(--muted); display: block;">Mã: ${c.id} · ${c.credits} tín chỉ · ${c.tuition.toLocaleString('vi-VN')} đ</small>
+        </div>
+        <button type="button" style="padding: 5px 12px; min-height: auto; font-size: 0.75rem; ${isSelected ? 'background: var(--error); color: white;' : 'background: var(--lime); color: #101513;'}" onclick="toggleEnroll('${c.id}')">
+          ${isSelected ? 'Hủy' : '+ Chọn'}
+        </button>
+      </div>
+    `;
+  }).join('');
+
+  updateCartSummary();
+}
+
+window.toggleEnroll = function(courseId) {
+  const course = availableCourses.find(c => c.id === courseId);
+  if (!course) return;
+
+  if (selectedCourseIds.has(courseId)) {
+    selectedCourseIds.delete(courseId);
+  } else {
+    // Check tổng tín chỉ không quá 25
+    let curCredits = 0;
+    selectedCourseIds.forEach(id => {
+      const c = availableCourses.find(x => x.id === id);
+      if (c) curCredits += c.credits;
+    });
+
+    if (curCredits + course.credits > 25) {
+      alert("Cảnh báo: Bạn không thể đăng ký vượt quá 25 tín chỉ trong một học kỳ!");
+      return;
+    }
+    selectedCourseIds.add(courseId);
+  }
+
+  renderAvailableCourses();
+};
+
+function updateCartSummary() {
+  let totalCredits = 0;
+  let totalTuition = 0;
+
+  selectedCourseIds.forEach(id => {
+    const c = availableCourses.find(x => x.id === id);
+    if (c) {
+      totalCredits += c.credits;
+      totalTuition += c.tuition;
+    }
+  });
+
+  cartCreditsEl.textContent = `${totalCredits} / 25 tín`;
+  cartTuitionEl.textContent = `${totalTuition.toLocaleString('vi-VN')} đ`;
+  selectedBadge.textContent = `${selectedCourseIds.size} môn đã chọn`;
+}
+
+confirmBtn.addEventListener('click', () => {
+  if (selectedCourseIds.size === 0) {
+    alert("Vui lòng chọn ít nhất 1 môn học để đăng ký!");
+    return;
+  }
+  msgEl.className = 'result';
+  msgEl.innerHTML = `🎉 <strong>Đăng ký thành công!</strong> Đã thêm <strong>${selectedCourseIds.size}</strong> môn học vào kế hoạch học tập. Tổng học phí: <strong>${cartTuitionEl.textContent}</strong>.`;
+  alert("Chúc mừng! Hệ thống đã ghi nhận danh sách môn học của bạn.");
+});
+
+searchInput.addEventListener('input', (e) => {
+  renderCoursesTable(e.target.value);
+});
+
+// Khởi chạy ban đầu
+renderDashboardStats();
+renderCoursesTable();
+renderAvailableCourses();
+</script>
+</body>
+</html>

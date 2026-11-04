@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 1 | Danh bạ điện thoại</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 12 · BÀI TẬP 01</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">ARRAY FIND</p>
+        <h1>Danh bạ điện thoại</h1>
+        <p>Tìm kiếm số điện thoại theo tên từ mảng Object bằng hàm find().</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Danh bạ điện thoại (Phonebook Search)</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <div class="field" style="flex: 2;">
+    <label for="contact-search">Nhập tên cần tìm:</label>
+    <input type="text" id="contact-search" placeholder="Ví dụ: Hoàng, Linh, An...">
+  </div>
+  <button type="button" id="btn-search-contact">Tìm kiếm</button>
+</div>
+<div class="result" id="result">Kết quả tra cứu danh bạ.</div>
+<div class="prompt-box"><strong>Yêu cầu bài 1:</strong> Tạo mảng các Object chứa tên và số điện thoại. Viết hàm tìm kiếm số điện thoại khi nhập tên.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong3.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai2.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const contacts = [
+  { name: "Nguyễn Văn An", phone: "0901234567" },
+  { name: "Trần Thị Bình", phone: "0912345678" },
+  { name: "Lê Hoàng Cường", phone: "0987654321" },
+  { name: "Phạm Diệu Linh", phone: "0933445566" },
+  { name: "Võ Minh Đức", phone: "0977889900" }
+];
+
+const input = document.getElementById('contact-search');
+const btn = document.getElementById('btn-search-contact');
+const res = document.getElementById('result');
+
+function searchPhone() {
+  const q = input.value.trim().toLowerCase();
+  if (!q) {
+    res.className = 'result error';
+    res.textContent = 'Vui lòng nhập tên cần tìm!';
+    return;
+  }
+  const match = contacts.find(c => c.name.toLowerCase().includes(q));
+  if (match) {
+    res.className = 'result';
+    res.innerHTML = `📞 Tìm thấy: <strong>${match.name}</strong> — SĐT: <code style="font-size: 1.1rem; color: var(--lime);">${match.phone}</code>`;
+  } else {
+    res.className = 'result error';
+    res.textContent = `❌ Không tìm thấy liên hệ nào có tên "${q}" trong danh bạ.`;
+  }
+}
+
+btn.addEventListener('click', searchPhone);
+input.addEventListener('keydown', (e) => { if (e.key === 'Enter') searchPhone(); });
+</script>
+  </body>
+</html>

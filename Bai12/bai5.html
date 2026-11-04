@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 5 | Biến đổi mảng với map</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 12 · BÀI TẬP 05</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">ARRAY MAP</p>
+        <h1>Biến đổi mảng thành danh sách HTML</h1>
+        <p>Sử dụng map() để chuyển đổi mảng dữ liệu chuỗi thành mã HTML danh sách thẻ li.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Biến đổi mảng tên thành danh sách thẻ HTML</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <button type="button" id="btn-transform">Chạy hàm Array.map() để biến đổi</button>
+</div>
+<ul id="transformed-list" style="list-style: none; padding: 0; display: grid; gap: 8px;"></ul>
+<div class="result" id="result" style="margin-top: 15px;">Chưa thực hiện chuyển đổi.</div>
+<div class="prompt-box"><strong>Yêu cầu bài 5:</strong> Sử dụng map() để biến một mảng tên thành một mảng các thẻ &lt;li&gt;Tên&lt;/li&gt;.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai4.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai6.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const names = ["Trần Gia Long", "Nguyễn Minh Quân", "Lê Thanh Hà", "Vũ Phương Uyên", "Đỗ Quốc Bảo"];
+const btn = document.getElementById('btn-transform');
+const listEl = document.getElementById('transformed-list');
+const res = document.getElementById('result');
+
+btn.addEventListener('click', () => {
+  const liElements = names.map((name, i) => `
+    <li style="padding: 10px 14px; background: #101513; border: 1px solid var(--line); border-radius: 6px; display: flex; align-items: center; gap: 10px;">
+      <span style="font-family: var(--mono); color: var(--lime); font-size: 0.85rem;">0${i+1}</span>
+      <strong>${name}</strong>
+      <span style="margin-left: auto; font-size: 0.75rem; color: var(--mint); background: rgba(132, 217, 187, 0.1); padding: 2px 8px; border-radius: 4px;">Sinh viên LHU</span>
+    </li>
+  `);
+
+  listEl.innerHTML = liElements.join('');
+  res.className = 'result';
+  res.innerHTML = `Đã dùng <code>names.map()</code> biến đổi thành công mảng gồm <strong>${names.length}</strong> phần tử thẻ &lt;li&gt;.`;
+});
+</script>
+  </body>
+</html>

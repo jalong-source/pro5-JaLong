@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 3 | Dynamic UI Render</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 12 · HOẠT ĐỘNG 03</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">30 PHÚT · DYNAMIC RENDER</p>
+        <h1>Dynamic UI Render</h1>
+        <p>Tự động sinh các thẻ card sản phẩm từ mảng Object thông qua phương thức map().</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Đổ dữ liệu tự động lên giao diện HTML (Dynamic UI Render)</h2>
+<p style="color: var(--muted);">Không viết cứng HTML! Toàn bộ danh sách card dưới đây được duyệt tự động bằng <code>map()</code> từ file <code>data.js</code>.</p>
+<div id="catalog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin-top: 15px;"></div>
+<div class="result" id="result" style="margin-top: 16px;"></div>
+<pre class="code-block"><code>// Đổ dữ liệu tự động với map()
+const catalog = document.getElementById('catalog-grid');
+catalog.innerHTML = PRODUCTS_DATA.map(p => `
+  &lt;div class="card"&gt;
+    &lt;h4&gt;${p.name}&lt;/h4&gt;
+    &lt;p&gt;${p.price.toLocaleString('vi-VN')} đ&lt;/p&gt;
+  &lt;/div&gt;
+`).join('');</code></pre>
+<div class="prompt-box"><strong>Hoạt động 3:</strong> Thay vì viết HTML thủ công cho từng sản phẩm, sinh viên dùng vòng lặp map() hoặc forEach() để tự động tạo ra các thẻ div.card trên trang web từ mảng dữ liệu.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong2.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai1.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    
+  
+<script src="data.js"></script>
+<script>
+const grid = document.getElementById('catalog-grid');
+const res = document.getElementById('result');
+
+grid.innerHTML = PRODUCTS_DATA.map(p => `
+  <div style="background: #101513; border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <div style="font-size: 2.2rem; margin-bottom: 8px;">${p.img}</div>
+      <h3 style="margin: 0 0 6px; font-size: 1rem; color: var(--text);">${p.name}</h3>
+      <p style="margin: 0; font-size: 0.8rem; color: var(--muted);">Danh mục: ${p.category} | Đánh giá: ⭐ ${p.rating}</p>
+    </div>
+    <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
+      <span style="color: var(--lime); font-weight: 700;">${p.price.toLocaleString('vi-VN')} đ</span>
+      <button type="button" style="padding: 6px 12px; font-size: 0.75rem; min-height: auto;" onclick="alert('Đã chọn sản phẩm: ${p.name}')">Chi tiết</button>
+    </div>
+  </div>
+`).join('');
+
+res.innerHTML = `Đã tự động render thành công <strong>${PRODUCTS_DATA.length}</strong> card sản phẩm từ nguồn dữ liệu JSON data.js!`;
+</script>
+</body>
+</html>

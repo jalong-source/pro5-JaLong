@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 2 | Light Switch</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 10 · HOẠT ĐỘNG 02</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">45 PHÚT · EVENT & STYLES</p>
+        <h1>Light Switch</h1>
+        <p>Thao tác bật tắt bóng đèn, biến đổi thuộc tính CSS và đổi trạng thái giao diện khi click.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Bật / Tắt bóng đèn & Dark Mode</h2>
+<div style="text-align: center; margin: 20px 0;">
+  <div id="bulb-icon" style="font-size: 4rem; filter: drop-shadow(0 0 0px #ffeb3b); transition: all 0.3s;">💡</div>
+  <p id="bulb-status" style="font-weight: bold; color: var(--muted);">Trạng thái: ĐÈN TẮT</p>
+  <button type="button" id="toggle-btn">BẬT ĐÈN / CHUYỂN MÀU NỀN</button>
+</div>
+<div class="result" id="result"></div>
+<pre class="code-block"><code>const toggleBtn = document.getElementById('toggle-btn');
+let isOn = false;
+toggleBtn.addEventListener('click', () => {
+  isOn = !isOn;
+  document.body.style.backgroundColor = isOn ? '#1f2923' : '#101513';
+});</code></pre>
+<div class="prompt-box"><strong>Prompt mẫu:</strong> "Viết mã JS để khi tôi click vào một nút có id là 'toggle-btn', nó sẽ thay đổi màu nền của body từ trắng sang đen hoặc ngược lại (Dark/Light mode đơn giản)."</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong1.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="hoatdong3.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const toggleBtn = document.getElementById('toggle-btn');
+const bulb = document.getElementById('bulb-icon');
+const bulbStatus = document.getElementById('bulb-status');
+const res = document.getElementById('result');
+let isOn = false;
+
+toggleBtn.addEventListener('click', () => {
+  isOn = !isOn;
+  if (isOn) {
+    bulb.style.filter = 'drop-shadow(0 0 25px #ffeb3b)';
+    bulb.textContent = '💡';
+    bulbStatus.textContent = 'Trạng thái: ĐÈN ĐANG SÁNG (BẬT)';
+    bulbStatus.style.color = 'var(--lime)';
+    res.innerHTML = '<p>Đèn đã BẬT. Thuộc tính style / filter đã được cập nhật qua JS.</p>';
+    toggleBtn.textContent = 'TẮT ĐÈN';
+  } else {
+    bulb.style.filter = 'drop-shadow(0 0 0px transparent)';
+    bulbStatus.textContent = 'Trạng thái: ĐÈN TẮT';
+    bulbStatus.style.color = 'var(--muted)';
+    res.innerHTML = '<p>Đèn đã TẮT.</p>';
+    toggleBtn.textContent = 'BẬT ĐÈN';
+  }
+});
+</script>
+  </body>
+</html>

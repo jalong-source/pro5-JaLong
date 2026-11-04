@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 4 | Tính tổng đơn hàng</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 11 · BÀI TẬP 04</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">CHECKBOX & SUM CALCULATION</p>
+        <h1>Tính tổng đơn hàng</h1>
+        <p>Tự động cộng dồn giá tiền sản phẩm theo thời gian thực khi tick chọn checkbox.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Tính tổng giá trị đơn hàng tự động</h2>
+<div style="display: grid; gap: 10px; max-width: 460px; margin-bottom: 16px;">
+  <label style="padding: 12px; border: 1px solid var(--line); border-radius: 6px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #101513;">
+    <span style="display: flex; align-items: center; gap: 8px;">
+      <input type="checkbox" class="cart-item" data-price="350000"> Áo Polo Lạc Hồng Official
+    </span>
+    <strong style="color: var(--mint);">350.000 đ</strong>
+  </label>
+  <label style="padding: 12px; border: 1px solid var(--line); border-radius: 6px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #101513;">
+    <span style="display: flex; align-items: center; gap: 8px;">
+      <input type="checkbox" class="cart-item" data-price="120000"> Bình giữ nhiệt khắc tên LHU
+    </span>
+    <strong style="color: var(--mint);">120.000 đ</strong>
+  </label>
+  <label style="padding: 12px; border: 1px solid var(--line); border-radius: 6px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #101513;">
+    <span style="display: flex; align-items: center; gap: 8px;">
+      <input type="checkbox" class="cart-item" data-price="250000"> Balo Lập trình viên Vibe Coding
+    </span>
+    <strong style="color: var(--mint);">250.000 đ</strong>
+  </label>
+  <label style="padding: 12px; border: 1px solid var(--line); border-radius: 6px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #101513;">
+    <span style="display: flex; align-items: center; gap: 8px;">
+      <input type="checkbox" class="cart-item" data-price="50000"> Thẻ đeo sinh viên LHU cao cấp
+    </span>
+    <strong style="color: var(--mint);">50.000 đ</strong>
+  </label>
+</div>
+<div class="result" id="result" style="font-size: 1.1rem;">Tổng thanh toán: 0 đ</div>
+<div class="prompt-box"><strong>Yêu cầu bài 4:</strong> Tạo form gồm các checkbox sản phẩm kèm giá tiền. Khi người dùng tick vào, tổng số tiền sẽ tự động cập nhật bên dưới.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai3.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai5.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const items = document.querySelectorAll('.cart-item');
+const res = document.getElementById('result');
+
+function calculateTotal() {
+  let total = 0;
+  let count = 0;
+  items.forEach(item => {
+    if (item.checked) {
+      total += parseInt(item.dataset.price, 10);
+      count++;
+    }
+  });
+  res.innerHTML = `Đã chọn: <strong>${count}</strong> sản phẩm | Tổng thanh toán: <span style="color: var(--lime); font-size: 1.25rem;">${total.toLocaleString('vi-VN')} đ</span>`;
+}
+
+items.forEach(item => item.addEventListener('change', calculateTotal));
+</script>
+  </body>
+</html>

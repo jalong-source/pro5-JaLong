@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 2 | The Product Filter</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 12 · HOẠT ĐỘNG 02</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">45 PHÚT · FILTER & MAP</p>
+        <h1>The Product Filter</h1>
+        <p>Lọc sản phẩm giảm giá và sản phẩm giá trên 1 triệu bằng hàm filter() & map().</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Bộ lọc mảng với Array.prototype.filter()</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <button type="button" id="btn-show-all">Tất cả sản phẩm (10)</button>
+  <button type="button" id="btn-show-discount">Chỉ hàng Giảm Giá (filter)</button>
+  <button type="button" id="btn-show-highprice">Giá > 1.000.000 đ (filter & map)</button>
+</div>
+<div id="filter-result-box" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 15px;"></div>
+<div class="result" id="result" style="margin-top: 15px;">Trạng thái bộ lọc.</div>
+<pre class="code-block"><code>// Prompt mẫu tuần 12
+const expensiveProducts = PRODUCTS_DATA
+  .filter(p => p.price > 1000000)
+  .map(p => `${p.name} - ${p.price.toLocaleString('vi-VN')} đ`);</code></pre>
+<div class="prompt-box"><strong>Prompt mẫu:</strong> "Tôi có một mảng danh sách sản phẩm, hãy viết mã JS dùng hàm filter để lọc ra các sản phẩm có giá lớn hơn 1 triệu đồng và dùng map để in tên của chúng ra màn hình."</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong1.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="hoatdong3.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    
+  
+<script src="data.js"></script>
+<script>
+const container = document.getElementById('filter-result-box');
+const res = document.getElementById('result');
+
+function renderCards(list) {
+  container.innerHTML = list.map(item => `
+    <div style="background: #101513; border: 1px solid var(--line); border-radius: 6px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div style="font-size: 2rem; margin-bottom: 8px;">${item.img}</div>
+        <strong style="color: var(--lime); display: block; font-size: 0.95rem;">${item.name}</strong>
+        <span style="color: var(--muted); font-size: 0.8rem;">Loại: ${item.category}</span>
+      </div>
+      <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+        <span style="color: var(--mint); font-weight: 700;">${item.price.toLocaleString('vi-VN')} đ</span>
+        ${item.discount ? '<span style="font-size: 0.7rem; background: var(--error); color: white; padding: 2px 6px; border-radius: 4px;">SALE</span>' : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('btn-show-all').addEventListener('click', () => {
+  renderCards(PRODUCTS_DATA);
+  res.textContent = `Đang hiển thị toàn bộ ${PRODUCTS_DATA.length} sản phẩm.`;
+});
+
+document.getElementById('btn-show-discount').addEventListener('click', () => {
+  const discounted = PRODUCTS_DATA.filter(p => p.discount);
+  renderCards(discounted);
+  res.textContent = `Bộ lọc: Có ${discounted.length} sản phẩm đang áp dụng giảm giá.`;
+});
+
+document.getElementById('btn-show-highprice').addEventListener('click', () => {
+  const highPrice = PRODUCTS_DATA.filter(p => p.price > 1000000);
+  renderCards(highPrice);
+  const names = highPrice.map(p => p.name).join(', ');
+  res.innerHTML = `Sản phẩm trên 1.000.000đ: <strong>${names}</strong> (Tổng: ${highPrice.length} món)`;
+});
+
+renderCards(PRODUCTS_DATA);
+</script>
+</body>
+</html>

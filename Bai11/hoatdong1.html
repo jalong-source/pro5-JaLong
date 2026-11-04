@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 1 | Stop the Page!</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 11 · HOẠT ĐỘNG 01</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">30 PHÚT · PREVENTDEFAULT</p>
+        <h1>Stop the Page!</h1>
+        <p>Chặn hành vi tải lại trang mặc định của Form bằng event.preventDefault().</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Ngăn chặn hành vi mặc định (preventDefault)</h2>
+<form id="prevent-form" style="display: grid; gap: 12px; max-width: 400px;">
+  <div class="field">
+    <label for="demo-input">Nhập từ khóa:</label>
+    <input type="text" id="demo-input" placeholder="Gõ gì đó rồi nhấn Enter hoặc nút Gửi" required>
+  </div>
+  <button type="submit" id="btn-submit-stop">Gửi dữ liệu (Submit)</button>
+</form>
+<div class="result" id="result">Trang web chưa bị tải lại lần nào!</div>
+<pre class="code-block"><code>const form = document.getElementById('prevent-form');
+form.addEventListener('submit', (e) => {
+  e.preventDefault(); // CHẶN reload trang
+  console.log('Dữ liệu nhập:', document.getElementById('demo-input').value);
+});</code></pre>
+<div class="prompt-box"><strong>Vibe Coding Prompt:</strong> "Tại sao tôi cần dùng preventDefault() khi xử lý Form bằng JavaScript?" -> AI giải thích: Theo mặc định của trình duyệt, submit form sẽ gửi HTTP request và tải lại toàn bộ trang. preventDefault() giữ trang ở nguyên trạng thái để JavaScript xử lý AJAX / DOM mà không bị gián đoạn.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="index.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="hoatdong2.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+let submitCount = 0;
+const form = document.getElementById('prevent-form');
+const input = document.getElementById('demo-input');
+const res = document.getElementById('result');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  submitCount++;
+  res.className = 'result';
+  res.innerHTML = `<strong>Thành công!</strong> Đã chặn hành vi reload trang mặc định.<br>Giá trị nhập: <code>${input.value}</code> (Đã submit ${submitCount} lần mà không tải lại trang).`;
+  console.log(`[Form Submitted #${submitCount}] Giá trị:`, input.value);
+});
+</script>
+  </body>
+</html>

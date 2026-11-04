@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 3 | Live Input</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 10 · HOẠT ĐỘNG 03</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">30 PHÚT · LIVE EVENT</p>
+        <h1>Live Input</h1>
+        <p>Lắng nghe sự kiện input trong JavaScript để phản hồi tức thì lên giao diện.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Lắng nghe sự kiện 'input' theo thời gian thực</h2>
+<div class="field" style="margin-bottom: 15px;">
+  <label for="live-text-input">Nhập chữ bất kỳ vào đây:</label>
+  <input type="text" id="live-text-input" placeholder="Ví dụ: Lạc Hồng University..." autocomplete="off">
+</div>
+<div style="padding: 16px; border: 1px solid var(--line); border-radius: 6px; background: #101513;">
+  <span style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase;">Phản hồi tức thì (&lt;h2 id="live-output"&gt;):</span>
+  <h2 id="live-output" style="margin: 8px 0 0; color: var(--lime); min-height: 1.5em; word-break: break-all;">(Chờ bạn gõ phím...)</h2>
+</div>
+<div class="result" id="char-count">Số ký tự: 0</div>
+<pre class="code-block"><code>const input = document.getElementById('live-text-input');
+const output = document.getElementById('live-output');
+input.addEventListener('input', (e) => {
+  output.textContent = e.target.value || '(Trống)';
+});</code></pre>
+<div class="prompt-box"><strong>Prompt mẫu:</strong> "Sử dụng sự kiện 'input' trong JavaScript để lấy giá trị từ một ô text và hiển thị nó ngay lập tức vào một thẻ h2 bên dưới."</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong2.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai1.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const input = document.getElementById('live-text-input');
+const output = document.getElementById('live-output');
+const count = document.getElementById('char-count');
+
+input.addEventListener('input', (e) => {
+  const val = e.target.value;
+  output.textContent = val.length > 0 ? val : '(Trống)';
+  count.textContent = `Số ký tự: ${val.length} | Số từ: ${val.trim() ? val.trim().split(/\s+/).length : 0}`;
+});
+</script>
+  </body>
+</html>

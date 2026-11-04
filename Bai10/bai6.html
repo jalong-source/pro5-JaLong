@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 6 | Ẩn/Hiện mật khẩu</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 10 · BÀI TẬP 06</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">INPUT TYPE TOGGLE</p>
+        <h1>Ẩn / Hiện mật khẩu</h1>
+        <p>Chuyển đổi linh hoạt type giữa password và text để cải thiện trải nghiệm người dùng.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Ẩn / Hiện mật khẩu với Toggle</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <div class="field" style="flex: 2;">
+    <label for="toggle-pwd-input">Mật khẩu của bạn:</label>
+    <input type="password" id="toggle-pwd-input" value="LHU_WebDesign_2026!">
+  </div>
+  <button type="button" id="btn-toggle-visibility">👁️ Hiện mật khẩu</button>
+</div>
+<div class="result" id="result">Thuộc tính type hiện tại: password</div>
+<div class="prompt-box"><strong>Yêu cầu bài 6:</strong> Tạo một ô input mật khẩu và một nút "Hiện". Khi nhấn, chuyển type="password" thành type="text" và ngược lại.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai5.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="modal_challenge.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const pwdInput = document.getElementById('toggle-pwd-input');
+const btnToggle = document.getElementById('btn-toggle-visibility');
+const res = document.getElementById('result');
+
+btnToggle.addEventListener('click', () => {
+  if (pwdInput.type === 'password') {
+    pwdInput.type = 'text';
+    btnToggle.textContent = '🔒 Ẩn mật khẩu';
+    res.textContent = 'Thuộc tính type hiện tại: text (Mật khẩu đang hiển thị)';
+  } else {
+    pwdInput.type = 'password';
+    btnToggle.textContent = '👁️ Hiện mật khẩu';
+    res.textContent = 'Thuộc tính type hiện tại: password (Mật khẩu đã được ẩn)';
+  }
+});
+</script>
+  </body>
+</html>

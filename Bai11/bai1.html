@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 1 | Form liên hệ cơ bản</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 11 · BÀI TẬP 01</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">FORM VALIDATION</p>
+        <h1>Form liên hệ cơ bản</h1>
+        <p>Xác thực tất cả các trường bắt buộc không được để trống trước khi gửi đi.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Form liên hệ kiểm tra bắt buộc</h2>
+<form id="contact-form" style="display: grid; gap: 12px; max-width: 440px;">
+  <div class="field">
+    <label for="c-name">Họ và tên:</label>
+    <input type="text" id="c-name" placeholder="Nguyễn Văn A">
+  </div>
+  <div class="field">
+    <label for="c-email">Email:</label>
+    <input type="email" id="c-email" placeholder="example@gmail.com">
+  </div>
+  <div class="field">
+    <label for="c-content">Nội dung liên hệ:</label>
+    <textarea id="c-content" rows="3" style="width: 100%; padding: 10px; border-radius: 6px; background: #101513; border: 1px solid var(--line); color: var(--text); font-family: inherit;" placeholder="Nhập tin nhắn của bạn..."></textarea>
+  </div>
+  <button type="submit" id="btn-c-send">Gửi liên hệ</button>
+</form>
+<div class="result" id="result">Vui lòng điền đủ 3 trường thông tin.</div>
+<div class="prompt-box"><strong>Yêu cầu bài 1:</strong> Tạo form gồm Tên, Email, Nội dung. Chỉ cho phép gửi khi tất cả các trường đã được điền đầy đủ.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="hoatdong3.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai2.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const cForm = document.getElementById('contact-form');
+const res = document.getElementById('result');
+
+cForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('c-name').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const content = document.getElementById('c-content').value.trim();
+
+  if (!name || !email || !content) {
+    res.className = 'result error';
+    res.textContent = '❌ Lỗi: Tất cả các trường (Tên, Email, Nội dung) đều bắt buộc phải điền!';
+    return;
+  }
+
+  res.className = 'result';
+  res.innerHTML = `<strong>Thành công!</strong> Đã gửi lời nhắn từ <strong>${name}</strong> (${email}).<br>Nội dung: <em>"${content}"</em>`;
+  cForm.reset();
+});
+</script>
+  </body>
+</html>

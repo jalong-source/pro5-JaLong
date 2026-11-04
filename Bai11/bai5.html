@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 5 | Regex Email Checker</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 11 · BÀI TẬP 05</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">REGEX VALIDATION</p>
+        <h1>Regex Email Checker</h1>
+        <p>Sử dụng Regular Expressions để kiểm tra cú pháp địa chỉ email chuẩn xác.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Kiểm tra định dạng Email bằng Regular Expression (Regex)</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <div class="field" style="flex: 2;">
+    <label for="regex-email-input">Nhập địa chỉ Email cần kiểm tra:</label>
+    <input type="text" id="regex-email-input" placeholder="tennguoidung@domain.com">
+  </div>
+  <button type="button" id="btn-regex-check">Kiểm tra Regex</button>
+</div>
+<div class="result" id="result">Vui lòng nhập email và nhấn kiểm tra.</div>
+<pre class="code-block"><code>// Biểu thức Regex kiểm tra cấu trúc email chuẩn RFC 5322
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const isStandard = emailRegex.test(email);</code></pre>
+<div class="prompt-box"><strong>Yêu cầu bài 5:</strong> Sử dụng AI để lấy một đoạn mã Regex kiểm tra định dạng email và áp dụng vào Form của bạn.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai4.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai6.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const emailInput = document.getElementById('regex-email-input');
+const btnCheck = document.getElementById('btn-regex-check');
+const res = document.getElementById('result');
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+function testEmail() {
+  const val = emailInput.value.trim();
+  if (!val) {
+    res.className = 'result error';
+    res.textContent = 'Vui lòng nhập địa chỉ email!';
+    return;
+  }
+  if (emailRegex.test(val)) {
+    res.className = 'result';
+    res.innerHTML = `<span style="color: var(--lime);">✅ Email "${val}" đúng định dạng chuẩn quốc tế!</span>`;
+  } else {
+    res.className = 'result error';
+    res.innerHTML = `<span style="color: var(--error);">❌ Email "${val}" sai định dạng (thiếu @, thiếu domain hoặc ký tự không hợp lệ)!</span>`;
+  }
+}
+
+btnCheck.addEventListener('click', testEmail);
+emailInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') testEmail();
+});
+</script>
+  </body>
+</html>

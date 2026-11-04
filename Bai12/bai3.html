@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 3 | Sắp xếp danh sách</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 12 · BÀI TẬP 03</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">ARRAY SORT</p>
+        <h1>Sắp xếp danh sách theo giá</h1>
+        <p>Sử dụng Array.prototype.sort() với hàm so sánh số để sắp xếp mảng dữ liệu.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Sắp xếp danh sách sản phẩm theo giá (Array.sort)</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <button type="button" id="btn-sort-asc">Sắp xếp: Giá thấp đến cao ↗</button>
+  <button type="button" id="btn-sort-desc">Sắp xếp: Giá cao xuống thấp ↘</button>
+  <button type="button" id="btn-sort-name" style="background: var(--panel-hover); color: var(--text);">Xếp theo tên A-Z</button>
+</div>
+<div id="sort-list" style="display: grid; gap: 8px;"></div>
+<div class="result" id="result" style="margin-top: 15px;">Trạng thái sắp xếp.</div>
+<div class="prompt-box"><strong>Yêu cầu bài 3:</strong> Sử dụng hàm sort() để sắp xếp mảng sản phẩm theo giá từ thấp đến cao hoặc ngược lại.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai2.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai4.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    
+  
+<script src="data.js"></script>
+<script>
+let items = [...PRODUCTS_DATA];
+const container = document.getElementById('sort-list');
+const res = document.getElementById('result');
+
+function render(list) {
+  container.innerHTML = list.map(item => `
+    <div style="background: #101513; border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+      <span>${item.img} <strong>${item.name}</strong></span>
+      <strong style="color: var(--mint);">${item.price.toLocaleString('vi-VN')} đ</strong>
+    </div>
+  `).join('');
+}
+
+document.getElementById('btn-sort-asc').addEventListener('click', () => {
+  items.sort((a, b) => a.price - b.price);
+  render(items);
+  res.textContent = 'Đã sắp xếp danh sách theo giá TĂNG DẦN (thấp đến cao).';
+});
+
+document.getElementById('btn-sort-desc').addEventListener('click', () => {
+  items.sort((a, b) => b.price - a.price);
+  render(items);
+  res.textContent = 'Đã sắp xếp danh sách theo giá GIẢM DẦN (cao xuống thấp).';
+});
+
+document.getElementById('btn-sort-name').addEventListener('click', () => {
+  items.sort((a, b) => a.name.localeCompare(b.name));
+  render(items);
+  res.textContent = 'Đã sắp xếp danh sách theo TÊN sản phẩm A-Z.';
+});
+
+render(items);
+</script>
+</body>
+</html>

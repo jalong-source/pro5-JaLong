@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thách thức Tuần 11 | The Secure Form</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 11 · THÁCH THỨC DỰ ÁN</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">REAL-TIME & TIMEOUT</p>
+        <h1>The Secure Form</h1>
+        <p>Xác thực dữ liệu tức thời và thông báo đóng tự động sau 3 giây bằng setTimeout.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>The Secure Form — Real-time Validation & Auto-hide Message</h2>
+<p style="color: var(--muted);">Form liên hệ / đăng ký bảo mật với kiểm tra trực tiếp khi gõ và thông báo tự biến mất sau 3 giây.</p>
+
+<form id="secure-register-form" style="display: grid; gap: 14px; max-width: 480px; margin-top: 15px;">
+  <div class="field">
+    <label for="sec-fullname">Họ và tên:</label>
+    <input type="text" id="sec-fullname" placeholder="Trần Gia Long">
+    <span id="err-sec-name" style="color: var(--error); font-size: 0.8rem; display: none;"></span>
+  </div>
+  <div class="field">
+    <label for="sec-email">Email LHU (@lhu.edu.vn):</label>
+    <input type="email" id="sec-email" placeholder="jalong@lhu.edu.vn">
+    <span id="err-sec-email" style="color: var(--error); font-size: 0.8rem; display: none;"></span>
+  </div>
+  <div class="field">
+    <label for="sec-phone">Số điện thoại (10 chữ số):</label>
+    <input type="tel" id="sec-phone" placeholder="0987654321">
+    <span id="err-sec-phone" style="color: var(--error); font-size: 0.8rem; display: none;"></span>
+  </div>
+  <button type="submit" id="btn-sec-submit">Xác nhận gửi thông tin</button>
+</form>
+
+<div id="toast-success" style="display: none; margin-top: 18px; padding: 14px 18px; border-radius: 6px; background: rgba(197, 238, 117, 0.15); border: 1px solid var(--lime); color: var(--lime); font-weight: 600; transition: opacity 0.5s;">
+  🎉 Gửi thông tin thành công! Thông báo này sẽ tự động ẩn sau 3 giây.
+</div>
+
+<div class="result" id="result" style="margin-top: 18px;">Hệ thống sẵn sàng tiếp nhận thông tin.</div>
+<div class="prompt-box"><strong>Thách thức Tuần 11 ("THE SECURE FORM"):</strong> Form có: (1) Kiểm tra dữ liệu trực tiếp khi người dùng đang gõ (Real-time validation); (2) Thông báo thành công mượt mà (dùng setTimeout để ẩn thông báo sau 3 giây).</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai6.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="index.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const form = document.getElementById('secure-register-form');
+const nameInput = document.getElementById('sec-fullname');
+const emailInput = document.getElementById('sec-email');
+const phoneInput = document.getElementById('sec-phone');
+
+const errName = document.getElementById('err-sec-name');
+const errEmail = document.getElementById('err-sec-email');
+const errPhone = document.getElementById('err-sec-phone');
+const toast = document.getElementById('toast-success');
+const res = document.getElementById('result');
+
+// Real-time name validation
+nameInput.addEventListener('input', () => {
+  if (nameInput.value.trim().length < 3) {
+    errName.textContent = 'Họ tên quá ngắn (tối thiểu 3 ký tự)';
+    errName.style.display = 'block';
+    nameInput.style.borderColor = 'var(--error)';
+  } else {
+    errName.style.display = 'none';
+    nameInput.style.borderColor = 'var(--lime)';
+  }
+});
+
+// Real-time email validation
+emailInput.addEventListener('input', () => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@lhu\.edu\.vn$/;
+  if (!emailRegex.test(emailInput.value.trim())) {
+    errEmail.textContent = 'Email phải có định dạng @lhu.edu.vn';
+    errEmail.style.display = 'block';
+    emailInput.style.borderColor = 'var(--error)';
+  } else {
+    errEmail.style.display = 'none';
+    emailInput.style.borderColor = 'var(--lime)';
+  }
+});
+
+// Real-time phone validation
+phoneInput.addEventListener('input', () => {
+  const phoneRegex = /^0[0-9]{9}$/;
+  if (!phoneRegex.test(phoneInput.value.trim())) {
+    errPhone.textContent = 'Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0';
+    errPhone.style.display = 'block';
+    phoneInput.style.borderColor = 'var(--error)';
+  } else {
+    errPhone.style.display = 'none';
+    phoneInput.style.borderColor = 'var(--lime)';
+  }
+});
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const isNameOk = nameInput.value.trim().length >= 3;
+  const isEmailOk = /^[a-zA-Z0-9._%+-]+@lhu\.edu\.vn$/.test(emailInput.value.trim());
+  const isPhoneOk = /^0[0-9]{9}$/.test(phoneInput.value.trim());
+
+  if (!isNameOk || !isEmailOk || !isPhoneOk) {
+    res.className = 'result error';
+    res.textContent = 'Vui lòng kiểm tra và sửa các lỗi trên form trước khi gửi!';
+    return;
+  }
+
+  // Show Toast
+  toast.style.display = 'block';
+  toast.style.opacity = '1';
+  res.className = 'result';
+  res.innerHTML = `Đã gửi thành công dữ liệu cho sinh viên: <strong>${nameInput.value}</strong>`;
+
+  form.reset();
+  nameInput.style.borderColor = 'var(--line)';
+  emailInput.style.borderColor = 'var(--line)';
+  phoneInput.style.borderColor = 'var(--line)';
+
+  // Hide toast after 3 seconds
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => { toast.style.display = 'none'; }, 500);
+  }, 3000);
+});
+</script>
+  </body>
+</html>

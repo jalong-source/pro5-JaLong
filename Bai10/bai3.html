@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 3 | To-Do List cơ bản</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 10 · BÀI TẬP 03</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">DOM CREATE ELEMENT</p>
+        <h1>Danh sách việc cần làm cơ bản</h1>
+        <p>Thêm các phần tử li mới vào danh sách ul thông qua DOM manipulation.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Danh sách việc cần làm (To-Do List)</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <div class="field" style="flex: 2;">
+    <label for="task-input">Nội dung công việc:</label>
+    <input type="text" id="task-input" placeholder="Ví dụ: Ôn tập JavaScript DOM...">
+  </div>
+  <button type="button" id="btn-add-task">Thêm công việc</button>
+</div>
+<ul id="todo-list" style="list-style: none; padding: 0; margin: 0; display: grid; gap: 8px;">
+  <li style="padding: 10px 14px; background: #101513; border: 1px solid var(--line); border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+    <span>Học thẻ Semantic HTML5</span>
+    <span style="color: var(--mint); font-size: 0.8rem;">[Mặc định]</span>
+  </li>
+</ul>
+<div class="result" id="result" style="margin-top: 15px;">Tổng số công việc: 1</div>
+<div class="prompt-box"><strong>Yêu cầu bài 3:</strong> Cho phép người dùng nhập công việc vào ô input và nhấn "Thêm". Công việc mới sẽ xuất hiện dưới dạng một thẻ &lt;li&gt; mới trong danh sách.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai2.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai4.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const taskInput = document.getElementById('task-input');
+const btnAdd = document.getElementById('btn-add-task');
+const todoList = document.getElementById('todo-list');
+const res = document.getElementById('result');
+
+function updateCount() {
+  const count = todoList.querySelectorAll('li').length;
+  res.textContent = `Tổng số công việc hiện tại: ${count}`;
+}
+
+btnAdd.addEventListener('click', () => {
+  const text = taskInput.value.trim();
+  if (!text) {
+    alert('Vui lòng nhập nội dung công việc!');
+    return;
+  }
+  const li = document.createElement('li');
+  li.style.cssText = 'padding: 10px 14px; background: #101513; border: 1px solid var(--line); border-radius: 6px; display: flex; justify-content: space-between; align-items: center;';
+  li.innerHTML = `<span>${text}</span><button type="button" style="padding: 4px 10px; min-height: auto; background: var(--error); color: white; font-size: 0.75rem;">Xóa</button>`;
+  
+  li.querySelector('button').addEventListener('click', () => {
+    li.remove();
+    updateCount();
+  });
+
+  todoList.appendChild(li);
+  taskInput.value = '';
+  taskInput.focus();
+  updateCount();
+});
+</script>
+  </body>
+</html>

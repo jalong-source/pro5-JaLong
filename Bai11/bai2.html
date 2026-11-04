@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 2 | Kiểm tra mật khẩu khớp nhau</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 11 · BÀI TẬP 02</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">PASSWORD CONFIRMATION</p>
+        <h1>Kiểm tra mật khẩu khớp nhau</h1>
+        <p>So khớp hai trường password và confirm password với thông báo trực quan.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Kiểm tra mật khẩu xác nhận trùng khớp</h2>
+<form id="pwd-match-form" style="display: grid; gap: 12px; max-width: 440px;">
+  <div class="field">
+    <label for="pass1">Mật khẩu:</label>
+    <input type="password" id="pass1" placeholder="Nhập mật khẩu...">
+  </div>
+  <div class="field">
+    <label for="pass2">Nhập lại mật khẩu:</label>
+    <input type="password" id="pass2" placeholder="Xác nhận lại mật khẩu...">
+  </div>
+  <button type="submit">Kiểm tra khớp mật khẩu</button>
+</form>
+<div class="result" id="result">Nhập hai mật khẩu để kiểm tra tính đồng bộ.</div>
+<div class="prompt-box"><strong>Yêu cầu bài 2:</strong> Tạo 2 ô "Mật khẩu" và "Nhập lại mật khẩu". Hiển thị thông báo "Mật khẩu không khớp" nếu dữ liệu ở 2 ô khác nhau.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai1.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai3.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+document.getElementById('pwd-match-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const p1 = document.getElementById('pass1').value;
+  const p2 = document.getElementById('pass2').value;
+  const res = document.getElementById('result');
+
+  if (!p1 || !p2) {
+    res.className = 'result error';
+    res.textContent = 'Vui lòng không để trống ô mật khẩu!';
+    return;
+  }
+
+  if (p1 === p2) {
+    res.className = 'result';
+    res.innerHTML = `<span style="color: var(--lime);">✅ Mật khẩu trùng khớp hoàn toàn! Xác thực thành công.</span>`;
+  } else {
+    res.className = 'result error';
+    res.innerHTML = `<span style="color: var(--error);">❌ Mật khẩu không khớp! Vui lòng kiểm tra lại từng ký tự.</span>`;
+  }
+});
+</script>
+  </body>
+</html>

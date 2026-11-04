@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 6 | Xóa phần tử danh sách</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 12 · BÀI TẬP 06</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">ARRAY MUTATION & FILTER</p>
+        <h1>Xóa phần tử khỏi danh sách</h1>
+        <p>Xóa phần tử theo ID khi bấm nút Xóa và cập nhật lại giao diện người dùng.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Xóa phần tử khỏi danh sách hiển thị</h2>
+<p style="color: var(--muted);">Click nút "Xóa" cạnh sản phẩm để xóa phần tử đó khỏi danh sách giao diện bằng phương thức <code>splice()</code> hoặc <code>filter()</code>.</p>
+<div id="deletable-list" style="display: grid; gap: 8px; margin-bottom: 16px;"></div>
+<div class="result" id="result">Số lượng sản phẩm: 5</div>
+<div class="prompt-box"><strong>Yêu cầu bài 6:</strong> Viết logic để khi click vào một nút "Xóa" cạnh sản phẩm, sản phẩm đó sẽ biến mất khỏi danh sách hiển thị.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai5.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="smart_catalog.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+let cartItems = [
+  { id: 101, name: "Chuột không dây Silent", price: "250.000 đ" },
+  { id: 102, name: "Hub Type-C 6 in 1", price: "450.000 đ" },
+  { id: 103, name: "Đèn LED màn hình bảo vệ mắt", price: "390.000 đ" },
+  { id: 104, name: "Pad chuột công thái học", price: "120.000 đ" },
+  { id: 105, name: "Cáp sạc nhanh 100W", price: "180.000 đ" }
+];
+
+const container = document.getElementById('deletable-list');
+const res = document.getElementById('result');
+
+function renderList() {
+  if (cartItems.length === 0) {
+    container.innerHTML = '<p style="color: var(--muted); text-align: center; padding: 20px;">Danh sách trống!</p>';
+    res.textContent = 'Đã xóa toàn bộ sản phẩm.';
+    return;
+  }
+  container.innerHTML = cartItems.map(item => `
+    <div style="background: #101513; border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+      <span><strong>${item.name}</strong> — <span style="color: var(--mint);">${item.price}</span></span>
+      <button type="button" style="background: var(--error); color: white; padding: 4px 10px; font-size: 0.8rem; min-height: auto;" onclick="deleteItem(${item.id})">Xóa</button>
+    </div>
+  `).join('');
+  res.textContent = `Số lượng sản phẩm còn lại: ${cartItems.length}`;
+}
+
+window.deleteItem = function(id) {
+  cartItems = cartItems.filter(item => item.id !== id);
+  renderList();
+};
+
+renderList();
+</script>
+  </body>
+</html>

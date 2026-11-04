@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 4 | Quản lý sinh viên</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 12 · BÀI TẬP 04</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">OBJECT MUTATION</p>
+        <h1>Quản lý kết quả học tập</h1>
+        <p>Cập nhật thuộc tính ketQua ('Đậu' / 'Rớt') dựa trên điều kiện điểm số GPA.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Quản lý kết quả học tập sinh viên</h2>
+<div class="controls" style="margin-bottom: 16px;">
+  <button type="button" id="btn-eval">Đánh giá kết quả (Đậu / Rớt)</button>
+</div>
+<div id="students-table-box"></div>
+<div class="result" id="result" style="margin-top: 15px;">Nhấn nút để chạy hàm phân loại kết quả.</div>
+<div class="prompt-box"><strong>Yêu cầu bài 4:</strong> Tạo Object sinhVien có thuộc tính điểm số. Viết hàm kiểm tra nếu điểm &gt;= 5 thì thêm thuộc tính ketQua: "Đậu", ngược lại là "Rớt".</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai3.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai5.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    
+  
+<script src="data.js"></script>
+<script>
+let list = JSON.parse(JSON.stringify(STUDENTS_DATA));
+const container = document.getElementById('students-table-box');
+const res = document.getElementById('result');
+
+function renderTable(data, evaluated = false) {
+  container.innerHTML = `
+    <table style="width: 100%; border-collapse: collapse; background: #101513; border: 1px solid var(--line); border-radius: 6px; overflow: hidden;">
+      <thead>
+        <tr style="background: var(--panel-hover); text-align: left; border-bottom: 1px solid var(--line);">
+          <th style="padding: 10px;">Mã SV</th>
+          <th style="padding: 10px;">Họ tên</th>
+          <th style="padding: 10px;">Điểm GPA</th>
+          ${evaluated ? '<th style="padding: 10px;">Kết Quả</th>' : ''}
+        </tr>
+      </thead>
+      <tbody>
+        ${data.map(sv => `
+          <tr style="border-bottom: 1px solid var(--line);">
+            <td style="padding: 10px; font-family: var(--mono);">${sv.id}</td>
+            <td style="padding: 10px; font-weight: 600;">${sv.name}</td>
+            <td style="padding: 10px; color: ${sv.gpa >= 5 ? 'var(--lime)' : 'var(--error)'}; font-weight: bold;">${sv.gpa}</td>
+            ${evaluated ? `<td style="padding: 10px; font-weight: 700; color: ${sv.ketQua === 'Đậu' ? 'var(--mint)' : 'var(--error)'};">${sv.ketQua}</td>` : ''}
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+document.getElementById('btn-eval').addEventListener('click', () => {
+  list.forEach(sv => {
+    sv.ketQua = sv.gpa >= 5.0 ? "Đậu" : "Rớt";
+  });
+  renderTable(list, true);
+  const passCount = list.filter(sv => sv.ketQua === "Đậu").length;
+  res.innerHTML = `Đã phân loại: <strong>${passCount}/${list.length}</strong> sinh viên Đậu, <strong>${list.length - passCount}</strong> sinh viên Rớt.`;
+});
+
+renderTable(list, false);
+</script>
+</body>
+</html>

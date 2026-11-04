@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 2 | Tính tổng giỏ hàng</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 12 · BÀI TẬP 02</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">ARRAY REDUCE</p>
+        <h1>Tính tổng giỏ hàng</h1>
+        <p>Tính tổng tiền các mặt hàng bằng phương thức reduce() hoặc for lặp.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Tính tổng giá trị giỏ hàng (Cart Total)</h2>
+<div id="cart-list" style="display: grid; gap: 8px; margin-bottom: 16px;"></div>
+<div class="result" id="result" style="font-size: 1.1rem;"></div>
+<div class="prompt-box"><strong>Yêu cầu bài 2:</strong> Cho một mảng các sản phẩm trong giỏ hàng (tên, giá, số lượng). Tính tổng số tiền mà người dùng phải trả.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai1.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="bai3.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const cart = [
+  { name: "Khóa học Vibe Coding Web", price: 1200000, quantity: 1 },
+  { name: "Sách Semantic HTML5 & CSS3", price: 180000, quantity: 2 },
+  { name: "Áo đồng phục IT LHU", price: 250000, quantity: 3 }
+];
+
+const cartList = document.getElementById('cart-list');
+const res = document.getElementById('result');
+
+cartList.innerHTML = cart.map(item => `
+  <div style="background: #101513; border: 1px solid var(--line); border-radius: 6px; padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <strong style="color: var(--lime);">${item.name}</strong><br>
+      <small style="color: var(--muted);">${item.price.toLocaleString('vi-VN')} đ × ${item.quantity}</small>
+    </div>
+    <span style="color: var(--mint); font-weight: 700;">${(item.price * item.quantity).toLocaleString('vi-VN')} đ</span>
+  </div>
+`).join('');
+
+const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+res.innerHTML = `Tổng số tiền thanh toán của giỏ hàng: <strong style="color: var(--lime); font-size: 1.3rem;">${totalAmount.toLocaleString('vi-VN')} đ</strong>`;
+</script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoạt động 1 | Object Identity</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 12 · HOẠT ĐỘNG 01</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">30 PHÚT · OBJECT & METHOD</p>
+        <h1>Object Identity</h1>
+        <p>Định danh đối tượng cá nhân với thuộc tính và phương thức tính toán tự động.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Định danh đối tượng (Object Identity) & Phương thức</h2>
+<div class="controls" style="margin-bottom: 15px;">
+  <button type="button" id="btn-run-intro">Chạy hàm giới thiệu</button>
+  <button type="button" id="btn-calc-year">Tính năm sinh (Phương thức Object)</button>
+</div>
+<div class="result" id="result">Nhấn nút để kích hoạt phương thức của đối tượng.</div>
+<pre class="code-block"><code>const user = {
+  name: "Trần Gia Long",
+  age: 20,
+  major: "Công nghệ thông tin - LHU",
+  skills: ["HTML5", "CSS3", "JavaScript", "AI Prompting"],
+  getBirthYear() {
+    return new Date().getFullYear() - this.age;
+  },
+  introduce() {
+    return `Xin chào, tôi là ${this.name}, ${this.age} tuổi, theo học ${this.major}. Kỹ năng nổi bật: ${this.skills.join(', ')}.`;
+  }
+};</code></pre>
+<div class="prompt-box"><strong>Vibe Coding Prompt:</strong> "Làm thế nào để thêm một phương thức (function) vào bên trong Object để nó tự tính năm sinh dựa trên thuộc tính tuổi?" -> Sử dụng cú pháp hàm trong object và từ khóa <code>this.age</code>.</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="index.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="hoatdong2.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const user = {
+  name: "Trần Gia Long",
+  age: 20,
+  major: "Công nghệ thông tin - ĐH Lạc Hồng",
+  skills: ["HTML5", "CSS3", "JavaScript", "Vibe Coding"],
+  getBirthYear() {
+    return new Date().getFullYear() - this.age;
+  },
+  introduce() {
+    return `Chào bạn! Tôi là ${this.name}, ${this.age} tuổi, học chuyên ngành ${this.major}. Kỹ năng: ${this.skills.join(', ')}.`;
+  }
+};
+
+const res = document.getElementById('result');
+document.getElementById('btn-run-intro').addEventListener('click', () => {
+  res.className = 'result';
+  res.innerHTML = `<strong>Lời giới thiệu:</strong><br>${user.introduce()}`;
+  console.log("User Object:", user);
+});
+
+document.getElementById('btn-calc-year').addEventListener('click', () => {
+  res.className = 'result';
+  res.innerHTML = `<strong>Năm sinh tính toán:</strong> ${user.getBirthYear()} (dựa trên tuổi ${user.age} và năm hiện tại ${new Date().getFullYear()})`;
+});
+</script>
+  </body>
+</html>

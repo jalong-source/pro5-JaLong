@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 6 | Khóa nút Submit</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a href="index.html" class="back-link">← QUAY LẠI</a>
+        <span class="course-label">TUẦN 11 · BÀI TẬP 06</span>
+      </header>
+      <section class="exercise-head">
+        <p class="eyebrow">INPUT DISABLED & ENABLE</p>
+        <h1>Khóa nút Submit</h1>
+        <p>Điều khiển trạng thái disabled của button theo checkbox điều khoản dịch vụ.</p>
+      </section>
+      <section class="workbench">
+        
+<h2>Khóa nút Submit khi chưa đồng ý điều khoản</h2>
+<form id="terms-form" style="display: grid; gap: 14px; max-width: 440px;">
+  <div class="field">
+    <label for="u-reg">Tên đăng ký tài khoản:</label>
+    <input type="text" id="u-reg" placeholder="Nhập tên tài khoản...">
+  </div>
+  <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--muted); font-size: 0.9rem;">
+    <input type="checkbox" id="terms-check"> Tôi đồng ý với mọi điều khoản và chính sách dịch vụ của LHU
+  </label>
+  <button type="submit" id="btn-terms-submit" disabled style="opacity: 0.4; cursor: not-allowed;">Gửi đăng ký tài khoản</button>
+</form>
+<div class="result" id="result">Nút Gửi đang bị KHÓA (disabled = true).</div>
+<div class="prompt-box"><strong>Yêu cầu bài 6:</strong> Nút "Gửi" sẽ bị mờ (disabled) cho đến khi người dùng tick vào ô "Tôi đồng ý với điều khoản dịch vụ".</div>
+
+      </section>
+      
+        <div class="exercise-nav">
+          <a href="bai5.html">← Bài trước</a>
+          <a href="index.html">Mục lục tuần</a>
+          <a href="secure_form.html">Bài tiếp theo →</a>
+        </div>
+        
+    </main>
+    <script>
+const termsCheck = document.getElementById('terms-check');
+const submitBtn = document.getElementById('btn-terms-submit');
+const res = document.getElementById('result');
+
+termsCheck.addEventListener('change', () => {
+  if (termsCheck.checked) {
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = '1';
+    submitBtn.style.cursor = 'pointer';
+    res.className = 'result';
+    res.innerHTML = `<span style="color: var(--lime);">Đã đồng ý điều khoản. Nút Gửi đã được MỞ KHÓA!</span>`;
+  } else {
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.4';
+    submitBtn.style.cursor = 'not-allowed';
+    res.className = 'result';
+    res.textContent = 'Nút Gửi đang bị KHÓA (disabled = true).';
+  }
+});
+
+document.getElementById('terms-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  res.innerHTML = `<strong style="color: var(--lime);">Đăng ký thành công! Chào mừng thành viên mới.</strong>`;
+});
+</script>
+  </body>
+</html>
